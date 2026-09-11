@@ -1,0 +1,181 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 04</span>
+      <span class="badge badge-success">Intermediário</span>
+    </div>
+    <h1>Componentes e Diretivas Avançadas</h1>
+    <p class="subtitle">Comunicação pai-filho, projeção de conteúdo, ciclo de vida e diretivas customizadas</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- Seção 1: Comunicação @Input, @Output e ng-content -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Comunicação Entre Componentes</h3>
+        <span class="badge badge-primary">&#64;Input / &#64;Output</span>
+      </div>
+      <p class="card-desc">O componente pai passa dados para o filho via <code>&#64;Input()</code> e escuta eventos via <code>&#64;Output()</code>.</p>
+
+      <div class="parent-controls">
+        <label>Contador do Pai:</label>
+        <div class="counter-box">
+          <button class="btn btn-sm" (click)="decrementarPai()">-</button>
+          <span class="counter-display">{{ contadorPai }}</span>
+          <button class="btn btn-sm btn-primary" (click)="incrementarPai()">+</button>
+        </div>
+      </div>
+
+      <div class="event-feedback">
+        <span class="feedback-label">Feedback do &#64;Output:</span>
+        <p class="feedback-msg">{{ ultimaAcaoRecebida }}</p>
+      </div>
+
+      <!-- Componente Filho Embutido -->
+      <app-child-card 
+        [title]="tituloFilho" 
+        [count]="contadorPai" 
+        (actionEmitted)="onAcaoRecebidaDoFilho($event)"
+      >
+        <p class="projected-text">
+          🌟 <strong>Este parágrafo foi injetado pelo Pai</strong> no slot do Filho via <code>&lt;ng-content&gt;</code>!
+        </p>
+      </app-child-card>
+    </div>
+
+    <!-- Seção 2: Diretiva Personalizada de Atributo -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Diretiva de Atributo Customizada</h3>
+        <span class="badge badge-warning">appHighlight</span>
+      </div>
+      <p class="card-desc">Diretiva que manipula o estilo do elemento hospedeiro com <code>&#64;HostListener</code> ao passar o mouse.</p>
+
+      <div class="color-picker-box">
+        <label>Escolha a cor do destaque:</label>
+        <div class="color-options">
+          <button 
+            *ngFor="let c of coresDisponiveis" 
+            class="color-btn" 
+            [style.background-color]="c.hex"
+            [class.active]="corDestaque === c.hex"
+            (click)="corDestaque = c.hex"
+          >
+            {{ c.nome }}
+          </button>
+        </div>
+      </div>
+
+      <div class="highlight-demonstrations">
+        <p class="demo-paragraph">
+          Passe o mouse sobre as palavras abaixo para ver a diretiva <code>[appHighlight]</code> em ação:
+        </p>
+        <div class="highlight-pills">
+          <span [appHighlight]="corDestaque" class="interactive-pill">Angular 19 Standalone</span>
+          <span [appHighlight]="corDestaque" class="interactive-pill">Signals Reativos</span>
+          <span [appHighlight]="corDestaque" class="interactive-pill">Diretivas Customizadas</span>
+          <span [appHighlight]="corDestaque" class="interactive-pill">Injeção de Dependências</span>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <pre><code>&#64;Directive({{ '{' }} selector: '[appHighlight]', standalone: true {{ '}' }})
+export class HighlightDirective {{ '{' }}
+  &#64;HostListener('mouseenter') onMouseEnter() {{ '{' }} ... {{ '}' }}
+{{ '}' }}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção 3: Diretivas Estruturais & Controle de Fluxo Moderno -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>3. Controle de Fluxo: Clássico (*ngIf, *ngFor) vs Moderno (&#64;if, &#64;for, &#64;switch)</h3>
+      <span class="badge badge-success">Modern Control Flow</span>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn" [class.active]="abaSelecionada === 'if'" (click)="abaSelecionada = 'if'">Condicional (&#64;if / *ngIf)</button>
+      <button class="tab-btn" [class.active]="abaSelecionada === 'for'" (click)="abaSelecionada = 'for'">Repetição (&#64;for / *ngFor)</button>
+      <button class="tab-btn" [class.active]="abaSelecionada === 'switch'" (click)="abaSelecionada = 'switch'">Múltipla Escolha (&#64;switch)</button>
+    </div>
+
+    <!-- Aba IF -->
+    <div *ngIf="abaSelecionada === 'if'" class="tab-content">
+      <div class="control-row">
+        <button class="btn btn-secondary" (click)="mostrarPainel = !mostrarPainel">
+          {{ mostrarPainel ? 'Ocultar Elemento' : 'Exibir Elemento' }}
+        </button>
+      </div>
+
+      <div *ngIf="mostrarPainel; else painelOculto" class="alert alert-success">
+        ✅ <strong>Renderizado via &#64;if / *ngIf:</strong> O elemento foi injetado dinamicamente no DOM com sucesso.
+      </div>
+      <ng-template #painelOculto>
+        <div class="alert alert-warning">
+          ⚠️ O painel está temporariamente oculto (removido do DOM).
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Aba FOR -->
+    <div *ngIf="abaSelecionada === 'for'" class="tab-content">
+      <div class="add-framework-form">
+        <input 
+          type="text" 
+          [(ngModel)]="novoFrameworkNome" 
+          placeholder="Ex: TailwindCSS, GraphQL..."
+          class="input"
+          (keyup.enter)="adicionarFramework()"
+        />
+        <button class="btn btn-primary" (click)="adicionarFramework()">Adicionar Item</button>
+      </div>
+
+      <div class="items-list">
+        <div *ngFor="let item of frameworks; let i = index" class="item-row">
+          <div class="item-info">
+            <span class="item-idx">#{{ i + 1 }}</span>
+            <strong>{{ item.nome }}</strong>
+            <span class="badge badge-neutral">v{{ item.versao }}</span>
+          </div>
+          <button class="btn btn-sm btn-danger" (click)="removerFramework(i)">Remover</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba SWITCH -->
+    <div *ngIf="abaSelecionada === 'switch'" class="tab-content">
+      <p>O estado do contador do pai é: <strong>{{ contadorPai }}</strong></p>
+      <div [ngSwitch]="contadorPai" class="switch-box">
+        <div *ngSwitchCase="0" class="alert alert-danger">O valor é ZERO.</div>
+        <div *ngSwitchCase="5" class="alert alert-info">O valor é exatamente CINCO (estado inicial padrão).</div>
+        <div *ngSwitchCase="10" class="alert alert-success">Parabéns! Você atingiu a marca de 10.</div>
+        <div *ngSwitchDefault class="alert alert-warning">Valor intermediário: {{ contadorPai }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção 4: Ciclo de Vida em Tempo Real -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>4. Monitor de Ciclo de Vida em Tempo Real</h3>
+      <button class="btn btn-sm btn-secondary" (click)="limparLogs()">Limpar Histórico</button>
+    </div>
+    <p class="card-desc">Observe a sequência de disparo dos lifecycle hooks conforme você interage com a página:</p>
+
+    <div class="logs-terminal">
+      <div *ngIf="lifecycleLogs.length === 0" class="empty-logs">Nenhum evento registrado ainda.</div>
+      <div *ngFor="let log of lifecycleLogs" class="log-entry">{{ log }}</div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-03-fundamentos-angular" class="btn btn-secondary">
+      ← Módulo 3: Fundamentos Angular
+    </a>
+    <a routerLink="/modulo-05-services-di" class="btn btn-primary">
+      Módulo 5: Services e DI →
+    </a>
+  </div>
+</div>

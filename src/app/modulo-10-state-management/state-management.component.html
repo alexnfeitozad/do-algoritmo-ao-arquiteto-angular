@@ -1,0 +1,155 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 10</span>
+      <span class="badge badge-warning">Avançado</span>
+    </div>
+    <h1>State Management com Angular Signals</h1>
+    <p class="subtitle">Reatividade granular sem zone.js com <code>signal()</code>, <code>computed()</code> e <code>effect()</code></p>
+  </div>
+
+  <!-- Métricas Calculadas via Computed Signals -->
+  <div class="summary-cards">
+    <div class="stat-card">
+      <span class="stat-label">Total de Itens</span>
+      <span class="stat-number">{{ totalItens() }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Subtotal</span>
+      <span class="stat-number">R$ {{ subtotal().toFixed(2) }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Desconto Aplicado</span>
+      <span class="stat-number text-success">- R$ {{ valorDesconto().toFixed(2) }}</span>
+    </div>
+    <div class="stat-card highlight">
+      <span class="stat-label">Total Final (Computed)</span>
+      <span class="stat-number text-primary">R$ {{ totalFinal().toFixed(2) }}</span>
+    </div>
+  </div>
+
+  <div class="grid-2 mt-4">
+    <!-- Painel 1: Carrinho Reativo -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Mini-Store Reativo com Signals</h3>
+        <button class="btn btn-sm btn-primary" (click)="adicionarItemExemplo()">
+          + Adicionar Item
+        </button>
+      </div>
+      <p class="card-desc">Toda alteração dispara apenas os computeds e views estritamente afetados pelo grafo reativo.</p>
+
+      <div class="cart-items-list">
+        <div *ngFor="let item of carrinho()" class="cart-item">
+          <div class="item-details">
+            <strong>{{ item.nome }}</strong>
+            <span class="item-unit-price">R$ {{ item.preco.toFixed(2) }} un.</span>
+          </div>
+
+          <div class="item-actions">
+            <div class="qty-stepper">
+              <button class="btn-step" (click)="diminuirQuantidade(item.id)">-</button>
+              <span class="qty-value">{{ item.quantidade }}</span>
+              <button class="btn-step" (click)="aumentarQuantidade(item.id)">+</button>
+            </div>
+            <span class="item-total">R$ {{ (item.preco * item.quantidade).toFixed(2) }}</span>
+            <button class="btn-remove-item" (click)="removerItem(item.id)" title="Remover">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cupom de Desconto -->
+      <div class="coupon-box mt-3">
+        <label class="coupon-checkbox">
+          <input type="checkbox" [checked]="cupomAtivo()" (change)="toggleCupom()" />
+          <span>Ativar Cupom Promocional ({{ descontoCupom() }}% OFF)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Painel 2: Angular Effect Monitor -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Angular effect() Monitor</h3>
+        <button class="btn btn-sm btn-secondary" (click)="limparLogs()">Limpar</button>
+      </div>
+      <p class="card-desc">O <code>effect()</code> roda reativamente sempre que qualquer um dos signals lidos dentro dele mudar de valor.</p>
+
+      <div class="effect-terminal">
+        <div *ngIf="effectLogs().length === 0" class="empty-terminal">
+          Aguardando mutações de estado no carrinho...
+        </div>
+        <div *ngFor="let log of effectLogs()" class="terminal-line">
+          {{ log }}
+        </div>
+      </div>
+
+      <div class="code-box mt-3">
+        <pre><code>// Computed Signal:
+readonly total = computed(() => this.subtotal() - this.desconto());
+
+// Effect Reativo:
+effect(() => {{ '{' }}
+  console.log('Novo total calculado:', this.total());
+{{ '}' }});</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela Comparativa: Signals vs RxJS vs NgRx -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>3. Comparação Arquitetural: Signals vs RxJS vs NgRx</h3>
+      <span class="badge badge-success">Guia de Decisão</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Critério</th>
+            <th>Angular Signals</th>
+            <th>RxJS BehaviorSubject</th>
+            <th>NgRx Global Store</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Paradigma</strong></td>
+            <td>Reatividade síncrona baseada em pull/push sem streams</td>
+            <td>Streams assíncronos baseados em push</td>
+            <td>Redux pattern com Actions, Reducers e Effects</td>
+          </tr>
+          <tr>
+            <td><strong>Gerenciamento de Lifecycle</strong></td>
+            <td>Automático (sem necessidade de unsubscribe)</td>
+            <td>Manual (necessita takeUntilDestroyed ou async pipe)</td>
+            <td>Gerenciado pelo ciclo de vida dos seletores/effects</td>
+          </tr>
+          <tr>
+            <td><strong>Change Detection</strong></td>
+            <td>Granular e direta (Zoneless ready)</td>
+            <td>Necessita async pipe ou markForCheck()</td>
+            <td>OnPush otimizado via seletores imutáveis</td>
+          </tr>
+          <tr>
+            <td><strong>Melhor Caso de Uso</strong></td>
+            <td>Estado local de componente e stores modulares modernas</td>
+            <td>Eventos assíncronos complexos, HTTP e web sockets</td>
+            <td>Aplicações corporativas gigantes com histórico/undo-redo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-09-rxjs" class="btn btn-secondary">
+      ← Módulo 9: RxJS Reativo
+    </a>
+    <a routerLink="/modulo-11-testing" class="btn btn-primary">
+      Módulo 11: Testes Unitários →
+    </a>
+  </div>
+</div>

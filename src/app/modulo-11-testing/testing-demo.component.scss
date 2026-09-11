@@ -1,0 +1,143 @@
+.test-scoreboard {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  .score-card {
+    background: #ffffff;
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+
+    .score-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--neutral-500);
+    }
+
+    .score-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    &.success .score-number { color: var(--success); }
+    &.danger .score-number { color: var(--danger); }
+    &.neutral .score-number { color: var(--neutral-700); }
+  }
+
+  .score-action {
+    margin-left: auto;
+  }
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.mt-3 { margin-top: 1rem; }
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0;
+  }
+}
+
+.tests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .test-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-200);
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &[data-status="passou"] {
+      border-left: 4px solid var(--success);
+    }
+    &[data-status="falhou"] {
+      border-left: 4px solid var(--danger);
+      background: var(--danger-light);
+    }
+
+    .test-status-col {
+      font-size: 1.25rem;
+      width: 28px;
+      text-align: center;
+
+      .passed { color: var(--success); font-weight: 800; }
+      .failed { color: var(--danger); font-weight: 800; }
+    }
+
+    .test-info-col {
+      flex: 1;
+
+      .test-name-line {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        strong {
+          font-size: 0.9rem;
+          color: var(--neutral-800);
+        }
+
+        .test-badge {
+          font-size: 0.65rem;
+          font-weight: 700;
+          background: var(--neutral-200);
+          color: var(--neutral-700);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+      }
+
+      .test-desc {
+        font-size: 0.8rem;
+        color: var(--neutral-500);
+        margin-top: 0.2rem;
+      }
+    }
+
+    .test-actions-col {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .test-time {
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        color: var(--neutral-500);
+      }
+    }
+  }
+}
+
+.navigation-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}

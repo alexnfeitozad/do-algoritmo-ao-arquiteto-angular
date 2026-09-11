@@ -1,0 +1,154 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 11</span>
+      <span class="badge badge-warning">Avançado</span>
+    </div>
+    <h1>Testes Unitários em Angular com Vitest</h1>
+    <p class="subtitle">Pirâmide de testes, TestBed, ComponentFixture, simulação de HTTP com mocks e boas práticas</p>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn" [class.active]="abaAtiva() === 'runner'" (click)="abaAtiva.set('runner')">
+      🧪 Test Runner Interativo
+    </button>
+    <button class="tab-btn" [class.active]="abaAtiva() === 'exemplos'" (click)="abaAtiva.set('exemplos')">
+      📑 Exemplos Práticos de Código (.spec.ts)
+    </button>
+  </div>
+
+  <!-- Aba 1: Test Runner -->
+  <div *ngIf="abaAtiva() === 'runner'">
+    <!-- Placar dos Testes -->
+    <div class="test-scoreboard">
+      <div class="score-card success">
+        <span class="score-label">Passaram</span>
+        <span class="score-number">{{ totalPassaram() }}</span>
+      </div>
+      <div class="score-card danger">
+        <span class="score-label">Falhas</span>
+        <span class="score-number">{{ totalFalharam() }}</span>
+      </div>
+      <div class="score-card neutral">
+        <span class="score-label">Total de Testes</span>
+        <span class="score-number">{{ testes().length }}</span>
+      </div>
+      <div class="score-action">
+        <button 
+          class="btn btn-primary" 
+          [disabled]="executandoTodos()" 
+          (click)="executarTodosOsTestes()"
+        >
+          {{ executandoTodos() ? 'Executando Suíte...' : '▶ Executar Todos os Testes' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de Testes -->
+    <div class="glass-card mt-3">
+      <div class="card-title-row">
+        <h3>Casos de Teste da Aplicação</h3>
+        <span class="badge badge-neutral">Vitest Engine</span>
+      </div>
+
+      <div class="tests-list">
+        <div *ngFor="let t of testes()" class="test-row" [attr.data-status]="t.status">
+          <div class="test-status-col">
+            <span *ngIf="t.status === 'passou'" class="status-icon passed">✓</span>
+            <span *ngIf="t.status === 'falhou'" class="status-icon failed">✕</span>
+            <span *ngIf="t.status === 'executando'" class="status-icon running">⏳</span>
+            <span *ngIf="t.status === 'pendente'" class="status-icon pending">⚪</span>
+          </div>
+
+          <div class="test-info-col">
+            <div class="test-name-line">
+              <strong>{{ t.nome }}</strong>
+              <span class="test-badge">{{ t.categoria }}</span>
+            </div>
+            <p class="test-desc">{{ t.descricao }}</p>
+          </div>
+
+          <div class="test-actions-col">
+            <span class="test-time">{{ t.duracaoMs }}ms</span>
+            <button class="btn btn-sm btn-secondary" (click)="simularFalha(t.id)">
+              Alternar Falha
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aba 2: Exemplos de Código -->
+  <div *ngIf="abaAtiva() === 'exemplos'" class="grid-2">
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Teste de Componente com TestBed</h3>
+        <span class="badge badge-primary">DOM & Events</span>
+      </div>
+      <div class="code-box">
+        <pre><code>describe('MeuComponent', () => {{ '{' }}
+  let fixture: ComponentFixture&lt;MeuComponent&gt;;
+
+  beforeEach(async () => {{ '{' }}
+    await TestBed.configureTestingModule({{ '{' }}
+      imports: [MeuComponent]
+    {{ '}' }}).compileComponents();
+
+    fixture = TestBed.createComponent(MeuComponent);
+    fixture.detectChanges();
+  {{ '}' }});
+
+  it('deve emitir evento ao clicar', () => {{ '{' }}
+    const btn = fixture.nativeElement.querySelector('button');
+    btn.click();
+    expect(fixture.componentInstance.contador()).toBe(1);
+  {{ '}' }});
+{{ '}' }});</code></pre>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Teste de Service com Mock HTTP</h3>
+        <span class="badge badge-success">provideHttpClientTesting</span>
+      </div>
+      <div class="code-box">
+        <pre><code>describe('PostsService', () => {{ '{' }}
+  let service: PostsService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {{ '{' }}
+    TestBed.configureTestingModule({{ '{' }}
+      providers: [
+        PostsService,
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
+    {{ '}' }});
+    service = TestBed.inject(PostsService);
+    httpMock = TestBed.inject(HttpTestingController);
+  {{ '}' }});
+
+  it('deve realizar GET /posts', () => {{ '{' }}
+    service.getPosts().subscribe(posts => {{ '{' }}
+      expect(posts.length).toBe(2);
+    {{ '}' }});
+    const req = httpMock.expectOne('https://api/posts');
+    req.flush([{{ '{' }} id: 1 {{ '}' }}, {{ '{' }} id: 2 {{ '}' }}]);
+  {{ '}' }});
+{{ '}' }});</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-10-state-management" class="btn btn-secondary">
+      ← Módulo 10: State Management
+    </a>
+    <a routerLink="/modulo-12-performance" class="btn btn-primary">
+      Módulo 12: Performance e Otimização →
+    </a>
+  </div>
+</div>

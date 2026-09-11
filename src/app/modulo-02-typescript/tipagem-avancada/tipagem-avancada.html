@@ -1,0 +1,161 @@
+<div class="tipagem-avancada-container">
+  <div class="header">
+    <h1>Módulo 2: Tipagem Avançada TypeScript</h1>
+    <p class="subtitle">TypeScript e JavaScript Moderno - Tipagem Avançada</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Union Types -->
+    <div class="card">
+      <h2>Union Types (Tipos União)</h2>
+      <p class="description">Permite que uma variável tenha múltiplos tipos possíveis</p>
+      
+      <div class="code-example">
+        <pre><code>valorUnion: string | number = '{{ valorUnion }}'</code></pre>
+      </div>
+      
+      <div class="result">
+        <p><strong>Resultado:</strong> {{ processarValor(valorUnion) }}</p>
+      </div>
+      
+      <div class="controls">
+        <button (click)="valorUnion = 'Hello'; valorUnion = 42" class="btn">Alternar Tipo</button>
+      </div>
+    </div>
+
+    <!-- Intersection Types -->
+    <div class="card">
+      <h2>Intersection Types (Tipos Interseção)</h2>
+      <p class="description">Combina múltiplos tipos em um único tipo</p>
+      
+      <div class="code-example">
+        <pre><code>tipoPessoaEndereco: Pessoa & Endereco
+{{ tipoPessoaEndereco | json }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Literal Types -->
+    <div class="card">
+      <h2>Literal Types</h2>
+      <p class="description">Restringe valores a literais específicos</p>
+      
+      <div class="code-example">
+        <pre><code>tipoStatus: 'ativo' | 'inativo' | 'pendente'
+= '{{ tipoStatus }}'</code></pre>
+      </div>
+      
+      <div class="controls">
+        <button (click)="tipoStatus = 'ativo'" class="btn">Ativo</button>
+        <button (click)="tipoStatus = 'inativo'" class="btn">Inativo</button>
+        <button (click)="tipoStatus = 'pendente'" class="btn">Pendente</button>
+      </div>
+    </div>
+
+    <!-- Generic Types -->
+    <div class="card">
+      <h2>Generic Types (Tipos Genéricos)</h2>
+      <p class="description">Tipos que funcionam com múltiplos tipos de dados</p>
+      
+      <div class="code-example">
+        <pre><code>identidade&lt;T&gt;(valor: T): T
+identidade('Hello') = '{{ identidade('Hello') }}'
+identidade(123) = {{ identidade(123) }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Utility Types -->
+    <div class="card">
+      <h2>Utility Types</h2>
+      <p class="description">Tipos utilitários do TypeScript para transformações</p>
+      
+      <div class="utility-examples">
+        <div class="utility-item">
+          <h4>Partial</h4>
+          <pre><code>{{ usuarioParcial | json }}</code></pre>
+        </div>
+        
+        <div class="utility-item">
+          <h4>Pick</h4>
+          <pre><code>{{ usuarioPick | json }}</code></pre>
+        </div>
+        
+        <div class="utility-item">
+          <h4>Omit</h4>
+          <pre><code>{{ usuarioOmit | json }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Record Type -->
+    <div class="card">
+      <h2>Record Type</h2>
+      <p class="description">Cria tipo objeto com chaves e valores específicos</p>
+      
+      <div class="code-example">
+        <pre><code>tipoRecord: Record&lt;string, number&gt;
+{{ tipoRecord | json }}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exemplos Executáveis -->
+  <div class="examples-section">
+    <h2>Exemplos Executáveis</h2>
+    
+    <div class="button-group">
+      <button (click)="executarExemplos()" class="btn btn-primary">Executar Todos os Exemplos</button>
+      <button (click)="limparExemplos()" class="btn btn-secondary">Limpar</button>
+    </div>
+    
+    <div class="examples-output" *ngIf="exemplos.length > 0">
+      <h3>Resultados:</h3>
+      <ul>
+        <li *ngFor="let exemplo of exemplos">{{ exemplo }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Conceitos Avançados -->
+  <div class="concepts-section">
+    <h2>Conceitos Avançados</h2>
+    
+    <div class="concept-card">
+      <h3>Type Guards (Guardas de Tipo)</h3>
+      <p>Verificam o tipo de uma variável em tempo de execução usando <code>typeof</code>, <code>instanceof</code>, ou propriedades específicas.</p>
+      <pre><code>if (typeof valor === 'string') {{ '{' }}
+  // TypeScript sabe que valor é string aqui
+{{ '}' }}</code></pre>
+    </div>
+    
+    <div class="concept-card">
+      <h3>Generic Constraints (Restrições Genéricas)</h3>
+      <p>Limitam os tipos que podem ser usados em genéricos usando <code>extends</code>.</p>
+      <pre><code>function obterComprimento&lt;T extends {{ '{' }} length: number {{ '}' }}&gt;(arg: T): number {{ '{' }}
+  return arg.length;
+{{ '}' }}</code></pre>
+    </div>
+    
+    <div class="concept-card">
+      <h3>Mapped Types (Tipos Mapeados)</h3>
+      <p>Transformam propriedades de um tipo existente em um novo tipo.</p>
+      <pre><code>type ReadonlyPessoa = {{ '{' }}
+  readonly [K in keyof Pessoa]: Pessoa[K];
+{{ '}' }};</code></pre>
+    </div>
+    
+    <div class="concept-card">
+      <h3>Conditional Types (Tipos Condicionais)</h3>
+      <p>Selecionam um tipo baseado em uma condição.</p>
+      <pre><code>type IsArray&lt;T&gt; = T extends any[] ? true : false;</code></pre>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-01-algoritmos" class="nav-link nav-back">
+      ← Anterior: Módulo 1 - Algoritmos
+    </a>
+    <a routerLink="/modulo-02-typescript/poo-typescript" class="nav-link">
+      Próximo: POO TypeScript →
+    </a>
+  </div>
+</div>

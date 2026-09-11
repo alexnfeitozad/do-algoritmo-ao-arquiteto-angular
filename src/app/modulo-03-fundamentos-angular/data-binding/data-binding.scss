@@ -1,0 +1,382 @@
+.data-binding-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+  }
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  
+  h2 {
+    color: #e67e22;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .description {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+}
+
+.example-section {
+  .demo-box {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
+    p {
+      color: #2c3e50;
+      margin: 0.3rem 0;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    
+    .input {
+      flex: 1;
+      min-width: 150px;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.image-demo {
+  margin-bottom: 1rem;
+  
+  .demo-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+  }
+}
+
+.mouse-tracker {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  cursor: crosshair;
+  
+  p {
+    margin: 0.5rem 0;
+    
+    &:first-child {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.demo-form {
+  .form-group {
+    margin-bottom: 1rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+    
+    .input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      
+      &[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
+      }
+    }
+    
+    p {
+      margin: 0.3rem 0 0 0;
+      color: #7f8c8d;
+      font-size: 0.85rem;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
+.demo-boxes {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  
+  .class-demo {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    
+    &.active {
+      background: #3498db;
+      color: white;
+    }
+    
+    &.error {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    &.success {
+      background: #27ae60;
+      color: white;
+    }
+  }
+}
+
+.style-demo-box {
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+  
+  p {
+    margin: 0.3rem 0;
+  }
+}
+
+.attribute-info {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 0.8rem;
+  
+  p {
+    margin: 0.3rem 0;
+    color: #555;
+    font-size: 0.9rem;
+    
+    strong {
+      color: #2c3e50;
+    }
+  }
+}
+
+.btn {
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+  
+  &:hover {
+    background: #d35400;
+  }
+  
+  &.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  &.btn-secondary {
+    background: #95a5a6;
+    
+    &:hover {
+      background: #7f8c8d;
+    }
+  }
+  
+  &:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+  }
+}
+
+.summary-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+  }
+  
+  .binding-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    
+    .binding-type {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      border-radius: 8px;
+      padding: 1rem;
+      
+      h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.1rem;
+      }
+      
+      p {
+        margin: 0 0 0.5rem 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+      }
+      
+      code {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+.best-practices-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+  }
+  
+  .practice-list {
+    display: grid;
+    gap: 1rem;
+    
+    .practice-item {
+      background: #f8f9fa;
+      border-left: 4px solid #e67e22;
+      padding: 1rem;
+      border-radius: 0 6px 6px 0;
+      
+      h4 {
+        color: #e67e22;
+        margin: 0 0 0.5rem 0;
+        font-size: 1rem;
+      }
+      
+      p {
+        color: #555;
+        margin: 0;
+        line-height: 1.5;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  
+  .nav-link {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+    
+    &.nav-back {
+      background: #95a5a6;
+      color: white;
+      
+      &:hover {
+        background: #7f8c8d;
+      }
+    }
+    
+    &:not(.nav-back) {
+      background: #27ae60;
+      color: white;
+      
+      &:hover {
+        background: #219a52;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .binding-types {
+    grid-template-columns: 1fr;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: 1rem;
+    
+    .nav-link {
+      text-align: center;
+    }
+  }
+  
+  .data-binding-container {
+    padding: 1rem;
+  }
+}

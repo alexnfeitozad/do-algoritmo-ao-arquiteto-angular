@@ -1,0 +1,131 @@
+<div class="algoritmos-ordenacao-container">
+  <div class="header">
+    <h1>Módulo 1: Algoritmos de Ordenação</h1>
+    <p class="subtitle">Fundamentos de Programação - Algoritmos de Ordenação</p>
+  </div>
+
+  <div class="content">
+    <!-- Controles -->
+    <div class="controls-section">
+      <div class="control-group">
+        <label for="algoritmo">Selecione o Algoritmo:</label>
+        <select id="algoritmo" [(ngModel)]="algoritmoSelecionado" class="select">
+          <option value="bubble">Bubble Sort</option>
+          <option value="selection">Selection Sort</option>
+          <option value="insertion">Insertion Sort</option>
+          <option value="merge">Merge Sort</option>
+          <option value="quick">Quick Sort</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="tamanho">Tamanho do Array:</label>
+        <input 
+          type="number" 
+          id="tamanho" 
+          [(ngModel)]="tamanhoArray" 
+          min="5" 
+          max="100" 
+          value="11"
+          class="input"
+        >
+      </div>
+      
+      <div class="button-group">
+        <button (click)="gerarArrayAleatorio(tamanhoArray)" class="btn btn-secondary">
+          Gerar Array Aleatório
+        </button>
+        <button (click)="executarOrdenacao()" class="btn btn-primary">
+          Executar Ordenação
+        </button>
+      </div>
+    </div>
+
+    <!-- Informações do Algoritmo -->
+    <div class="algorithm-info">
+      <div class="info-card">
+        <h3>{{ algoritmoSelecionado | titlecase }} Sort</h3>
+        <p class="description">{{ getDescricao(algoritmoSelecionado) }}</p>
+        <div class="complexity">
+          <span class="label">Complexidade:</span>
+          <span class="value">{{ getComplexidade(algoritmoSelecionado) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrays -->
+    <div class="arrays-section">
+      <div class="array-card">
+        <h3>Array Original</h3>
+        <div class="array-display">
+          <span *ngFor="let num of arrayOriginal" class="array-item">{{ num }}</span>
+        </div>
+      </div>
+      
+      <div class="array-card" *ngIf="arrayOrdenado.length > 0">
+        <h3>Array Ordenado</h3>
+        <div class="array-display">
+          <span *ngFor="let num of arrayOrdenado" class="array-item sorted">{{ num }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="stats-section" *ngIf="arrayOrdenado.length > 0">
+      <div class="stat-card">
+        <div class="stat-label">Tempo de Execução</div>
+        <div class="stat-value">{{ tempoExecucao.toFixed(4) }} ms</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-label">Iterações/Comparações</div>
+        <div class="stat-value">{{ iteracoes }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-label">Tamanho do Array</div>
+        <div class="stat-value">{{ arrayOriginal.length }}</div>
+      </div>
+    </div>
+
+    <!-- Explicação Detalhada -->
+    <div class="explanation-section">
+      <h2>Conceitos Importantes</h2>
+      
+      <div class="concept-card">
+        <h3>Estabilidade</h3>
+        <p>Um algoritmo de ordenação é estável se mantém a ordem relativa de elementos iguais. Merge Sort é estável, Quick Sort não é.</p>
+      </div>
+      
+      <div class="concept-card">
+        <h3>In-place vs Out-of-place</h3>
+        <p>Algoritmos in-place usam memória adicional constante O(1). Out-of-place precisam de memória extra para armazenar cópias.</p>
+      </div>
+      
+      <div class="concept-card">
+        <h3>Adaptativo</h3>
+        <p>Algoritmos adaptativos aproveitam a ordem existente nos dados. Insertion Sort é adaptativo, Bubble Sort pode ser com otimização.</p>
+      </div>
+      
+      <div class="concept-card">
+        <h3>Quando usar cada algoritmo</h3>
+        <ul>
+          <li><strong>Bubble Sort:</strong> Apenas para fins educacionais, muito lento na prática</li>
+          <li><strong>Selection Sort:</strong> Quando memória é limitada e array é pequeno</li>
+          <li><strong>Insertion Sort:</strong> Para arrays pequenos ou quase ordenados</li>
+          <li><strong>Merge Sort:</strong> Quando estabilidade é importante e performance é garantida</li>
+          <li><strong>Quick Sort:</strong> Geralmente o mais rápido na prática, bom para arrays grandes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="nav-link nav-back">
+      ← Anterior: Estruturas de Dados
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" class="nav-link">
+      Próximo: Algoritmos de Busca →
+    </a>
+  </div>
+</div>

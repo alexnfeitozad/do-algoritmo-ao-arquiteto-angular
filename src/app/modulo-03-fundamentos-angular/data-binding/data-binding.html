@@ -1,0 +1,274 @@
+<div class="data-binding-container">
+  <div class="header">
+    <h1>Data Binding no Angular</h1>
+    <p class="subtitle">Módulo 3: Fundamentos Angular - Data Binding</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Interpolação -->
+    <div class="card">
+      <h2>Interpolação {{ '{{ }}' }}</h2>
+      <p class="description">Exibe valores de propriedades no template</p>
+      
+      <div class="example-section">
+        <div class="demo-box">
+          <p>{{ saudacao }}, {{ nome }}!</p>
+          <p>Contador de cliques: {{ clickCount }}</p>
+          <p>Posição do mouse: X = {{ mouseX }}, Y = {{ mouseY }}</p>
+        </div>
+        
+        <div class="controls">
+          <input 
+            [(ngModel)]="nome" 
+            placeholder="Digite seu nome"
+            class="input"
+          >
+          <input 
+            [(ngModel)]="saudacao" 
+            placeholder="Digite uma saudação"
+            class="input"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Binding -->
+    <div class="card">
+      <h2>Property Binding [ ]</h2>
+      <p class="description">Define valores de propriedades do DOM</p>
+      
+      <div class="example-section">
+        <div class="image-demo">
+          <img [src]="imageUrl" [alt]="'Imagem de exemplo'" class="demo-image">
+        </div>
+        
+        <div class="controls">
+          <button (click)="changeImage()" class="btn">Trocar Imagem</button>
+          <button (click)="toggleDisabled()" class="btn">
+            {{ isDisabled ? 'Habilitar' : 'Desabilitar' }} Botão
+          </button>
+          <button [disabled]="isDisabled" class="btn">
+            Botão Controlado
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Binding -->
+    <div class="card">
+      <h2>Event Binding ( )</h2>
+      <p class="description">Responde a eventos do usuário</p>
+      
+      <div class="example-section">
+        <div class="mouse-tracker" (mousemove)="onMouseMove($event)">
+          <p>Mova o mouse aqui</p>
+          <p>X: {{ mouseX }}, Y: {{ mouseY }}</p>
+        </div>
+        
+        <div class="controls">
+          <button (click)="onClick()" class="btn">
+            Clique aqui ({{ clickCount }})
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Way Binding -->
+    <div class="card">
+      <h2>Two-Way Binding [( )]</h2>
+      <p class="description">Sincronização bidirecional de dados</p>
+      
+      <div class="example-section">
+        <form (submit)="onSubmit($event)" class="demo-form">
+          <div class="form-group">
+            <label>Usuário:</label>
+            <input [(ngModel)]="usuario" name="usuario" class="input">
+            <p>Valor: {{ usuario || '(vazio)' }}</p>
+          </div>
+          
+          <div class="form-group">
+            <label>Email:</label>
+            <input [(ngModel)]="email" name="email" type="email" class="input">
+            <p>Valor: {{ email || '(vazio)' }}</p>
+          </div>
+          
+          <div class="form-group">
+            <label>Idade:</label>
+            <input [(ngModel)]="idade" name="idade" type="number" class="input">
+            <p>Valor: {{ idade }}</p>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input [(ngModel)]="termos" name="termos" type="checkbox">
+              Aceitar termos
+            </label>
+            <p>Valor: {{ termos }}</p>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn">Enviar</button>
+            <button type="button" (click)="limparFormulario()" class="btn btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Class Binding -->
+    <div class="card">
+      <h2>Class Binding</h2>
+      <p class="description">Adiciona/remove classes CSS dinamicamente</p>
+      
+      <div class="example-section">
+        <div class="demo-boxes">
+          <div [class.active]="isActive" class="demo-box class-demo">
+            Active: {{ isActive }}
+          </div>
+          <div [class.error]="isError" class="demo-box class-demo">
+            Error: {{ isError }}
+          </div>
+          <div [class.success]="isSuccess" class="demo-box class-demo">
+            Success: {{ isSuccess }}
+          </div>
+        </div>
+        
+        <div class="controls">
+          <button (click)="toggleActive()" class="btn">Toggle Active</button>
+          <button (click)="toggleError()" class="btn">Toggle Error</button>
+          <button (click)="toggleSuccess()" class="btn">Toggle Success</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style Binding -->
+    <div class="card">
+      <h2>Style Binding</h2>
+      <p class="description">Define estilos CSS dinamicamente</p>
+      
+      <div class="example-section">
+        <div 
+          class="style-demo-box"
+          [style.font-size.px]="fontSize"
+          [style.color]="textColor"
+          [style.background-color]="backgroundColor"
+        >
+          <p>Texto com estilos dinâmicos</p>
+          <p>Font-size: {{ fontSize }}px</p>
+          <p>Color: {{ textColor }}</p>
+          <p>Background: {{ backgroundColor }}</p>
+        </div>
+        
+        <div class="controls">
+          <button (click)="increaseFontSize()" class="btn btn-small">A+ Fonte</button>
+          <button (click)="decreaseFontSize()" class="btn btn-small">A- Fonte</button>
+          <button (click)="changeColor()" class="btn btn-small">Mudar Cor</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attribute Binding -->
+    <div class="card">
+      <h2>Attribute Binding</h2>
+      <p class="description">Define atributos HTML personalizados</p>
+      
+      <div class="example-section">
+        <button 
+          [attr.role]="buttonRole"
+          [attr.aria-label]="ariaLabel"
+          class="btn"
+        >
+          Botão com atributos ARIA
+        </button>
+        
+        <div class="attribute-info">
+          <p><strong>role:</strong> {{ buttonRole }}</p>
+          <p><strong>aria-label:</strong> {{ ariaLabel }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumo -->
+  <div class="summary-section">
+    <h2>Resumo dos Tipos de Data Binding</h2>
+    
+    <div class="binding-types">
+      <div class="binding-type">
+        <h3>Interpolação {{ '{{ }}' }}</h3>
+        <p>One-way: Component → Template</p>
+        <code>{{ '{{ nome }}' }}</code>
+      </div>
+      
+      <div class="binding-type">
+        <h3>Property Binding [ ]</h3>
+        <p>One-way: Component → Template</p>
+        <code>[propriedade]="valor"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h3>Event Binding ( )</h3>
+        <p>One-way: Template → Component</p>
+        <code>(evento)="handler()"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h3>Two-Way Binding [( )]</h3>
+        <p>Two-way: Component ↔ Template</p>
+        <code>[(ngModel)]="propriedade"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h3>Class Binding</h3>
+        <p>One-way: Component → Template</p>
+        <code>[class.nome]="condicao"</code>
+      </div>
+      
+      <div class="binding-type">
+        <h3>Style Binding</h3>
+        <p>One-way: Component → Template</p>
+        <code>[style.propriedade]="valor"</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boas Práticas -->
+  <div class="best-practices-section">
+    <h2>Boas Práticas de Data Binding</h2>
+    
+    <div class="practice-list">
+      <div class="practice-item">
+        <h4>✓ Use Interpolação para Texto Simples</h4>
+        <p>Ideal para exibir valores simples de propriedades</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Property Binding para Propriedades DOM</h4>
+        <p>Use para src, href, disabled, e outras propriedades de elementos</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Event Binding para Interação</h4>
+        <p>Responda a cliques, inputs, e outros eventos do usuário</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Two-Way Binding para Formulários</h4>
+        <p>Use ngModel para inputs que precisam de sincronização bidirecional</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Class/Style Binding para Estilos Dinâmicos</h4>
+        <p>Alterne classes e estilos baseado em condições</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-03-fundamentos-angular/componentes-basicos" class="nav-link nav-back">
+      ← Anterior: Componentes Básicos
+    </a>
+    <a routerLink="/modulo-04-componentes-diretivas" class="nav-link">
+      Próximo: Módulo 4 - Componentes e Diretivas →
+    </a>
+  </div>
+</div>

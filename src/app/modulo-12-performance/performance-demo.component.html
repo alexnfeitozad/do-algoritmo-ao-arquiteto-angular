@@ -1,0 +1,104 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 12</span>
+      <span class="badge badge-warning">Avançado</span>
+    </div>
+    <h1>Performance e Otimização no Angular Moderno</h1>
+    <p class="subtitle">ChangeDetectionStrategy.OnPush, Deferrable Views (&#64;defer), trackBy e prevenção de memory leaks</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- Painel 1: Change Detection Default vs OnPush -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. ChangeDetectionStrategy: Default vs OnPush</h3>
+        <span class="badge badge-primary">Estratégias de CD</span>
+      </div>
+      <p class="card-desc">Clique no botão para disparar eventos no componente pai e observe como o componente filho OnPush não re-renderiza desnecessariamente.</p>
+
+      <div class="control-box">
+        <button class="btn btn-primary" (click)="incrementarPai()">
+          Disparar Evento Pai (+1: {{ contadorPai() }})
+        </button>
+      </div>
+
+      <div class="mt-3">
+        <!-- Componente com OnPush -->
+        <app-onpush-child></app-onpush-child>
+      </div>
+
+      <div class="code-box mt-3">
+        <pre><code>&#64;Component({{ '{' }}
+  selector: 'app-onpush-child',
+  changeDetection: ChangeDetectionStrategy.OnPush
+{{ '}' }})
+export class OnPushChildComponent {{ '{' }} ... {{ '}' }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Painel 2: Deferrable Views (@defer) -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Deferrable Views (&#64;defer)</h3>
+        <span class="badge badge-success">Lazy Rendering</span>
+      </div>
+      <p class="card-desc">Blocos <code>&#64;defer</code> carregam e renderizam componentes sob demanda apenas quando acionados (on interaction, on viewport, on hover).</p>
+
+      <div class="defer-trigger-area">
+        <button #triggerBtn class="btn btn-secondary">
+          Passe o mouse ou clique aqui para disparar o &#64;defer
+        </button>
+      </div>
+
+      <div class="defer-container mt-3">
+        @defer (on hover(triggerBtn); on interaction(triggerBtn)) {
+          <div class="deferred-content">
+            <span class="badge badge-success">Conteúdo Carregado via &#64;defer!</span>
+            <h4>Gráfico de Alta Performance</h4>
+            <p>Este módulo pesado só foi baixado e montado no DOM após sua interação com o botão!</p>
+          </div>
+        } @placeholder {
+          <div class="placeholder-box">
+            <span>⏳ [&#64;placeholder] Passe o mouse sobre o botão acima para carregar este bloco...</span>
+          </div>
+        } @loading (minimum 400ms) {
+          <div class="loading-box">
+            <span>Carregando chunks sob demanda...</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel 3: Otimização de Loops com track -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>3. Otimização de Loops com a Cláusula track</h3>
+      <button class="btn btn-sm btn-secondary" (click)="embaralharItens()">
+        Inverter Ordem dos Itens
+      </button>
+    </div>
+    <p class="card-desc">Com a nova sintaxe <code>&#64;for (item of itens; track item.id)</code>, o Angular nunca destrói elementos do DOM que apenas mudaram de posição.</p>
+
+    <div class="items-track-list">
+      @for (item of itens(); track item.id) {
+        <div class="track-row">
+          <span class="item-tag">ID: {{ item.id }}</span>
+          <strong>{{ item.nome }}</strong>
+          <span class="node-badge">DOM Node Reutilizado</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-11-testing" class="btn btn-secondary">
+      ← Módulo 11: Testes Unitários
+    </a>
+    <a routerLink="/modulo-13-patterns" class="btn btn-primary">
+      Módulo 13: Design Patterns & SOLID →
+    </a>
+  </div>
+</div>

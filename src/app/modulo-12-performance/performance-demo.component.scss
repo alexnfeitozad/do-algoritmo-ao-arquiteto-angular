@@ -1,0 +1,111 @@
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0;
+  }
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--neutral-600);
+  margin-bottom: 1.25rem;
+}
+
+.defer-container {
+  min-height: 120px;
+
+  .deferred-content {
+    background: #ecfdf5;
+    border: 1.5px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    animation: fadeIn 0.3s ease-in;
+
+    h4 {
+      margin: 0.5rem 0 0.25rem 0;
+      color: #065f46;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #047857;
+    }
+  }
+
+  .placeholder-box {
+    background: var(--neutral-50);
+    border: 1.5px dashed var(--neutral-300);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--neutral-500);
+    font-size: 0.875rem;
+  }
+
+  .loading-box {
+    background: var(--primary-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--primary);
+    font-weight: 600;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.items-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .track-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-200);
+    border-radius: 8px;
+
+    .item-tag {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--neutral-500);
+    }
+
+    .node-badge {
+      font-size: 0.7rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+  }
+}
+
+.navigation-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}

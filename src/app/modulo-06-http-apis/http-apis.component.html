@@ -1,0 +1,138 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 06</span>
+      <span class="badge badge-success">Intermediário</span>
+    </div>
+    <h1>HTTP Client e Consumo de APIs REST</h1>
+    <p class="subtitle">Requisições assíncronas, Interceptors, tratamento de erros resiliente com RxJS</p>
+  </div>
+
+  <!-- Banners de Notificação -->
+  <div *ngIf="mensagemStatus" class="alert alert-success">
+    ✅ {{ mensagemStatus }}
+  </div>
+  <div *ngIf="erroStatus" class="alert alert-danger">
+    ❌ {{ erroStatus }}
+  </div>
+
+  <div class="grid-2">
+    <!-- Painel 1: Formulário Novo Post -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Criar Novo Post (POST)</h3>
+        <span class="badge badge-primary">HttpClient.post</span>
+      </div>
+      <p class="card-desc">Envie um payload JSON para o servidor e atualize a listagem em tempo real.</p>
+
+      <form (ngSubmit)="criarPost()" class="post-form">
+        <div class="form-group">
+          <label for="post-title">Título do Artigo:</label>
+          <input 
+            id="post-title"
+            type="text" 
+            [(ngModel)]="novoTitulo" 
+            name="title" 
+            placeholder="Ex: Novos recursos do Angular..."
+            class="input"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="post-body">Conteúdo:</label>
+          <textarea 
+            id="post-body"
+            [(ngModel)]="novoCorpo" 
+            name="body" 
+            rows="3" 
+            placeholder="Descreva o conteúdo do post aqui..."
+            class="input"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="carregando || !novoTitulo || !novoCorpo">
+            {{ carregando ? 'Enviando...' : 'Publicar via POST' }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="simularErro()">
+            Simular Erro 500 (Retry/Catch)
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Painel 2: Interceptors e Headers -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. HttpInterceptor em Tempo Real</h3>
+        <button class="btn btn-sm btn-secondary" (click)="limparLogs()">Limpar</button>
+      </div>
+      <p class="card-desc">Os interceptors inspecionam e transformam requisições HTTP antes de chegarem à rede (ex: Token JWT, Logs, Tratamento Global).</p>
+
+      <div class="interceptor-terminal">
+        <div *ngIf="interceptorLog.length === 0" class="empty-terminal">
+          Aguardando requisições para interceptar...
+        </div>
+        <div *ngFor="let log of interceptorLog" class="terminal-line">
+          {{ log }}
+        </div>
+      </div>
+
+      <div class="code-box mt-3">
+        <pre><code>export const authInterceptor: HttpInterceptorFn = (req, next) => {{ '{' }}
+  const authReq = req.clone({{ '{' }}
+    setHeaders: {{ '{' }} Authorization: 'Bearer token123' {{ '}' }}
+  {{ '}' }});
+  return next(authReq);
+{{ '}' }};</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Posts Carregados -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>Posts Recebidos da API (GET)</h3>
+      <button class="btn btn-sm btn-secondary" (click)="carregarPosts()" [disabled]="carregando">
+        🔄 Atualizar Dados (GET)
+      </button>
+    </div>
+
+    <div *ngIf="carregando" class="loading-state">
+      <div class="spinner"></div>
+      <p>Consultando endpoint via HttpClient...</p>
+    </div>
+
+    <div *ngIf="!carregando && posts.length === 0" class="empty-posts">
+      <p>Nenhum post disponível no momento.</p>
+    </div>
+
+    <div *ngIf="!carregando && posts.length > 0" class="posts-grid">
+      <div *ngFor="let post of posts" class="post-item-card">
+        <div class="post-header">
+          <span class="post-id">#{{ post.id }}</span>
+          <h4>{{ post.title }}</h4>
+        </div>
+        <p class="post-text">{{ post.body }}</p>
+        <div class="post-footer">
+          <span class="user-tag">Autor ID: {{ post.userId }}</span>
+          <button class="btn btn-sm btn-danger" (click)="excluirPost(post.id)">
+            Excluir (DELETE)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-05-services-di" class="btn btn-secondary">
+      ← Módulo 5: Services e DI
+    </a>
+    <a routerLink="/modulo-07-reactive-forms" class="btn btn-primary">
+      Módulo 7: Reactive Forms →
+    </a>
+  </div>
+</div>

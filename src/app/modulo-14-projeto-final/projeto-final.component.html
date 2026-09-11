@@ -1,0 +1,207 @@
+<div class="page-container">
+  <!-- Toast Notification Flutuante -->
+  <div *ngIf="toastMensagem()" class="floating-toast">
+    <span>{{ toastMensagem() }}</span>
+  </div>
+
+  <div class="page-header flex-between-header">
+    <div>
+      <div class="badge-container">
+        <span class="badge badge-primary">Módulo 14</span>
+        <span class="badge badge-success">Projeto Integrador Final</span>
+      </div>
+      <h1>DevLearn Pro - Portal de Cursos e Treinamentos</h1>
+      <p class="subtitle">Aplicação completa integrando Signals, Reactive Forms, Services, Rotas e Métricas</p>
+    </div>
+    <button class="btn btn-primary btn-lg" (click)="modalCadastroAberto.set(true)">
+      + Publicar Novo Curso
+    </button>
+  </div>
+
+  <!-- Cards de Indicadores / KPIs (Signals Computeds) -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-icon">📚</span>
+      <div>
+        <span class="kpi-label">Cursos no Catálogo</span>
+        <span class="kpi-val">{{ kpis().total }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">🎯</span>
+      <div>
+        <span class="kpi-label">Minhas Matrículas</span>
+        <span class="kpi-val text-primary">{{ kpis().inscritos }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">🏆</span>
+      <div>
+        <span class="kpi-label">Concluídos com Certificado</span>
+        <span class="kpi-val text-success">{{ kpis().concluidos }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">⭐</span>
+      <div>
+        <span class="kpi-label">Avaliação Média</span>
+        <span class="kpi-val text-warning">{{ kpis().mediaAvaliacao }} / 5.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de Filtros e Busca Reativa -->
+  <div class="glass-card mt-4 filter-bar">
+    <div class="search-field">
+      <span class="icon">🔍</span>
+      <input 
+        type="text" 
+        [ngModel]="termoBusca()" 
+        (ngModelChange)="termoBusca.set($event)"
+        placeholder="Buscar por título ou nível..."
+        class="input"
+      />
+    </div>
+
+    <div class="category-pills">
+      <button 
+        *ngFor="let cat of ['Todas', 'Frontend', 'Backend', 'DevOps', 'Mobile']"
+        class="pill-btn"
+        [class.active]="categoriaFiltro() === cat"
+        (click)="categoriaFiltro.set(cat)"
+      >
+        {{ cat }}
+      </button>
+    </div>
+
+    <label class="toggle-my-courses">
+      <input 
+        type="checkbox" 
+        [checked]="apenasInscritos()" 
+        (change)="apenasInscritos.set(!apenasInscritos())"
+      />
+      <span>Apenas Meus Cursos</span>
+    </label>
+  </div>
+
+  <!-- Grid de Cursos -->
+  <div class="courses-grid mt-4">
+    <div *ngIf="cursosFiltrados().length === 0" class="empty-catalog">
+      <p>Nenhum curso corresponde aos filtros selecionados.</p>
+      <button class="btn btn-secondary btn-sm" (click)="termoBusca.set(''); categoriaFiltro.set('Todas'); apenasInscritos.set(false)">
+        Limpar Filtros
+      </button>
+    </div>
+
+    <div *ngFor="let curso of cursosFiltrados()" class="course-card" [class.enrolled]="curso.inscrito">
+      <div class="course-card-top">
+        <span class="course-cat-badge" [attr.data-cat]="curso.categoria">{{ curso.categoria }}</span>
+        <span class="course-level-badge">{{ curso.nivel }}</span>
+      </div>
+
+      <h3 class="course-title">{{ curso.titulo }}</h3>
+
+      <div class="course-meta">
+        <span>⏱ {{ curso.horas }} horas</span>
+        <span>⭐ {{ curso.avaliacao }}</span>
+        <span>👥 {{ curso.alunosInscritos }} alunos</span>
+      </div>
+
+      <div class="course-footer">
+        <div *ngIf="!curso.inscrito">
+          <button class="btn btn-primary btn-sm w-full" (click)="toggleInscricao(curso.id)">
+            Matricular-se Grátis
+          </button>
+        </div>
+
+        <div *ngIf="curso.inscrito" class="enrolled-actions">
+          <button 
+            class="btn btn-sm" 
+            [ngClass]="curso.concluido ? 'btn-success' : 'btn-secondary'"
+            (click)="toggleConclusao(curso.id)"
+          >
+            {{ curso.concluido ? '✓ Concluído' : 'Marcar como Concluído' }}
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="toggleInscricao(curso.id)" title="Cancelar Inscrição">
+            Desmatricular
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Cadastro de Novo Curso -->
+  <div class="modal-backdrop" *ngIf="modalCadastroAberto()" (click)="modalCadastroAberto.set(false)">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Cadastrar Novo Curso</h3>
+        <button class="close-btn" (click)="modalCadastroAberto.set(false)">✕</button>
+      </div>
+
+      <form [formGroup]="cursoForm" (ngSubmit)="salvarNovoCurso()" class="modal-form">
+        <div class="form-group">
+          <label for="new-course-title">Título do Curso:</label>
+          <input 
+            id="new-course-title"
+            type="text" 
+            formControlName="titulo" 
+            placeholder="Ex: Arquitetura de Micro Frontends com Angular"
+            class="input"
+          />
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="new-course-cat">Categoria:</label>
+            <select id="new-course-cat" formControlName="categoria" class="input">
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="DevOps">DevOps</option>
+              <option value="Mobile">Mobile</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="new-course-level">Nível:</label>
+            <select id="new-course-level" formControlName="nivel" class="input">
+              <option value="Iniciante">Iniciante</option>
+              <option value="Intermediário">Intermediário</option>
+              <option value="Avançado">Avançado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-course-hours">Carga Horária (horas):</label>
+          <input 
+            id="new-course-hours"
+            type="number" 
+            formControlName="horas" 
+            class="input" 
+            min="5" 
+            max="200" 
+          />
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="cursoForm.invalid">
+            Salvar e Publicar
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="modalCadastroAberto.set(false)">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navegação de Encerramento do Curso -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-13-patterns" class="btn btn-secondary">
+      ← Módulo 13: Design Patterns
+    </a>
+    <a routerLink="/modulo-01-algoritmos" class="btn btn-primary">
+      Reiniciar Curso (Módulo 1) ↺
+    </a>
+  </div>
+</div>

@@ -1,0 +1,285 @@
+<div class="componentes-basicos-container">
+  <div class="header">
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">{{ subtitulo }}</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Estrutura do Componente -->
+    <div class="card">
+      <h2>Estrutura de um Componente</h2>
+      <p class="description">Um componente Angular é composto por:</p>
+      
+      <div class="component-structure">
+        <div class="structure-item">
+          <span class="icon">📄</span>
+          <div>
+            <strong>Template (.html)</strong>
+            <p>Define a estrutura visual do componente</p>
+          </div>
+        </div>
+        
+        <div class="structure-item">
+          <span class="icon">🎨</span>
+          <div>
+            <strong>Styles (.scss/.css)</strong>
+            <p>Define a aparência e estilização</p>
+          </div>
+        </div>
+        
+        <div class="structure-item">
+          <span class="icon">⚙️</span>
+          <div>
+            <strong>Class (.ts)</strong>
+            <p>Contém a lógica e comportamento</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="code-example">
+        <pre><code>@Component(&#123;
+  selector: 'app-componentes-basicos',
+  templateUrl: './componentes-basicos.html',
+  styleUrl: './componentes-basicos.scss'
+&#125;)
+export class ComponentesBasicos &#123;&#125;</code></pre>
+      </div>
+    </div>
+
+    <!-- Interpolação -->
+    <div class="card">
+      <h2>Interpolação {{ '{{ }}' }}</h2>
+      <p class="description">Exibe valores de propriedades no template</p>
+      
+      <div class="example-section">
+        <h4>Exemplos:</h4>
+        <div class="example-item">
+          <code>&#123;&#123; titulo &#125;&#125;</code>
+          <span>= {{ titulo }}</span>
+        </div>
+        <div class="example-item">
+          <code>&#123;&#123; usuario.nome &#125;&#125;</code>
+          <span>= {{ usuario.nome }}</span>
+        </div>
+        <div class="example-item">
+          <code>&#123;&#123; tarefasCount &#125;&#125;</code>
+          <span>= {{ tarefasCount }} tarefas</span>
+        </div>
+        <div class="example-item">
+          <code>&#123;&#123; usuarioStatus &#125;&#125;</code>
+          <span>= {{ usuarioStatus }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Binding -->
+    <div class="card">
+      <h2>Property Binding [ ]</h2>
+      <p class="description">Define valores de propriedades do DOM</p>
+      
+      <div class="example-section">
+        <h4>Exemplos:</h4>
+        <div class="example-item">
+          <code>[disabled]="!usuario.ativo"</code>
+          <button [disabled]="!usuario.ativo" class="btn-small">
+            Botão {{ usuario.ativo ? 'Habilitado' : 'Desabilitado' }}
+          </button>
+        </div>
+        <div class="example-item">
+          <code>[class.hidden]="!mostrarDetalhes"</code>
+          <div [class.hidden]="!mostrarDetalhes" class="demo-box">
+            Conteúdo ocultável
+          </div>
+        </div>
+      </div>
+      
+      <button (click)="toggleDetalhes()" class="btn">
+        Alternar Detalhes
+      </button>
+    </div>
+
+    <!-- Event Binding -->
+    <div class="card">
+      <h2>Event Binding ( )</h2>
+      <p class="description">Responde a eventos do usuário</p>
+      
+      <div class="example-section">
+        <h4>Exemplos:</h4>
+        <div class="counter-demo">
+          <p>Contador: <strong>{{ contador }}</strong></p>
+          <div class="button-group">
+            <button (click)="decrementar()" class="btn btn-small">-</button>
+            <button (click)="incrementar()" class="btn btn-small">+</button>
+          </div>
+        </div>
+        
+        <div class="input-demo">
+          <input 
+            [(ngModel)]="nomeInput" 
+            placeholder="Digite seu nome"
+            (keyup.enter)="adicionarTarefa()"
+            class="input"
+          >
+          <button (click)="adicionarTarefa()" class="btn btn-small">Adicionar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Way Binding -->
+    <div class="card">
+      <h2>Two-Way Binding [( )]</h2>
+      <p class="description">Sincronização bidirecional de dados</p>
+      
+      <div class="example-section">
+        <h4>Exemplo:</h4>
+        <div class="two-way-demo">
+          <input 
+            [(ngModel)]="nomeInput" 
+            placeholder="Digite algo..."
+            class="input"
+          >
+          <p>Valor em tempo real: <strong>{{ nomeInput || '(vazio)' }}</strong></p>
+        </div>
+        
+        <div class="syntax-note">
+          <p><strong>Sintaxe:</strong> [(ngModel)] é equivalente a [ngModel]="nomeInput" + (ngModelChange)="nomeInput = $event"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diretivas Estruturais -->
+    <div class="card">
+      <h2>Diretivas Estruturais</h2>
+      <p class="description">Modificam a estrutura do DOM</p>
+      
+      <div class="example-section">
+        <h4>*ngIf - Renderização Condicional</h4>
+        <div *ngIf="mostrarDetalhes" class="demo-box success">
+          ✅ Este conteúdo só aparece quando mostrarDetalhes = true
+        </div>
+        
+        <h4>*ngFor - Iteração</h4>
+        <ul class="task-list">
+          <li *ngFor="let tarefa of tarefas; let i = index">
+            {{ i + 1 }}. {{ tarefa }}
+            <button (click)="removerTarefa(i)" class="btn-remove">×</button>
+          </li>
+        </ul>
+        
+        <h4>*ngSwitch - Seleção Múltipla</h4>
+        <div [ngSwitch]="contador">
+          <p *ngSwitchCase="0">Contador é zero</p>
+          <p *ngSwitchCase="1">Contador é um</p>
+          <p *ngSwitchDefault>Contador é {{ contador }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ciclo de Vida -->
+  <div class="lifecycle-section">
+    <h2>Ciclo de Vida do Componente</h2>
+    
+    <div class="lifecycle-timeline">
+      <div class="lifecycle-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>ngOnChanges</h4>
+          <p>Chamado quando propriedades de entrada mudam</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>ngOnInit</h4>
+          <p>Inicialização do componente (apenas uma vez)</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>ngDoCheck</h4>
+          <p>Detecta mudanças customizadas</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h4>ngAfterContentInit</h4>
+          <p>Após conteúdo externo ser projetado</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h4>ngAfterContentChecked</h4>
+          <p>Após verificação do conteúdo</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h4>ngAfterViewInit</h4>
+          <p>Após view do componente ser inicializada</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <h4>ngAfterViewChecked</h4>
+          <p>Após verificação da view</p>
+        </div>
+      </div>
+      
+      <div class="lifecycle-step destruction">
+        <div class="step-number">8</div>
+        <div class="step-content">
+          <h4>ngOnDestroy</h4>
+          <p>Limpeza antes do componente ser destruído</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boas Práticas -->
+  <div class="best-practices-section">
+    <h2>Boas Práticas</h2>
+    
+    <div class="practice-list">
+      <div class="practice-item">
+        <h4>✓ Nomes Descritivos</h4>
+        <p>Use nomes claros para componentes, propriedades e métodos</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Single Responsibility</h4>
+        <p>Cada componente deve ter uma única responsabilidade</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Input/Output</h4>
+        <p>Use @Input e @Output para comunicação entre componentes</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Lifecycle Hooks</h4>
+        <p>Use hooks de ciclo de vida apropriadamente</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-02-typescript" class="nav-link nav-back">
+      ← Anterior: Módulo 2 - TypeScript
+    </a>
+    <a routerLink="/modulo-03-fundamentos-angular/data-binding" class="nav-link">
+      Próximo: Data Binding →
+    </a>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="algoritmos-busca-container">
+  <div class="header">
+    <h1>Módulo 1: Algoritmos de Busca</h1>
+    <p class="subtitle">Fundamentos de Programação - Algoritmos de Busca</p>
+  </div>
+
+  <div class="content">
+    <!-- Controles -->
+    <div class="controls-section">
+      <div class="control-group">
+        <label for="algoritmo">Selecione o Algoritmo:</label>
+        <select id="algoritmo" [(ngModel)]="algoritmoSelecionado" class="select">
+          <option value="linear">Busca Linear</option>
+          <option value="binaria">Busca Binária</option>
+          <option value="binaria-recursiva">Busca Binária Recursiva</option>
+          <option value="jump">Jump Search</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="valor">Valor para Buscar:</label>
+        <input 
+          type="number" 
+          id="valor" 
+          [(ngModel)]="valorBusca" 
+          class="input"
+        >
+      </div>
+      
+      <div class="control-group">
+        <label for="tamanho">Tamanho do Array:</label>
+        <input 
+          type="number" 
+          id="tamanho" 
+          [(ngModel)]="tamanhoArray" 
+          min="5" 
+          max="100" 
+          value="10"
+          class="input"
+        >
+      </div>
+      
+      <div class="button-group">
+        <button (click)="gerarArrayOrdenado(tamanhoArray)" class="btn btn-secondary">
+          Gerar Array Ordenado
+        </button>
+        <button (click)="executarBusca()" class="btn btn-primary">
+          Executar Busca
+        </button>
+      </div>
+    </div>
+
+    <!-- Informações do Algoritmo -->
+    <div class="algorithm-info">
+      <div class="info-card">
+        <h3>{{ getDescricaoAlgoritmo(algoritmoSelecionado) }}</h3>
+        <p class="description">{{ getDescricao(algoritmoSelecionado) }}</p>
+        <div class="complexity">
+          <span class="label">Complexidade:</span>
+          <span class="value">{{ getComplexidade(algoritmoSelecionado) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Array Visual -->
+    <div class="array-section">
+      <div class="array-card">
+        <h3>Array Ordenado</h3>
+        <div class="array-display">
+          <span 
+            *ngFor="let item of getArrayComHighlight()" 
+            class="array-item"
+            [class.found]="item.destacado"
+          >
+            {{ item.valor }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result-section" *ngIf="resultado">
+      <div class="result-card" [class.success]="indiceEncontrado !== -1" [class.error]="indiceEncontrado === -1">
+        <h3>Resultado da Busca</h3>
+        <p class="result-text">{{ resultado }}</p>
+      </div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="stats-section" *ngIf="iteracoes > 0">
+      <div class="stat-card">
+        <div class="stat-label">Tempo de Execução</div>
+        <div class="stat-value">{{ tempoExecucao.toFixed(4) }} ms</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-label">Iterações/Comparações</div>
+        <div class="stat-value">{{ iteracoes }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-label">Tamanho do Array</div>
+        <div class="stat-value">{{ arrayOrdenado.length }}</div>
+      </div>
+    </div>
+
+    <!-- Explicação Detalhada -->
+    <div class="explanation-section">
+      <h2>Conceitos Importantes</h2>
+      
+      <div class="concept-card">
+        <h3>Busca Linear vs Busca Binária</h3>
+        <p><strong>Busca Linear:</strong> Simples, funciona em qualquer array, mas lenta para grandes conjuntos (O(n)).</p>
+        <p><strong>Busca Binária:</strong> Muito mais rápida para arrays ordenados (O(log n)), mas requer ordenação prévia.</p>
+      </div>
+      
+      <div class="concept-card">
+        <h3>Quando usar cada algoritmo</h3>
+        <ul>
+          <li><strong>Busca Linear:</strong> Arrays pequenos, não ordenados, ou quando você precisa do primeiro elemento que satisfaz uma condição</li>
+          <li><strong>Busca Binária:</strong> Arrays grandes e ordenados, quando performance é crítica</li>
+          <li><strong>Jump Search:</strong> Arrays ordenados quando você quer um compromisso entre binária e linear</li>
+        </ul>
+      </div>
+      
+      <div class="concept-card">
+        <h3>Comparação de Performance</h3>
+        <p>Para um array de 1.000.000 elementos:</p>
+        <ul>
+          <li>Busca Linear: até 1.000.000 comparações no pior caso</li>
+          <li>Busca Binária: ~20 comparações no pior caso</li>
+          <li>Jump Search: ~1.000 comparações no pior caso</li>
+        </ul>
+      </div>
+      
+      <div class="concept-card">
+        <h3>Pré-requisitos</h3>
+        <ul>
+          <li><strong>Busca Linear:</strong> Nenhum (funciona em qualquer array)</li>
+          <li><strong>Busca Binária:</strong> Array deve estar ordenado</li>
+          <li><strong>Jump Search:</strong> Array deve estar ordenado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="nav-link nav-back">
+      ← Anterior: Algoritmos de Ordenação
+    </a>
+    <a routerLink="/modulo-02-typescript" class="nav-link">
+      Próximo: Módulo 2 - TypeScript →
+    </a>
+  </div>
+</div>

@@ -1,0 +1,224 @@
+<div class="poo-typescript-container">
+  <div class="header">
+    <h1>Módulo 2: Programação Orientada a Objetos</h1>
+    <p class="subtitle">TypeScript e JavaScript Moderno - POO em TypeScript</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Herança -->
+    <div class="card">
+      <h2>Herança</h2>
+      <p class="description">Classes podem herdar propriedades e métodos de outras classes</p>
+      
+      <div class="code-example">
+        <pre><code>class Cachorro extends Animal {{ '{' }}
+  emitirSom(): string {{ '{' }}
+    return 'Au au!';
+  {{ '}' }}
+{{ '}' }}</code></pre>
+      </div>
+      
+      <div class="object-display">
+        <h4>Objetos Criados:</h4>
+        <div class="object-item">
+          <strong>Cachorro:</strong> {{ cachorro.informacao() }}
+        </div>
+        <div class="object-item">
+          <strong>Gato:</strong> {{ gato.informacao() }}
+        </div>
+      </div>
+      
+      <button (click)="mostrarHeranca()" class="btn">Demonstrar Herança</button>
+      
+      <div class="results" *ngIf="resultadosHeranca.length > 0">
+        <ul>
+          <li *ngFor="let resultado of resultadosHeranca">{{ resultado }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Interfaces -->
+    <div class="card">
+      <h2>Interfaces</h2>
+      <p class="description">Definem contratos que classes devem implementar</p>
+      
+      <div class="code-example">
+        <pre><code>interface Veiculo {{ '{' }}
+  marca: string;
+  modelo: string;
+  ligar(): void;
+{{ '}' }}</code></pre>
+      </div>
+      
+      <div class="object-display">
+        <h4>Objeto Criado:</h4>
+        <div class="object-item">
+          <strong>Carro:</strong> {{ carro.marca }} {{ carro.modelo }} ({{ carro.ano }})
+        </div>
+      </div>
+      
+      <button (click)="mostrarInterface()" class="btn">Demonstrar Interface</button>
+      
+      <div class="results" *ngIf="resultadosInterface.length > 0">
+        <ul>
+          <li *ngFor="let resultado of resultadosInterface">{{ resultado }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Classes Abstratas -->
+    <div class="card">
+      <h2>Classes Abstratas</h2>
+      <p class="description">Classes base que não podem ser instanciadas diretamente</p>
+      
+      <div class="code-example">
+        <pre><code>abstract class FormaGeometrica {{ '{' }}
+  abstract calcularArea(): number;
+{{ '}' }}</code></pre>
+      </div>
+      
+      <div class="object-display">
+        <h4>Objetos Criados:</h4>
+        <div class="object-item">
+          <strong>Retângulo:</strong> {{ retangulo.informacao() }}
+        </div>
+        <div class="object-item">
+          <strong>Círculo:</strong> {{ circulo.informacao() }}
+        </div>
+      </div>
+      
+      <button (click)="mostrarAbstrata()" class="btn">Demonstrar Abstrata</button>
+      
+      <div class="results" *ngIf="resultadosAbstrata.length > 0">
+        <ul>
+          <li *ngFor="let resultado of resultadosAbstrata">{{ resultado }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Encapsulamento -->
+    <div class="card">
+      <h2>Encapsulamento</h2>
+      <p class="description">Proteção de dados internos da classe</p>
+      
+      <div class="code-example">
+        <pre><code>private contador: number = 0;
+
+incrementar(): void {{ '{' }}
+  this.contador++;
+{{ '}' }}</code></pre>
+      </div>
+      
+      <button (click)="mostrarEncapsulamento()" class="btn">Demonstrar Encapsulamento</button>
+      
+      <div class="results" *ngIf="resultadosEncapsulamento.length > 0">
+        <ul>
+          <li *ngFor="let resultado of resultadosEncapsulamento">{{ resultado }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Getters e Setters -->
+    <div class="card">
+      <h2>Getters e Setters</h2>
+      <p class="description">Controle de acesso e validação de propriedades</p>
+      
+      <div class="code-example">
+        <pre><code>get preco(): number {{ '{' }}
+  return this._preco;
+{{ '}' }}
+
+set preco(valor: number) {{ '{' }}
+  if (valor >= 0) {{ '{' }}
+    this._preco = valor;
+  {{ '}' }}
+{{ '}' }}</code></pre>
+      </div>
+      
+      <button (click)="mostrarGettersSetters()" class="btn">Demonstrar Getters/Setters</button>
+      
+      <div class="results" *ngIf="resultadosGettersSetters.length > 0">
+        <ul>
+          <li *ngFor="let resultado of resultadosGettersSetters">{{ resultado }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conceitos POO -->
+  <div class="concepts-section">
+    <h2>Pilares da POO</h2>
+    
+    <div class="concept-card">
+      <h3>1. Herança</h3>
+      <p>Mecanismo que permite que uma classe derive de outra, herdando suas propriedades e métodos. Promove reutilização de código e estabelece relacionamentos "é-um".</p>
+      <div class="example">
+        <strong>Exemplo:</strong> Cachorro <code>extends</code> Animal
+      </div>
+    </div>
+    
+    <div class="concept-card">
+      <h3>2. Encapsulamento</h3>
+      <p>Oculta detalhes internos de implementação e expõe apenas o necessário. Protege o estado interno do objeto e controla o acesso através de métodos públicos.</p>
+      <div class="example">
+        <strong>Exemplo:</strong> Propriedades <code>private</code> com métodos <code>public</code>
+      </div>
+    </div>
+    
+    <div class="concept-card">
+      <h3>3. Polimorfismo</h3>
+      <p>Permite que objetos de diferentes tipos sejam tratados de forma uniforme. O mesmo método pode ter comportamentos diferentes em classes diferentes.</p>
+      <div class="example">
+        <strong>Exemplo:</strong> <code>animal.emitirSom()</code> retorna 'Au au!' para Cachorro e 'Miau!' para Gato
+      </div>
+    </div>
+    
+    <div class="concept-card">
+      <h3>4. Abstração</h3>
+      <p>Representa conceitos complexos simplificando-os. Classes abstratas e interfaces definem o comportamento sem implementação detalhada.</p>
+      <div class="example">
+        <strong>Exemplo:</strong> <code>abstract class FormaGeometrica</code> define <code>calcularArea()</code> sem implementação
+      </div>
+    </div>
+  </div>
+
+  <!-- Boas Práticas -->
+  <div class="best-practices-section">
+    <h2>Boas Práticas em POO</h2>
+    
+    <div class="practice-list">
+      <div class="practice-item">
+        <h4>✓ Princípio SOLID</h4>
+        <p>Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Composição sobre Herança</h4>
+        <p>Preferir composição quando possível para evitar hierarquias complexas</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Imutabilidade</h4>
+        <p>Preferir objetos imutáveis quando possível para evitar efeitos colaterais</p>
+      </div>
+      
+      <div class="practice-item">
+        <h4>✓ Injeção de Dependência</h4>
+        <p>Injetar dependências em vez de criá-las dentro da classe</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-section">
+    <button (click)="limparResultados()" class="btn btn-secondary">Limpar Todos os Resultados</button>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-02-typescript/tipagem-avancada" class="nav-link nav-back">
+      ← Anterior: Tipagem Avançada
+    </a>
+    <a routerLink="/modulo-03-fundamentos-angular" class="nav-link">
+      Próximo: Módulo 3 - Fundamentos Angular →
+    </a>
+  </div>
+</div>

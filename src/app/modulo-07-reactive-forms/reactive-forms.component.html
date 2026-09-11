@@ -1,0 +1,209 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 07</span>
+      <span class="badge badge-success">Intermediário</span>
+    </div>
+    <h1>Formulários Reativos (Reactive Forms)</h1>
+    <p class="subtitle">FormGroup, FormControl, FormArray, validações síncronas/customizadas e controle dinâmico de estado</p>
+  </div>
+
+  <div *ngIf="submetidoComSucesso" class="alert alert-success">
+    🎉 <strong>Formulário validado e enviado com sucesso!</strong> Veja os dados serializados no painel ao lado.
+  </div>
+
+  <div class="grid-2">
+    <!-- Painel do Formulário -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>Formulário de Cadastro de Desenvolvedor</h3>
+        <span class="badge" [ngClass]="cadastroForm.valid ? 'badge-success' : 'badge-warning'">
+          Status: {{ cadastroForm.status }}
+        </span>
+      </div>
+
+      <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form-container">
+        <!-- Nome Completo -->
+        <div class="form-group">
+          <label for="nome-completo">Nome Completo:</label>
+          <input 
+            id="nome-completo"
+            type="text" 
+            formControlName="nomeCompleto" 
+            placeholder="Ex: Carlos Eduardo Silva"
+            class="input"
+            [class.input-error]="isCampoInvalido('nomeCompleto')"
+          />
+          <span *ngIf="isCampoInvalido('nomeCompleto')" class="field-error">
+            O nome é obrigatório e deve ter no mínimo 4 caracteres.
+          </span>
+        </div>
+
+        <!-- E-mail -->
+        <div class="form-group">
+          <label for="user-email">E-mail Profissional:</label>
+          <input 
+            id="user-email"
+            type="email" 
+            formControlName="email" 
+            placeholder="dev@empresa.com"
+            class="input"
+            [class.input-error]="isCampoInvalido('email')"
+          />
+          <span *ngIf="isCampoInvalido('email')" class="field-error">
+            Insira um e-mail válido no formato usuario&#64;dominio.com.
+          </span>
+        </div>
+
+        <!-- Nível de Experiência -->
+        <div class="form-group">
+          <label for="nivel-exp">Nível de Experiência:</label>
+          <select id="nivel-exp" formControlName="nivelExperiencia" class="input">
+            <option value="iniciante">Júnior / Iniciante</option>
+            <option value="intermediario">Pleno / Intermediário</option>
+            <option value="avancado">Sênior / Especialista</option>
+          </select>
+        </div>
+
+        <!-- Grupo de Segurança (Senha e Confirmação com Validador Custom) -->
+        <div formGroupName="seguranca" class="nested-group">
+          <h4>Configurações de Acesso (Grupo Aninhado)</h4>
+
+          <div class="form-group">
+            <label for="user-senha">Senha:</label>
+            <input 
+              id="user-senha"
+              type="password" 
+              formControlName="senha" 
+              placeholder="Mínimo 6 caracteres"
+              class="input"
+              [class.input-error]="isCampoInvalido('seguranca.senha')"
+            />
+            <span *ngIf="isCampoInvalido('seguranca.senha')" class="field-error">
+              A senha deve ter no mínimo 6 caracteres.
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="user-confirma-senha">Confirmar Senha:</label>
+            <input 
+              id="user-confirma-senha"
+              type="password" 
+              formControlName="confirmarSenha" 
+              placeholder="Repita a mesma senha"
+              class="input"
+              [class.input-error]="cadastroForm.get('seguranca')?.hasError('senhasDiferentes') && cadastroForm.get('seguranca.confirmarSenha')?.touched"
+            />
+            <span *ngIf="cadastroForm.get('seguranca')?.hasError('senhasDiferentes') && cadastroForm.get('seguranca.confirmarSenha')?.touched" class="field-error">
+              As senhas não coincidem (Validador Customizado Ativo).
+            </span>
+          </div>
+        </div>
+
+        <!-- FormArray: Habilidades Técnicas Dinâmicas -->
+        <div class="nested-group">
+          <div class="flex-between">
+            <h4>Habilidades Técnicas (FormArray Dinâmico)</h4>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="adicionarHabilidade()">
+              + Adicionar Skill
+            </button>
+          </div>
+
+          <div formArrayName="habilidades" class="array-container">
+            <div *ngFor="let h of habilidades.controls; let i = index" class="array-item">
+              <input 
+                type="text" 
+                [formControlName]="i" 
+                placeholder="Ex: RxJS, NgRx, Jest..."
+                class="input"
+              />
+              <button 
+                type="button" 
+                class="btn btn-sm btn-danger" 
+                (click)="removerHabilidade(i)"
+                [disabled]="habilidades.length <= 1"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Termos de Uso -->
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="termosAceitos" />
+            Declaro que li e aceito os termos do programa educacional.
+          </label>
+          <span *ngIf="isCampoInvalido('termosAceitos')" class="field-error">
+            Você deve aceitar os termos para continuar.
+          </span>
+        </div>
+
+        <!-- Ações do Formulário -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="cadastroForm.invalid">
+            Salvar Dados
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetar()">
+            Limpar Formulário
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Painel de Inspeção do Estado Reativo -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>Inspetor do Reactive Form</h3>
+        <span class="badge badge-primary">Debug em Tempo Real</span>
+      </div>
+      <p class="card-desc">Veja os estados reativos do formulário atualizados a cada tecla digitada.</p>
+
+      <div class="inspector-metrics">
+        <div class="metric-card">
+          <span class="label">Status</span>
+          <strong [style.color]="cadastroForm.valid ? '#10b981' : '#f59e0b'">
+            {{ cadastroForm.status }}
+          </strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">Pristine</span>
+          <strong>{{ cadastroForm.pristine ? 'Sim' : 'Não' }}</strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">Touched</span>
+          <strong>{{ cadastroForm.touched ? 'Sim' : 'Não' }}</strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">Skills Qtd</span>
+          <strong>{{ habilidades.length }}</strong>
+        </div>
+      </div>
+
+      <div class="json-viewer">
+        <div class="json-header">cadastroForm.value:</div>
+        <pre><code>{{ cadastroForm.value | json }}</code></pre>
+      </div>
+
+      <div class="code-box mt-3">
+        <div class="json-header">Validador de Senhas Customizado:</div>
+        <pre><code>function matchPasswords(group: AbstractControl): ValidationErrors | null {{ '{' }}
+  const pass = group.get('senha')?.value;
+  const confirm = group.get('confirmarSenha')?.value;
+  return pass === confirm ? null : {{ '{' }} senhasDiferentes: true {{ '}' }};
+{{ '}' }}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-06-http-apis" class="btn btn-secondary">
+      ← Módulo 6: HTTP e APIs
+    </a>
+    <a routerLink="/modulo-08-routing" class="btn btn-primary">
+      Módulo 8: Routing e Navegação →
+    </a>
+  </div>
+</div>

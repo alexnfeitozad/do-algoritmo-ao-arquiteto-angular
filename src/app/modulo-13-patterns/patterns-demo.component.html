@@ -1,0 +1,119 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 13</span>
+      <span class="badge badge-warning">Avançado</span>
+    </div>
+    <h1>Design Patterns & Boas Práticas em Angular</h1>
+    <p class="subtitle">Princípios SOLID, Padrões GoF (Strategy, Singleton, Observer, Factory) e Clean Architecture</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- Painel 1: Strategy Pattern Interativo -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Padrão GoF: Strategy Pattern</h3>
+        <span class="badge badge-primary">Comportamento Dinâmico</span>
+      </div>
+      <p class="card-desc">Permite intercambiar algoritmos de negócio em tempo de execução sem violar o princípio Open/Closed (OCP).</p>
+
+      <div class="payment-setup">
+        <label>Valor da Transação:</label>
+        <div class="input-currency">
+          <span>R$</span>
+          <input type="number" [(ngModel)]="valorCompra" class="input" min="10" step="10" />
+        </div>
+      </div>
+
+      <div class="strategy-options mt-3">
+        <label>Selecione a Estratégia de Pagamento:</label>
+        <div class="strategy-buttons">
+          <button 
+            *ngFor="let est of estrategias" 
+            class="strategy-btn"
+            [class.active]="estrategiaAtual().nome === est.nome"
+            (click)="selecionarEstrategia(est)"
+          >
+            <span class="btn-icon">{{ est.icone }}</span>
+            <span class="btn-label">{{ est.nome }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="action-row mt-3">
+        <button class="btn btn-primary" (click)="processarPagamento()">
+          Executar Pagamento com {{ estrategiaAtual().nome }}
+        </button>
+      </div>
+
+      <div *ngIf="resultadoProcessamento()" class="alert alert-success mt-3">
+        {{ resultadoProcessamento() }}
+      </div>
+    </div>
+
+    <!-- Painel 2: Princípios SOLID no Angular -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Princípios SOLID Aplicados ao Angular</h3>
+        <span class="badge badge-success">Clean Code</span>
+      </div>
+
+      <div class="solid-list">
+        <div class="solid-item">
+          <strong>S - Single Responsibility:</strong>
+          <p>Componentes devem cuidar exclusivamente de renderização e estado de tela; regras de negócio e chamadas HTTP pertencem aos Services.</p>
+        </div>
+
+        <div class="solid-item">
+          <strong>O - Open / Closed Principle:</strong>
+          <p>Entidades abertas para extensão e fechadas para modificação (ex: criação de novas diretivas e strategies sem alterar código existente).</p>
+        </div>
+
+        <div class="solid-item">
+          <strong>L - Liskov Substitution Principle:</strong>
+          <p>Subclasses ou implementações de interfaces (como nossos métodos de pagamento) podem ser usadas indistintamente pelo chamador.</p>
+        </div>
+
+        <div class="solid-item">
+          <strong>I - Interface Segregation:</strong>
+          <p>Criar interfaces pequenas e específicas ao invés de contratos gigantescos que obrigam implementações vazias.</p>
+        </div>
+
+        <div class="solid-item">
+          <strong>D - Dependency Inversion Principle:</strong>
+          <p>O coração do Angular: módulos de alto nível não criam instâncias, mas recebem abstrações injetadas via DI.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel 3: Clean Architecture em Projetos Angular -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>3. Estrutura de Pastas Recomendada (Clean Architecture)</h3>
+      <span class="badge badge-neutral">Folder Architecture</span>
+    </div>
+    <p class="card-desc">Divisão canônica adotada por equipes enterprise em Angular moderno:</p>
+
+    <div class="code-box">
+      <pre><code>src/app/
+├── core/             # Singletons, Guards globais, Interceptors HTTP, Auth
+├── shared/           # Componentes reutilizáveis (botões, cards, modais), Pipes, Diretivas
+├── features/         # Módulos de domínio da aplicação carregados via Lazy Loading
+│   ├── dashboard/
+│   ├── cursos/
+│   └── checkout/
+└── models/           # Interfaces TypeScript puras e tipos de domínio</code></pre>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-12-performance" class="btn btn-secondary">
+      ← Módulo 12: Performance
+    </a>
+    <a routerLink="/modulo-14-projeto-final" class="btn btn-primary">
+      Módulo 14: Projeto Final Integrador →
+    </a>
+  </div>
+</div>

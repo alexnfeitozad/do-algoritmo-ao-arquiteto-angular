@@ -1,0 +1,176 @@
+<div class="service-exemplo-container">
+  <div class="header">
+    <h1>Services e Dependency Injection</h1>
+    <p class="subtitle">Módulo 5: Services e Injeção de Dependência</p>
+  </div>
+
+  <!-- Estatísticas -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-label">Total de Registros</div>
+      <div class="stat-value">{{ estatisticas.total }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Média de Idade</div>
+      <div class="stat-value">{{ estatisticas.mediaIdade }} anos</div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <div class="controls-section">
+    <button (click)="mostrarFormularioAdicao()" class="btn btn-primary" *ngIf="!mostrandoFormulario">
+      + Adicionar Novo
+    </button>
+    
+    <div class="search-box" *ngIf="!mostrandoFormulario">
+      <input 
+        [(ngModel)]="termoBusca" 
+        (keyup.enter)="buscar()"
+        placeholder="Buscar por nome ou email..."
+        class="input"
+      >
+      <button (click)="buscar()" class="btn">Buscar</button>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="form-section" *ngIf="mostrandoFormulario">
+    <div class="form-card">
+      <h2>{{ editando ? 'Editar Registro' : 'Novo Registro' }}</h2>
+      
+      <form (ngSubmit)="editando ? atualizarDado() : adicionarDado()">
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input 
+            id="nome"
+            [(ngModel)]="novoDado.nome" 
+            name="nome"
+            required
+            class="input"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            id="email"
+            [(ngModel)]="novoDado.email" 
+            name="email"
+            type="email"
+            required
+            class="input"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="idade">Idade:</label>
+          <input 
+            id="idade"
+            [(ngModel)]="novoDado.idade" 
+            name="idade"
+            type="number"
+            min="1"
+            max="120"
+            class="input"
+          >
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            {{ editando ? 'Atualizar' : 'Adicionar' }}
+          </button>
+          <button type="button" (click)="cancelarFormulario()" class="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Resultados da Busca -->
+  <div class="results-section" *ngIf="resultadosBusca.length > 0">
+    <h2>Resultados da Busca</h2>
+    <div class="data-list">
+      <div class="data-item" *ngFor="let dado of resultadosBusca">
+        <div class="data-info">
+          <strong>{{ dado.nome }}</strong>
+          <span>{{ dado.email }}</span>
+          <span>{{ dado.idade }} anos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Dados -->
+  <div class="data-section" *ngIf="!mostrandoFormulario && resultadosBusca.length === 0">
+    <h2>Registros ({{ totalDados }})</h2>
+    
+    <div class="data-list" *ngIf="dados.length > 0; else noData">
+      <div class="data-item" *ngFor="let dado of dados">
+        <div class="data-info">
+          <strong>{{ dado.nome }}</strong>
+          <span>{{ dado.email }}</span>
+          <span>{{ dado.idade }} anos</span>
+        </div>
+        <div class="data-actions">
+          <button (click)="selecionarDado(dado.id)" class="btn btn-small">Editar</button>
+          <button (click)="removerDado(dado.id)" class="btn btn-small btn-danger">Remover</button>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noData>
+      <div class="no-data">
+        <p>Nenhum registro encontrado.</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Explicação -->
+  <div class="explanation-section">
+    <h2>Conceitos de Services e DI</h2>
+    
+    <div class="concept-card">
+      <h3>Service</h3>
+      <p>Classe com @Injectable que contém lógica de negócio e pode ser compartilhada entre componentes.</p>
+      <pre><code>@Injectable(&#123;
+  providedIn: 'root'
+&#125;)
+export class DadosService &#123;
+  constructor() &#123; &#125;
+&#125;</code></pre>
+    </div>
+    
+    <div class="concept-card">
+      <h3>Dependency Injection (DI)</h3>
+      <p>Padrão onde dependências são injetadas no construtor em vez de serem criadas manualmente.</p>
+      <pre><code>constructor(private dadosService: DadosService) &#123;
+  // Service já está disponível
+&#125;</code></pre>
+    </div>
+    
+    <div class="concept-card">
+      <h3>providedIn: 'root'</h3>
+      <p>Torna o service disponível em toda a aplicação como singleton (uma única instância).</p>
+    </div>
+    
+    <div class="concept-card">
+      <h3>Vantagens do DI</h3>
+      <ul>
+        <li>Desacoplamento de componentes</li>
+        <li>Facilita testes (mock services)</li>
+        <li>Reutilização de código</li>
+        <li>Gerenciamento automático de lifecycle</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-04-componentes-diretivas" class="nav-link nav-back">
+      ← Anterior: Módulo 4 - Componentes e Diretivas
+    </a>
+    <a routerLink="/modulo-06-http-apis" class="nav-link">
+      Próximo: Módulo 6 - HTTP e APIs →
+    </a>
+  </div>
+</div>

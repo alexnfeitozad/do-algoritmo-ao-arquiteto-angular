@@ -1,0 +1,165 @@
+<div class="estruturas-dados-container">
+  <div class="header">
+    <h1>Módulo 1: Estruturas de Dados</h1>
+    <p class="subtitle">Fundamentos de Programação - Algoritmos e Estruturas de Dados</p>
+  </div>
+
+  <div class="content-grid">
+    <!-- Arrays -->
+    <div class="card">
+      <h2>Arrays (Vetores)</h2>
+      <p class="description">Coleção ordenada de elementos acessível por índice</p>
+      
+      <div class="code-example">
+        <h3>Exemplo:</h3>
+        <pre><code>numeros: {{ numeros | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações comuns:</h4>
+        <ul>
+          <li><code>push()</code> - Adiciona ao final</li>
+          <li><code>pop()</code> - Remove do final</li>
+          <li><code>shift()</code> - Remove do início</li>
+          <li><code>unshift()</code> - Adiciona no início</li>
+          <li><code>sort()</code> - Ordena elementos</li>
+          <li><code>filter()</code> - Filtra elementos</li>
+          <li><code>map()</code> - Transforma elementos</li>
+          <li><code>reduce()</code> - Reduz a um valor</li>
+        </ul>
+      </div>
+      
+      <button (click)="manipularArrays()" class="btn">Testar Métodos de Array</button>
+    </div>
+
+    <!-- Objetos -->
+    <div class="card">
+      <h2>Objetos</h2>
+      <p class="description">Estrutura de dados chave-valor para representar entidades</p>
+      
+      <div class="code-example">
+        <h3>Exemplo:</h3>
+        <pre><code>pessoa: {{ pessoa | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações comuns:</h4>
+        <ul>
+          <li><code>objeto.chave</code> - Acessar propriedade</li>
+          <li><code>objeto['chave']</code> - Acessar dinamicamente</li>
+          <li><code>Object.keys()</code> - Obter chaves</li>
+          <li><code>Object.values()</code> - Obter valores</li>
+          <li><code>Object.entries()</code> - Obter pares chave-valor</li>
+          <li><code>spread (...)</code> - Clonar/merge</li>
+        </ul>
+      </div>
+      
+      <button (click)="manipularObjetos()" class="btn">Testar Métodos de Objeto</button>
+    </div>
+
+    <!-- Sets -->
+    <div class="card">
+      <h2>Sets</h2>
+      <p class="description">Coleção de valores únicos, sem duplicatas</p>
+      
+      <div class="code-example">
+        <h3>Exemplo:</h3>
+        <pre><code>numerosUnicos: {{ numerosUnicos | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações comuns:</h4>
+        <ul>
+          <li><code>add()</code> - Adicionar valor</li>
+          <li><code>delete()</code> - Remover valor</li>
+          <li><code>has()</code> - Verificar existência</li>
+          <li><code>clear()</code> - Limpar set</li>
+          <li><code>size</code> - Tamanho do set</li>
+        </ul>
+      </div>
+      
+      <button (click)="manipularSets()" class="btn">Testar Métodos de Set</button>
+    </div>
+
+    <!-- Maps -->
+    <div class="card">
+      <h2>Maps</h2>
+      <p class="description">Estrutura chave-valor com qualquer tipo de chave</p>
+      
+      <div class="code-example">
+        <h3>Exemplo:</h3>
+        <pre><code>mapaPessoas: {{ mapaPessoas | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações comuns:</h4>
+        <ul>
+          <li><code>set(chave, valor)</code> - Adicionar/alterar</li>
+          <li><code>get(chave)</code> - Obter valor</li>
+          <li><code>has(chave)</code> - Verificar chave</li>
+          <li><code>delete(chave)</code> - Remover chave</li>
+          <li><code>clear()</code> - Limpar map</li>
+          <li><code>size</code> - Tamanho do map</li>
+        </ul>
+      </div>
+      
+      <button (click)="manipularMaps()" class="btn">Testar Métodos de Map</button>
+    </div>
+
+    <!-- Stack (Pilha) -->
+    <div class="card">
+      <h2>Stack (Pilha)</h2>
+      <p class="description">LIFO - Last In, First Out (último a entrar, primeiro a sair)</p>
+      
+      <div class="code-example">
+        <h3>Estado atual:</h3>
+        <pre><code>pilha: {{ pilha | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações:</h4>
+        <ul>
+          <li><code>push()</code> - Empilhar (adicionar ao topo)</li>
+          <li><code>pop()</code> - Desempilhar (remover do topo)</li>
+        </ul>
+      </div>
+      
+      <div class="controls">
+        <input type="number" [(ngModel)]="novoValorPilha" placeholder="Valor" class="input">
+        <button (click)="adicionarPilha()" class="btn">Empilhar</button>
+        <button (click)="removerPilha()" class="btn btn-danger">Desempilhar</button>
+      </div>
+    </div>
+
+    <!-- Queue (Fila) -->
+    <div class="card">
+      <h2>Queue (Fila)</h2>
+      <p class="description">FIFO - First In, First Out (primeiro a entrar, primeiro a sair)</p>
+      
+      <div class="code-example">
+        <h3>Estado atual:</h3>
+        <pre><code>fila: {{ fila | json }}</code></pre>
+      </div>
+      
+      <div class="operations">
+        <h4>Operações:</h4>
+        <ul>
+          <li><code>push()</code> - Enfileirar (adicionar ao final)</li>
+          <li><code>shift()</code> - Desenfileirar (remover do início)</li>
+        </ul>
+      </div>
+      
+      <div class="controls">
+        <input type="number" [(ngModel)]="novoValorFila" placeholder="Valor" class="input">
+        <button (click)="adicionarFila()" class="btn">Enfileirar</button>
+        <button (click)="removerFila()" class="btn btn-danger">Desenfileirar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="nav-link">
+      Próximo: Algoritmos de Ordenação →
+    </a>
+  </div>
+</div>

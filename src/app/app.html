@@ -1,0 +1,96 @@
+<div class="app-container">
+  <!-- Mobile Header Bar -->
+  <header class="mobile-topbar">
+    <button class="mobile-toggle-btn" (click)="toggleMobileMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="mobile-brand">
+      <span class="brand-logo">🏛️</span>
+      <span class="brand-title">Do Algoritmo ao Arquiteto</span>
+    </div>
+    <span class="badge badge-primary">14 Módulos</span>
+  </header>
+
+  <!-- Sidebar Overlay for mobile -->
+  <div 
+    class="sidebar-backdrop" 
+    [class.show]="mobileMenuOpen()" 
+    (click)="closeMobileMenu()"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="mobileMenuOpen()">
+    <div class="sidebar-header">
+      <div class="brand-badge">
+        <span class="logo-icon">🏛️</span>
+        <div>
+          <h1>Do Algoritmo ao Arquiteto</h1>
+          <p class="subtitle">Engenharia Frontend com Angular</p>
+        </div>
+      </div>
+      <div class="status-chip">
+        <span class="chip-dot"></span>
+        <span>14 Módulos Prontos</span>
+      </div>
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-container">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          [ngModel]="searchTerm()" 
+          (ngModelChange)="searchTerm.set($event)"
+          placeholder="Buscar módulo ou tópico..."
+          class="sidebar-search"
+        />
+        <button 
+          *ngIf="searchTerm()" 
+          (click)="searchTerm.set('')" 
+          class="clear-search-btn"
+          aria-label="Limpar busca"
+        >×</button>
+      </div>
+    </div>
+    
+    <!-- Navigation List -->
+    <nav class="sidebar-nav">
+      <div *ngIf="filteredModules().length === 0" class="empty-search">
+        <p>Nenhum módulo encontrado para "{{ searchTerm() }}"</p>
+      </div>
+
+      <a 
+        *ngFor="let module of filteredModules()" 
+        [routerLink]="module.id" 
+        routerLinkActive="active"
+        class="nav-link"
+        (click)="closeMobileMenu()"
+      >
+        <span class="nav-icon">{{ module.icon }}</span>
+        <div class="nav-info">
+          <span class="nav-title">{{ module.title }}</span>
+          <span class="nav-desc">{{ module.description }}</span>
+        </div>
+        <span class="nav-level" [attr.data-level]="module.level">{{ module.level }}</span>
+      </a>
+    </nav>
+    
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="footer-info">
+        <span class="tech-pill">Angular 19+</span>
+        <span class="tech-pill">Signals</span>
+        <span class="tech-pill">Standalone</span>
+      </div>
+      <p class="footer-copy">Ambiente Educacional Completo</p>
+    </div>
+  </aside>
+  
+  <!-- Main Content View -->
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

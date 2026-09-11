@@ -1,0 +1,129 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="badge-container">
+      <span class="badge badge-primary">Módulo 08</span>
+      <span class="badge badge-success">Intermediário</span>
+    </div>
+    <h1>Routing e Navegação Avançada</h1>
+    <p class="subtitle">Configuração de rotas, Route Guards funcionais (CanActivate/CanDeactivate), QueryParams e Lazy Loading</p>
+  </div>
+
+  <div *ngIf="guardFeedback" class="alert" [ngClass]="guardFeedback.startsWith('❌') ? 'alert-danger' : 'alert-success'">
+    {{ guardFeedback }}
+  </div>
+
+  <div class="grid-2">
+    <!-- Painel 1: Parâmetros e Navegação Imperativa -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>1. Parâmetros de Rota & QueryParams</h3>
+        <span class="badge badge-primary">Router.navigate</span>
+      </div>
+      <p class="card-desc">Simule a navegação programática alterando os parâmetros da URL em tempo real.</p>
+
+      <div class="params-controls">
+        <div class="form-group">
+          <label>ID do Artigo (:id):</label>
+          <input type="number" [(ngModel)]="artigoId" class="input" min="1" />
+        </div>
+
+        <div class="form-group">
+          <label>Categoria (filtro):</label>
+          <select [(ngModel)]="filtroSelecionado" class="input">
+            <option value="angular">Angular</option>
+            <option value="typescript">TypeScript</option>
+            <option value="rxjs">RxJS</option>
+            <option value="signals">Signals</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Página (paginação):</label>
+          <input type="number" [(ngModel)]="paginaAtual" class="input" min="1" max="50" />
+        </div>
+
+        <button class="btn btn-primary" (click)="navegarComParametros()">
+          🧭 Aplicar Parâmetros na URL
+        </button>
+      </div>
+
+      <div class="current-url-box mt-3">
+        <span class="url-label">QueryParams Atuais Capturados (ActivatedRoute):</span>
+        <pre><code>{{ queryParamsAtuais | json }}</code></pre>
+      </div>
+    </div>
+
+    <!-- Painel 2: Route Guards (CanActivate & CanDeactivate) -->
+    <div class="glass-card">
+      <div class="card-title-row">
+        <h3>2. Route Guards Funcionais</h3>
+        <span class="badge badge-warning">CanActivate / CanDeactivate</span>
+      </div>
+      <p class="card-desc">Guards protegem rotas confidenciais e impedem perda de dados em formulários pendentes.</p>
+
+      <!-- CanActivate Demo -->
+      <div class="guard-section">
+        <h4>A. CanActivate (Proteção de Rota)</h4>
+        <div class="toggle-auth">
+          <label class="switch-label">
+            <input type="checkbox" [(ngModel)]="usuarioAutenticado" />
+            <span>Simular Usuário Autenticado: <strong>{{ usuarioAutenticado ? 'Logado' : 'Deslogado' }}</strong></span>
+          </label>
+          <button class="btn btn-sm btn-secondary" (click)="testarGuardCanActivate()">
+            Testar Acesso à Rota /admin
+          </button>
+        </div>
+      </div>
+
+      <!-- CanDeactivate Demo -->
+      <div class="guard-section mt-3">
+        <h4>B. CanDeactivate (Prevenção de Saída com Alterações)</h4>
+        <p class="subtext">Digite algo no rascunho abaixo para acionar a flag de alterações pendentes:</p>
+        <textarea 
+          [ngModel]="conteudoRascunho" 
+          (ngModelChange)="onConteudoChange($event)"
+          rows="2" 
+          placeholder="Digite um rascunho não salvo..."
+          class="input"
+        ></textarea>
+
+        <div class="draft-actions">
+          <span class="badge" [ngClass]="temAlteracoesNaoSalvas ? 'badge-warning' : 'badge-success'">
+            {{ temAlteracoesNaoSalvas ? '⚠️ Alterações Não Salvas' : '✅ Seguro para Navegar' }}
+          </span>
+          <button class="btn btn-sm btn-success" (click)="salvarRascunho()" [disabled]="!temAlteracoesNaoSalvas">
+            Salvar Rascunho
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lazy Loading Explanation -->
+  <div class="glass-card mt-4">
+    <div class="card-title-row">
+      <h3>3. Como funciona o Lazy Loading no Angular 19+</h3>
+      <span class="badge badge-success">Performance</span>
+    </div>
+    <p class="card-desc">Com a função <code>loadChildren</code> ou <code>loadComponent</code>, o código do módulo só é baixado pela rede no momento exato em que o usuário acessa a rota.</p>
+
+    <div class="code-box">
+      <pre><code>export const routes: Routes = [
+  {{ '{' }}
+    path: 'modulo-08-routing',
+    loadChildren: () => import('./modulo-08-routing/modulo-08-routing-module').then(m => m.Modulo08RoutingModule)
+  {{ '}' }}
+];</code></pre>
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <div class="navigation-footer">
+    <a routerLink="/modulo-07-reactive-forms" class="btn btn-secondary">
+      ← Módulo 7: Reactive Forms
+    </a>
+    <a routerLink="/modulo-09-rxjs" class="btn btn-primary">
+      Módulo 9: RxJS Reativo →
+    </a>
+  </div>
+</div>

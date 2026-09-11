@@ -1,0 +1,233 @@
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .stat-card {
+    background: #ffffff;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    box-shadow: var(--shadow-sm);
+
+    &.highlight {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--neutral-500);
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--neutral-900);
+
+      &.text-success { color: var(--success); }
+      &.text-primary { color: var(--primary); }
+    }
+  }
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0;
+  }
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--neutral-600);
+  margin-bottom: 1.25rem;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .cart-item {
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-200);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        font-size: 0.9rem;
+        color: var(--neutral-800);
+      }
+
+      .item-unit-price {
+        font-size: 0.75rem;
+        color: var(--neutral-500);
+      }
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+
+      .qty-stepper {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--neutral-300);
+        border-radius: 6px;
+        background: #ffffff;
+
+        .btn-step {
+          background: none;
+          border: none;
+          padding: 0.25rem 0.55rem;
+          cursor: pointer;
+          font-weight: 700;
+          color: var(--neutral-600);
+
+          &:hover {
+            background: var(--neutral-100);
+            color: var(--neutral-900);
+          }
+        }
+
+        .qty-value {
+          padding: 0 0.5rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+        }
+      }
+
+      .item-total {
+        font-size: 0.9rem;
+        font-weight: 700;
+        min-width: 80px;
+        text-align: right;
+        color: var(--neutral-800);
+      }
+
+      .btn-remove-item {
+        background: none;
+        border: none;
+        color: var(--danger);
+        cursor: pointer;
+        font-weight: 700;
+        padding: 0.25rem;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
+
+.coupon-box {
+  background: var(--neutral-50);
+  border: 1px dashed var(--neutral-300);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+
+  .coupon-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--neutral-700);
+    cursor: pointer;
+  }
+}
+
+.effect-terminal {
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  min-height: 140px;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  .empty-terminal {
+    color: #64748b;
+  }
+
+  .terminal-line {
+    color: #34d399;
+    line-height: 1.6;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  th {
+    background: var(--neutral-50);
+    font-weight: 700;
+    color: var(--neutral-700);
+  }
+
+  td {
+    color: var(--neutral-600);
+    line-height: 1.5;
+  }
+
+  tr:hover td {
+    background-color: var(--neutral-50);
+  }
+}
+
+.navigation-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}
