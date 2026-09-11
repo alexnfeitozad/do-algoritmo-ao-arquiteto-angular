@@ -1,165 +1,402 @@
-<div class="estruturas-dados-container">
-  <div class="header">
-    <h1>Módulo 1: Estruturas de Dados</h1>
-    <p class="subtitle">Fundamentos de Programação - Algoritmos e Estruturas de Dados</p>
-  </div>
+<div class="modulo-container">
+  <!-- Subnavigation Tabs for Modulo 01 -->
+  <nav class="sub-nav-tabs">
+    <a routerLink="/modulo-01-algoritmos" class="tab-item">
+      <span class="tab-icon">🚀</span>
+      <span>1. Lógica & Algoritmos do Zero</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">📦</span>
+      <span>2. Estruturas de Dados</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" class="tab-item">
+      <span class="tab-icon">🔍</span>
+      <span>3. Algoritmos de Busca</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="tab-item">
+      <span class="tab-icon">🔄</span>
+      <span>4. Algoritmos de Ordenação</span>
+    </a>
+  </nav>
 
-  <div class="content-grid">
-    <!-- Arrays -->
-    <div class="card">
-      <h2>Arrays (Vetores)</h2>
-      <p class="description">Coleção ordenada de elementos acessível por índice</p>
-      
-      <div class="code-example">
-        <h3>Exemplo:</h3>
-        <pre><code>numeros: {{ numeros | json }}</code></pre>
-      </div>
-      
-      <div class="operations">
-        <h4>Operações comuns:</h4>
-        <ul>
-          <li><code>push()</code> - Adiciona ao final</li>
-          <li><code>pop()</code> - Remove do final</li>
-          <li><code>shift()</code> - Remove do início</li>
-          <li><code>unshift()</code> - Adiciona no início</li>
-          <li><code>sort()</code> - Ordena elementos</li>
-          <li><code>filter()</code> - Filtra elementos</li>
-          <li><code>map()</code> - Transforma elementos</li>
-          <li><code>reduce()</code> - Reduz a um valor</li>
-        </ul>
-      </div>
-      
-      <button (click)="manipularArrays()" class="btn">Testar Métodos de Array</button>
+  <!-- Header -->
+  <header class="lesson-header">
+    <div class="lesson-badge">
+      <span>MÓDULO 01 • AULA 02</span>
+    </div>
+    <h1>Estruturas de Dados Fundamentais</h1>
+    <p class="lesson-subtitle">
+      Como os dados são organizados e distribuídos na memória. Entenda a diferença física e lógica
+      entre Arrays, Pilhas (LIFO), Filas (FIFO), Listas Encadeadas e Tabelas Hash (Sets e Maps).
+    </p>
+  </header>
+
+  <!-- =========================================
+       1. ARRAYS (VETORES)
+       ========================================= -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">📑</span>
+      <h2>1. Arrays (Vetores): Memória Contígua</h2>
     </div>
 
-    <!-- Objetos -->
-    <div class="card">
-      <h2>Objetos</h2>
-      <p class="description">Estrutura de dados chave-valor para representar entidades</p>
-      
-      <div class="code-example">
-        <h3>Exemplo:</h3>
-        <pre><code>pessoa: {{ pessoa | json }}</code></pre>
-      </div>
-      
-      <div class="operations">
-        <h4>Operações comuns:</h4>
-        <ul>
-          <li><code>objeto.chave</code> - Acessar propriedade</li>
-          <li><code>objeto['chave']</code> - Acessar dinamicamente</li>
-          <li><code>Object.keys()</code> - Obter chaves</li>
-          <li><code>Object.values()</code> - Obter valores</li>
-          <li><code>Object.entries()</code> - Obter pares chave-valor</li>
-          <li><code>spread (...)</code> - Clonar/merge</li>
-        </ul>
-      </div>
-      
-      <button (click)="manipularObjetos()" class="btn">Testar Métodos de Objeto</button>
+    <p class="paragraph">
+      Um <strong>Array</strong> é uma coleção ordenada de elementos armazenados em <strong>posições contíguas</strong>
+      (vizinhas) da memória RAM. Por isso, acessar <code>array[3]</code> é instantâneo: a CPU calcula
+      <code>endereço_inicial + (3 * tamanho_do_tipo)</code> em tempo constante <code>O(1)</code>.
+      Porém, inserir no início (<code>unshift</code>) exige empurrar todos os outros elementos para a direita: <code>O(n)</code>.
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Array na Memória -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Disposição de um Array na Memória RAM Contígua</div>
+      <svg viewBox="0 0 800 150" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Indices -->
+        <text x="80" y="25" fill="#818cf8" font-size="12" font-family="monospace">Índice [0]</text>
+        <text x="240" y="25" fill="#818cf8" font-size="12" font-family="monospace">Índice [1]</text>
+        <text x="400" y="25" fill="#818cf8" font-size="12" font-family="monospace">Índice [2]</text>
+        <text x="560" y="25" fill="#818cf8" font-size="12" font-family="monospace">Índice [3]</text>
+        <text x="720" y="25" fill="#818cf8" font-size="12" font-family="monospace">Índice [4]</text>
+
+        <!-- Slots -->
+        <rect x="20" y="35" width="130" height="70" rx="10" fill="#1b2342" stroke="#38bdf8" stroke-width="2"/>
+        <text x="85" y="77" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">10</text>
+        <text x="85" y="95" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Mem: 0x100</text>
+
+        <rect x="180" y="35" width="130" height="70" rx="10" fill="#1b2342" stroke="#38bdf8" stroke-width="2"/>
+        <text x="245" y="77" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">25</text>
+        <text x="245" y="95" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Mem: 0x104</text>
+
+        <rect x="340" y="35" width="130" height="70" rx="10" fill="#1b2342" stroke="#38bdf8" stroke-width="2"/>
+        <text x="405" y="77" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">42</text>
+        <text x="405" y="95" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Mem: 0x108</text>
+
+        <rect x="500" y="35" width="130" height="70" rx="10" fill="#1b2342" stroke="#38bdf8" stroke-width="2"/>
+        <text x="565" y="77" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">8</text>
+        <text x="565" y="95" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Mem: 0x10C</text>
+
+        <rect x="660" y="35" width="130" height="70" rx="10" fill="#1b2342" stroke="#38bdf8" stroke-width="2"/>
+        <text x="725" y="77" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">99</text>
+        <text x="725" y="95" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Mem: 0x110</text>
+      </svg>
     </div>
 
-    <!-- Sets -->
-    <div class="card">
-      <h2>Sets</h2>
-      <p class="description">Coleção de valores únicos, sem duplicatas</p>
-      
-      <div class="code-example">
-        <h3>Exemplo:</h3>
-        <pre><code>numerosUnicos: {{ numerosUnicos | json }}</code></pre>
+    <!-- Playground Prático: Array Visual -->
+    <div class="playground-card">
+      <div class="playground-header">
+        <h3>🧪 Laboratório Interativo de Arrays</h3>
+        <p>Adicione, remova ou transforme elementos e veja a estrutura reagir na tela:</p>
       </div>
-      
-      <div class="operations">
-        <h4>Operações comuns:</h4>
-        <ul>
-          <li><code>add()</code> - Adicionar valor</li>
-          <li><code>delete()</code> - Remover valor</li>
-          <li><code>has()</code> - Verificar existência</li>
-          <li><code>clear()</code> - Limpar set</li>
-          <li><code>size</code> - Tamanho do set</li>
-        </ul>
+
+      <div class="visual-elements-row">
+        <div *ngFor="let item of arrayItems(); let i = index" class="array-slot-visual">
+          <span class="slot-idx">[{{ i }}]</span>
+          <span class="slot-val">{{ item }}</span>
+        </div>
+        <div *ngIf="arrayItems().length === 0" class="empty-msg">Array Vazio</div>
       </div>
-      
-      <button (click)="manipularSets()" class="btn">Testar Métodos de Set</button>
+
+      <div class="action-toolbar">
+        <div class="input-with-actions">
+          <input type="number" [(ngModel)]="novoNumeroArray" class="input-num" placeholder="Valor" />
+          <button (click)="arrayPush()" class="btn btn-sm btn-primary">push() [Fim O(1)]</button>
+          <button (click)="arrayPop()" class="btn btn-sm btn-danger">pop() [Fim O(1)]</button>
+          <button (click)="arrayUnshift()" class="btn btn-sm btn-secondary">unshift() [Início O(n)]</button>
+          <button (click)="arrayShift()" class="btn btn-sm btn-danger">shift() [Início O(n)]</button>
+          <button (click)="arrayMapDobro()" class="btn btn-sm btn-outline">map(dobro)</button>
+          <button (click)="arrayFilterPares()" class="btn btn-sm btn-outline">filter(pares)</button>
+        </div>
+      </div>
+
+      <div class="log-display">{{ arrayLog() }}</div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       2. PILHAS (STACK - LIFO)
+       ========================================= -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🥞</span>
+      <h2>2. Pilhas (Stack): LIFO (Last In, First Out)</h2>
     </div>
 
-    <!-- Maps -->
-    <div class="card">
-      <h2>Maps</h2>
-      <p class="description">Estrutura chave-valor com qualquer tipo de chave</p>
-      
-      <div class="code-example">
-        <h3>Exemplo:</h3>
-        <pre><code>mapaPessoas: {{ mapaPessoas | json }}</code></pre>
-      </div>
-      
-      <div class="operations">
-        <h4>Operações comuns:</h4>
-        <ul>
-          <li><code>set(chave, valor)</code> - Adicionar/alterar</li>
-          <li><code>get(chave)</code> - Obter valor</li>
-          <li><code>has(chave)</code> - Verificar chave</li>
-          <li><code>delete(chave)</code> - Remover chave</li>
-          <li><code>clear()</code> - Limpar map</li>
-          <li><code>size</code> - Tamanho do map</li>
-        </ul>
-      </div>
-      
-      <button (click)="manipularMaps()" class="btn">Testar Métodos de Map</button>
+    <p class="paragraph">
+      Na <strong>Pilha</strong>, o último elemento a entrar é obrigatoriamente o primeiro a sair.
+      <strong>Exemplos no mundo real:</strong> Pilha de pratos, o botão "Voltar" do navegador, a tecla <code>Ctrl+Z</code> (Desfazer),
+      e a própria <strong>Call Stack do JavaScript</strong> que controla a ordem de execução das suas funções.
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Stack LIFO -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Operações de Push (Empilhar) e Pop (Desempilhar)</div>
+      <svg viewBox="0 0 800 160" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Tubo da Pilha -->
+        <path d="M300 20 V140 H500 V20" stroke="#818cf8" stroke-width="3" stroke-dasharray="6 6"/>
+        
+        <!-- Elemento Base -->
+        <rect x="320" y="105" width="160" height="30" rx="6" fill="#1b2342" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="400" y="125" fill="#c7d2fe" font-size="13" font-weight="bold" text-anchor="middle">Base: 10</text>
+
+        <!-- Elemento Meio -->
+        <rect x="320" y="70" width="160" height="30" rx="6" fill="#222b52" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="400" y="90" fill="#c7d2fe" font-size="13" font-weight="bold" text-anchor="middle">Meio: 20</text>
+
+        <!-- Elemento Topo -->
+        <rect x="320" y="35" width="160" height="30" rx="6" fill="#2d225a" stroke="#c084fc" stroke-width="2"/>
+        <text x="400" y="55" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle">▲ Topo: 30 (LIFO)</text>
+
+        <!-- Indicador Push -->
+        <path d="M220 50 H290" stroke="#38bdf8" stroke-width="2"/>
+        <text x="210" y="55" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="end">Push ➔ Entra no Topo</text>
+
+        <!-- Indicador Pop -->
+        <path d="M510 50 H580" stroke="#f87171" stroke-width="2"/>
+        <text x="590" y="55" fill="#f87171" font-size="12" font-weight="bold" text-anchor="start">Pop ➔ Sai do Topo</text>
+      </svg>
     </div>
 
-    <!-- Stack (Pilha) -->
-    <div class="card">
-      <h2>Stack (Pilha)</h2>
-      <p class="description">LIFO - Last In, First Out (último a entrar, primeiro a sair)</p>
-      
-      <div class="code-example">
-        <h3>Estado atual:</h3>
-        <pre><code>pilha: {{ pilha | json }}</code></pre>
+    <!-- Playground Prático: Pilha Visual -->
+    <div class="playground-card">
+      <div class="playground-header">
+        <h3>🧪 Laboratório Interativo de Pilha (LIFO)</h3>
+        <p>Empilhe e desempilhe valores. Note como o acesso ocorre sempre no topo:</p>
       </div>
-      
-      <div class="operations">
-        <h4>Operações:</h4>
-        <ul>
-          <li><code>push()</code> - Empilhar (adicionar ao topo)</li>
-          <li><code>pop()</code> - Desempilhar (remover do topo)</li>
-        </ul>
-      </div>
-      
-      <div class="controls">
-        <input type="number" [(ngModel)]="novoValorPilha" placeholder="Valor" class="input">
-        <button (click)="adicionarPilha()" class="btn">Empilhar</button>
-        <button (click)="removerPilha()" class="btn btn-danger">Desempilhar</button>
+
+      <div class="stack-interactive-container">
+        <!-- Visual Stack Container -->
+        <div class="stack-tube">
+          <div *ngIf="pilha().length === 0" class="stack-empty">Pilha Vazia</div>
+          <div *ngFor="let item of pilha().slice().reverse(); let i = index" class="stack-item" [class.is-top]="i === 0">
+            <span class="stack-val">{{ item }}</span>
+            <span *ngIf="i === 0" class="top-badge">◄ TOPO (Peek)</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="stack-controls">
+          <div class="control-row">
+            <label>Novo valor:</label>
+            <input type="number" [(ngModel)]="novoValorPilha" class="input-num" />
+          </div>
+          <button (click)="adicionarPilha()" class="btn btn-primary">Push (Empilhar)</button>
+          <button (click)="removerPilha()" class="btn btn-danger">Pop (Desempilhar)</button>
+          <div class="log-display">{{ pilhaLog() }}</div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Queue (Fila) -->
-    <div class="card">
-      <h2>Queue (Fila)</h2>
-      <p class="description">FIFO - First In, First Out (primeiro a entrar, primeiro a sair)</p>
-      
-      <div class="code-example">
-        <h3>Estado atual:</h3>
-        <pre><code>fila: {{ fila | json }}</code></pre>
+  <!-- =========================================
+       3. FILAS (QUEUE - FIFO)
+       ========================================= -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🚶‍♂️🚶‍♀️</span>
+      <h2>3. Filas (Queue): FIFO (First In, First Out)</h2>
+    </div>
+
+    <p class="paragraph">
+      Na <strong>Fila</strong>, o primeiro elemento que chega é o primeiro a ser atendido.
+      <strong>Exemplos no mundo real:</strong> Fila de banco, buffer de streaming de vídeo, fila de mensagens assíncronas
+      e a <strong>Task Queue / Event Loop</strong> dos browsers que agenda os callbacks do JavaScript.
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Queue FIFO -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Entrada no Fim (Enqueue) e Saída na Frente (Dequeue)</div>
+      <svg viewBox="0 0 800 140" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Saida (Dequeue) -->
+        <text x="60" y="75" fill="#34d399" font-size="13" font-weight="bold">⬅️ Dequeue (Frente)</text>
+
+        <!-- Itens da Fila -->
+        <rect x="200" y="45" width="100" height="50" rx="8" fill="#1b3834" stroke="#10b981" stroke-width="2"/>
+        <text x="250" y="75" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1º: Ana</text>
+
+        <rect x="320" y="45" width="100" height="50" rx="8" fill="#1e2646" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="370" y="75" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2º: Bruno</text>
+
+        <rect x="440" y="45" width="100" height="50" rx="8" fill="#1e2646" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="490" y="75" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3º: Carlos</text>
+
+        <!-- Entrada (Enqueue) -->
+        <text x="620" y="75" fill="#38bdf8" font-size="13" font-weight="bold">⬅️ Enqueue (Fim)</text>
+      </svg>
+    </div>
+
+    <!-- Playground Prático: Fila Visual -->
+    <div class="playground-card">
+      <div class="playground-header">
+        <h3>🧪 Laboratório Interativo de Fila (FIFO)</h3>
+        <p>Adicione pessoas à fila e atenda na ordem de chegada:</p>
       </div>
-      
-      <div class="operations">
-        <h4>Operações:</h4>
-        <ul>
-          <li><code>push()</code> - Enfileirar (adicionar ao final)</li>
-          <li><code>shift()</code> - Desenfileirar (remover do início)</li>
-        </ul>
+
+      <div class="queue-visual-row">
+        <div class="queue-head-tag">SAÍDA ➔</div>
+        <div *ngFor="let pessoa of fila(); let i = index" class="queue-person" [class.is-first]="i === 0">
+          <span class="person-icon">👤</span>
+          <span class="person-name">{{ pessoa }}</span>
+          <span class="person-pos">{{ i + 1 }}º da Fila</span>
+        </div>
+        <div *ngIf="fila().length === 0" class="empty-msg">Fila Vazia</div>
+        <div class="queue-tail-tag">➔ ENTRADA</div>
       </div>
-      
-      <div class="controls">
-        <input type="number" [(ngModel)]="novoValorFila" placeholder="Valor" class="input">
-        <button (click)="adicionarFila()" class="btn">Enfileirar</button>
-        <button (click)="removerFila()" class="btn btn-danger">Desenfileirar</button>
+
+      <div class="action-toolbar">
+        <input type="text" [(ngModel)]="novoNomeFila" placeholder="Nome da pessoa" class="input-text" />
+        <button (click)="adicionarFila()" class="btn btn-primary">Entrar na Fila (Enqueue)</button>
+        <button (click)="removerFila()" class="btn btn-success">Atender Próximo (Dequeue)</button>
+      </div>
+
+      <div class="log-display">{{ filaLog() }}</div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       4. LISTAS ENCADEADAS (LINKED LISTS)
+       ========================================= -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🔗</span>
+      <h2>4. Listas Encadeadas (Linked Lists)</h2>
+    </div>
+
+    <p class="paragraph">
+      Diferente de um Array, uma <strong>Lista Encadeada</strong> não exige blocos de memória vizinhos.
+      Cada elemento é um <strong>Nó (Node)</strong> espalhado livremente pela memória RAM, guardando dois itens:
+      o <strong>Valor</strong> e um <strong>Ponteiro (Next)</strong> com o endereço do próximo nó.
+      Inserir ou remover nós no meio da lista não exige empurrar os outros elementos: basta reescrever os ponteiros!
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Linked List -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Nós Conectados por Ponteiros na Memória</div>
+      <svg viewBox="0 0 800 130" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Node 1 -->
+        <rect x="50" y="35" width="130" height="60" rx="8" fill="#1b2342" stroke="#818cf8" stroke-width="2"/>
+        <text x="85" y="65" fill="#f8fafc" font-size="13" font-weight="bold">Dado A</text>
+        <line x1="120" y1="35" x2="120" y2="95" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="145" y="65" fill="#38bdf8" font-size="11" font-family="monospace">next</text>
+
+        <!-- Seta 1 -->
+        <path d="M180 65 H240" stroke="#c084fc" stroke-width="2.5"/>
+
+        <!-- Node 2 -->
+        <rect x="250" y="35" width="130" height="60" rx="8" fill="#1b2342" stroke="#818cf8" stroke-width="2"/>
+        <text x="285" y="65" fill="#f8fafc" font-size="13" font-weight="bold">Dado B</text>
+        <line x1="320" y1="35" x2="320" y2="95" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="345" y="65" fill="#38bdf8" font-size="11" font-family="monospace">next</text>
+
+        <!-- Seta 2 -->
+        <path d="M380 65 H440" stroke="#c084fc" stroke-width="2.5"/>
+
+        <!-- Node 3 -->
+        <rect x="450" y="35" width="130" height="60" rx="8" fill="#1b2342" stroke="#818cf8" stroke-width="2"/>
+        <text x="485" y="65" fill="#f8fafc" font-size="13" font-weight="bold">Dado C</text>
+        <line x1="520" y1="35" x2="520" y2="95" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="545" y="65" fill="#38bdf8" font-size="11" font-family="monospace">next</text>
+
+        <!-- Seta 3 -->
+        <path d="M580 65 H640" stroke="#c084fc" stroke-width="2.5"/>
+
+        <!-- Null -->
+        <rect x="650" y="45" width="80" height="40" rx="6" fill="#2d1d29" stroke="#ef4444" stroke-width="1.5"/>
+        <text x="690" y="70" fill="#fca5a5" font-size="13" font-family="monospace" text-anchor="middle">NULL</text>
+      </svg>
+    </div>
+
+    <!-- Playground Prático: Lista Encadeada Visual -->
+    <div class="playground-card">
+      <div class="playground-header">
+        <h3>🧪 Laboratório Interativo de Lista Encadeada</h3>
+        <p>Adicione nós e remova qualquer elo da corrente para ver a lista reencadear ponteiros:</p>
+      </div>
+
+      <div class="nodes-chain-row">
+        <ng-container *ngFor="let node of linkedList(); let isLast = last">
+          <div class="node-box">
+            <div class="node-header">Nó</div>
+            <div class="node-content">
+              <span class="node-val">{{ node.value }}</span>
+              <button (click)="removerNode(node.id)" class="node-delete-btn" title="Remover Nó">×</button>
+            </div>
+            <div class="node-pointer">next ➔</div>
+          </div>
+          <div *ngIf="!isLast" class="chain-arrow">➔</div>
+        </ng-container>
+        <div class="chain-arrow">➔</div>
+        <div class="null-terminator">null</div>
+      </div>
+
+      <div class="action-toolbar">
+        <input type="text" [(ngModel)]="novoValorNode" placeholder="Conteúdo do Nó" class="input-text" />
+        <button (click)="adicionarNode()" class="btn btn-primary">Inserir Nó Encadeado</button>
+      </div>
+
+      <div class="log-display">{{ linkedListLog() }}</div>
+    </div>
+  </section>
+
+  <!-- =========================================
+       5. SETS E MAPS (TABELAS HASH)
+       ========================================= -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">⚡</span>
+      <h2>5. Sets e Maps: Busca Instantânea O(1) e Unicidade</h2>
+    </div>
+
+    <p class="paragraph">
+      <strong>Sets</strong> são conjuntos matemáticos onde <strong>duplicatas são impossíveis</strong>.
+      <strong>Maps</strong> são dicionários que mapeiam uma Chave para um Valor. Ambos utilizam algoritmos
+      internos de <strong>Hashing</strong> para localizar qualquer registro em tempo recorde <code>O(1)</code>, sem precisar
+      percorrer o array de ponta a ponta.
+    </p>
+
+    <!-- Playground Prático: Sets e Maps -->
+    <div class="playground-grid-two">
+      <!-- Set Playground -->
+      <div class="playground-subcard">
+        <h4>🧪 Teste de Unicidade com Set</h4>
+        <p>Valores atuais no Set: <code>[ {{ uniqueSet().join(', ') }} ]</code></p>
+        
+        <div class="action-toolbar">
+          <input type="number" [(ngModel)]="novoItemSet" class="input-num" />
+          <button (click)="adicionarSet()" class="btn btn-primary">Adicionar ao Set</button>
+        </div>
+
+        <div class="feedback-box">{{ setFeedback() }}</div>
+      </div>
+
+      <!-- Map Playground -->
+      <div class="playground-subcard">
+        <h4>🧪 Dicionário com Map (Chave-Valor)</h4>
+        <div class="map-table">
+          <div *ngFor="let m of mapEntries()" class="map-row">
+            <span class="map-key">🔑 {{ m.chave }}</span>
+            <span class="map-arrow">➔</span>
+            <span class="map-val">{{ m.valor }}</span>
+          </div>
+        </div>
+
+        <div class="action-toolbar mt-2">
+          <input type="text" [(ngModel)]="novaChaveMap" placeholder="Chave (ex: user:4)" class="input-text sm" />
+          <input type="text" [(ngModel)]="novoValorMap" placeholder="Valor" class="input-text sm" />
+          <button (click)="adicionarMap()" class="btn btn-secondary">set(key, val)</button>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="navigation">
-    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="nav-link">
-      Próximo: Algoritmos de Ordenação →
+  <!-- Next Lesson Callout -->
+  <div class="next-lesson-box">
+    <div class="next-info">
+      <span class="next-tag">PRÓXIMA AULA</span>
+      <h3>Aula 3: Algoritmos de Busca</h3>
+      <p>Agora que você domina as estruturas onde os dados vivem, aprenda os algoritmos para encontrar qualquer informação: Busca Linear e Busca Binária O(log n).</p>
+    </div>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" class="btn btn-primary btn-lg">
+      Continuar para Aula 3 (Algoritmos de Busca) ➔
     </a>
   </div>
 </div>

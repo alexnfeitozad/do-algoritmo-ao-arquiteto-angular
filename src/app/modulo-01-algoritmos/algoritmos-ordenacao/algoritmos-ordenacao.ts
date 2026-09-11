@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   selector: 'app-algoritmos-ordenacao',
   styleUrl: './algoritmos-ordenacao.scss',
   templateUrl: './algoritmos-ordenacao.html',
@@ -187,5 +188,75 @@ export class AlgoritmosOrdenacao {
       quick: 'Escolhe um pivô, particiona o array em torno do pivô e ordena recursivamente as partições.'
     };
     return descricoes[algoritmo] || '';
+  }
+
+  gerarNovoArray(tamanho: number = 10): void {
+    this.gerarArrayAleatorio(tamanho);
+  }
+
+  getDescricaoAlgoritmo(algoritmo: string): string {
+    const nomes: Record<string, string> = {
+      bubble: 'Bubble Sort',
+      selection: 'Selection Sort',
+      insertion: 'Insertion Sort',
+      merge: 'Merge Sort',
+      quick: 'Quick Sort'
+    };
+    return nomes[algoritmo] || algoritmo;
+  }
+
+  getCodigoAlgoritmo(algoritmo: string): string {
+    const codigos: Record<string, string> = {
+      bubble: `function bubbleSort(arr: number[]): number[] {
+  const n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // Troca
+      }
+    }
+  }
+  return arr;
+}`,
+      selection: `function selectionSort(arr: number[]): number[] {
+  const n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    let minIdx = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIdx]) minIdx = j;
+    }
+    [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+  }
+  return arr;
+}`,
+      insertion: `function insertionSort(arr: number[]): number[] {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+}`,
+      merge: `function mergeSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr;
+  const meio = Math.floor(arr.length / 2);
+  const esquerda = mergeSort(arr.slice(0, meio));
+  const direita = mergeSort(arr.slice(meio));
+  return merge(esquerda, direita);
+}`,
+      quick: `function quickSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr;
+  const pivo = arr[Math.floor(arr.length / 2)];
+  const menores = arr.filter(x => x < pivo);
+  const iguais = arr.filter(x => x === pivo);
+  const maiores = arr.filter(x => x > pivo);
+  return [...quickSort(menores), ...iguais, ...quickSort(maiores)];
+}`
+    };
+    return codigos[algoritmo] || '// Código não disponível';
   }
 }

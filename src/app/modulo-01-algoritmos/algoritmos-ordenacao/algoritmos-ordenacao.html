@@ -1,131 +1,176 @@
-<div class="algoritmos-ordenacao-container">
-  <div class="header">
-    <h1>Módulo 1: Algoritmos de Ordenação</h1>
-    <p class="subtitle">Fundamentos de Programação - Algoritmos de Ordenação</p>
-  </div>
+<div class="modulo-container">
+  <!-- Subnavigation Tabs for Modulo 01 -->
+  <nav class="sub-nav-tabs">
+    <a routerLink="/modulo-01-algoritmos" class="tab-item">
+      <span class="tab-icon">🚀</span>
+      <span>1. Lógica & Algoritmos do Zero</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="tab-item">
+      <span class="tab-icon">📦</span>
+      <span>2. Estruturas de Dados</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" class="tab-item">
+      <span class="tab-icon">🔍</span>
+      <span>3. Algoritmos de Busca</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">🔄</span>
+      <span>4. Algoritmos de Ordenação</span>
+    </a>
+  </nav>
 
-  <div class="content">
+  <!-- Header -->
+  <header class="lesson-header">
+    <div class="lesson-badge">
+      <span>MÓDULO 01 • AULA 04</span>
+    </div>
+    <h1>Algoritmos de Ordenação (Sorting)</h1>
+    <p class="lesson-subtitle">
+      Como organizar coleções de dados de forma eficiente. Entenda por que algoritmos quadráticos O(n²) como Bubble Sort
+      são didáticos, mas a indústria corporativa exige Merge Sort e Quick Sort O(n log n).
+    </p>
+  </header>
+
+  <!-- Teoria & Diagrama Ilustrado -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🧠</span>
+      <h2>1. Comparativo: Algoritmos Quadráticos O(n²) vs Divisão e Conquista O(n log n)</h2>
+    </div>
+
+    <p class="paragraph">
+      <strong>Bubble Sort, Selection Sort e Insertion Sort</strong> funcionam comparando pares repetidamente:
+      se temos 10.000 itens, eles executam até <strong>100.000.000 de operações</strong> (<code>O(n²)</code>).
+      Em contrapartida, <strong>Merge Sort e Quick Sort</strong> utilizam a técnica de <em>Dividir e Conquistar</em>:
+      quebram o array em pedaços menores recursivamente e os intercalam já ordenados, reduzindo o esforço para
+      apenas <strong>~130.000 operações</strong> (<code>O(n log n)</code>).
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Merge Sort Divisao e Conquista -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Árvore de Divisão e Conquista do Merge Sort</div>
+      <svg viewBox="0 0 800 200" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Nivel 0: Array Inicial -->
+        <rect x="250" y="20" width="300" height="35" rx="6" fill="#1b2342" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="400" y="42" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">[ 38, 27, 43, 3, 9, 82, 10 ]</text>
+
+        <!-- Setas Nivel 0 -> Nivel 1 -->
+        <path d="M350 55 L220 85" stroke="#38bdf8" stroke-width="2"/>
+        <path d="M450 55 L580 85" stroke="#38bdf8" stroke-width="2"/>
+
+        <!-- Nivel 1: Dividir ao Meio -->
+        <rect x="120" y="85" width="200" height="30" rx="6" fill="#1b2342" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="220" y="105" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">[ 38, 27, 43, 3 ]</text>
+
+        <rect x="480" y="85" width="200" height="30" rx="6" fill="#1b2342" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="580" y="105" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">[ 9, 82, 10 ]</text>
+
+        <!-- Setas Nivel 1 -> Conquista -->
+        <path d="M220 120 L350 150" stroke="#10b981" stroke-width="2"/>
+        <path d="M580 120 L450 150" stroke="#10b981" stroke-width="2"/>
+
+        <!-- Nivel Final: Intercalado e Ordenado -->
+        <rect x="230" y="150" width="340" height="35" rx="8" fill="#162e2c" stroke="#10b981" stroke-width="2"/>
+        <text x="400" y="172" fill="#34d399" font-size="14" font-weight="bold" text-anchor="middle">✓ [ 3, 9, 10, 27, 38, 43, 82 ] (Ordenado em O(n log n))</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Simulador Interativo -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🧪</span>
+      <h2>2. Laboratório Prático de Ordenação</h2>
+    </div>
+
     <!-- Controles -->
-    <div class="controls-section">
-      <div class="control-group">
-        <label for="algoritmo">Selecione o Algoritmo:</label>
-        <select id="algoritmo" [(ngModel)]="algoritmoSelecionado" class="select">
-          <option value="bubble">Bubble Sort</option>
-          <option value="selection">Selection Sort</option>
-          <option value="insertion">Insertion Sort</option>
-          <option value="merge">Merge Sort</option>
-          <option value="quick">Quick Sort</option>
-        </select>
+    <div class="controls-card">
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Algoritmo de Ordenação:</label>
+          <select [(ngModel)]="algoritmoSelecionado" class="select-field">
+            <option value="bubble">Bubble Sort O(n²)</option>
+            <option value="selection">Selection Sort O(n²)</option>
+            <option value="insertion">Insertion Sort O(n²)</option>
+            <option value="merge">Merge Sort O(n log n)</option>
+            <option value="quick">Quick Sort O(n log n)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Tamanho do Array:</label>
+          <input type="number" [(ngModel)]="tamanhoArray" min="5" max="30" class="input-field" />
+        </div>
       </div>
-      
-      <div class="control-group">
-        <label for="tamanho">Tamanho do Array:</label>
-        <input 
-          type="number" 
-          id="tamanho" 
-          [(ngModel)]="tamanhoArray" 
-          min="5" 
-          max="100" 
-          value="11"
-          class="input"
-        >
-      </div>
-      
-      <div class="button-group">
-        <button (click)="gerarArrayAleatorio(tamanhoArray)" class="btn btn-secondary">
-          Gerar Array Aleatório
+
+      <div class="actions-row">
+        <button (click)="gerarNovoArray(tamanhoArray)" class="btn btn-secondary">
+          Embaralhar Dados 🎲
         </button>
         <button (click)="executarOrdenacao()" class="btn btn-primary">
-          Executar Ordenação
+          Executar Ordenação ⚡
         </button>
       </div>
     </div>
 
-    <!-- Informações do Algoritmo -->
-    <div class="algorithm-info">
-      <div class="info-card">
-        <h3>{{ algoritmoSelecionado | titlecase }} Sort</h3>
-        <p class="description">{{ getDescricao(algoritmoSelecionado) }}</p>
-        <div class="complexity">
-          <span class="label">Complexidade:</span>
-          <span class="value">{{ getComplexidade(algoritmoSelecionado) }}</span>
+    <!-- Comparacao Visual Antes e Depois -->
+    <div class="sorting-visual-grid">
+      <!-- Array Original -->
+      <div class="visual-panel">
+        <h4>Array Original (Desordenado):</h4>
+        <div class="bars-container">
+          <div *ngFor="let num of arrayOriginal" class="bar-item" [style.height.px]="num * 1.8">
+            <span class="bar-val">{{ num }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Array Ordenado -->
+      <div class="visual-panel">
+        <h4>Array Processado (Ordenado):</h4>
+        <div class="bars-container">
+          <div *ngFor="let num of arrayOrdenado" class="bar-item sorted" [style.height.px]="num * 1.8">
+            <span class="bar-val">{{ num }}</span>
+          </div>
+          <div *ngIf="arrayOrdenado.length === 0" class="empty-msg">
+            Clique em "Executar Ordenação" para rodar o algoritmo
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Arrays -->
-    <div class="arrays-section">
-      <div class="array-card">
-        <h3>Array Original</h3>
-        <div class="array-display">
-          <span *ngFor="let num of arrayOriginal" class="array-item">{{ num }}</span>
-        </div>
+    <!-- Metricas de Performance -->
+    <div class="metrics-row" *ngIf="arrayOrdenado.length > 0">
+      <div class="metric-pill">
+        <span class="label">Operações / Trocas:</span>
+        <span class="val">{{ iteracoes | number }}</span>
       </div>
-      
-      <div class="array-card" *ngIf="arrayOrdenado.length > 0">
-        <h3>Array Ordenado</h3>
-        <div class="array-display">
-          <span *ngFor="let num of arrayOrdenado" class="array-item sorted">{{ num }}</span>
-        </div>
+      <div class="metric-pill">
+        <span class="label">Tempo de Execução:</span>
+        <span class="val">{{ tempoExecucao }}ms</span>
       </div>
-    </div>
-
-    <!-- Estatísticas -->
-    <div class="stats-section" *ngIf="arrayOrdenado.length > 0">
-      <div class="stat-card">
-        <div class="stat-label">Tempo de Execução</div>
-        <div class="stat-value">{{ tempoExecucao.toFixed(4) }} ms</div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-label">Iterações/Comparações</div>
-        <div class="stat-value">{{ iteracoes }}</div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-label">Tamanho do Array</div>
-        <div class="stat-value">{{ arrayOriginal.length }}</div>
+      <div class="metric-pill">
+        <span class="label">Complexidade Teórica:</span>
+        <span class="val">{{ getComplexidade(algoritmoSelecionado) }}</span>
       </div>
     </div>
 
-    <!-- Explicação Detalhada -->
-    <div class="explanation-section">
-      <h2>Conceitos Importantes</h2>
-      
-      <div class="concept-card">
-        <h3>Estabilidade</h3>
-        <p>Um algoritmo de ordenação é estável se mantém a ordem relativa de elementos iguais. Merge Sort é estável, Quick Sort não é.</p>
-      </div>
-      
-      <div class="concept-card">
-        <h3>In-place vs Out-of-place</h3>
-        <p>Algoritmos in-place usam memória adicional constante O(1). Out-of-place precisam de memória extra para armazenar cópias.</p>
-      </div>
-      
-      <div class="concept-card">
-        <h3>Adaptativo</h3>
-        <p>Algoritmos adaptativos aproveitam a ordem existente nos dados. Insertion Sort é adaptativo, Bubble Sort pode ser com otimização.</p>
-      </div>
-      
-      <div class="concept-card">
-        <h3>Quando usar cada algoritmo</h3>
-        <ul>
-          <li><strong>Bubble Sort:</strong> Apenas para fins educacionais, muito lento na prática</li>
-          <li><strong>Selection Sort:</strong> Quando memória é limitada e array é pequeno</li>
-          <li><strong>Insertion Sort:</strong> Para arrays pequenos ou quase ordenados</li>
-          <li><strong>Merge Sort:</strong> Quando estabilidade é importante e performance é garantida</li>
-          <li><strong>Quick Sort:</strong> Geralmente o mais rápido na prática, bom para arrays grandes</li>
-        </ul>
-      </div>
+    <!-- Codigo Fonte do Algoritmo -->
+    <div class="code-panel">
+      <div class="code-panel-header">Implementação TypeScript: {{ getDescricaoAlgoritmo(algoritmoSelecionado) }}</div>
+      <pre><code>{{ getCodigoAlgoritmo(algoritmoSelecionado) }}</code></pre>
     </div>
-  </div>
+  </section>
 
-  <div class="navigation">
-    <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="nav-link nav-back">
-      ← Anterior: Estruturas de Dados
-    </a>
-    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" class="nav-link">
-      Próximo: Algoritmos de Busca →
+  <!-- Next Lesson Callout: Avancar para Modulo 02 -->
+  <div class="next-lesson-box">
+    <div class="next-info">
+      <span class="next-tag">PARABÉNS! VOCÊ CONCLUIU O MÓDULO 01</span>
+      <h3>Próximo: Módulo 02 - TypeScript Avançado & POO</h3>
+      <p>Com os alicerces da lógica, algoritmos e estruturas de dados consolidados, é hora de dominar a tipagem estrita de elite do TypeScript.</p>
+    </div>
+    <a routerLink="/modulo-02-typescript" class="btn btn-primary btn-lg">
+      Avançar para o Módulo 02 (TypeScript) ➔
     </a>
   </div>
 </div>

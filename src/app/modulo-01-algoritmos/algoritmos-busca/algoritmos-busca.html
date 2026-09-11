@@ -1,155 +1,161 @@
-<div class="algoritmos-busca-container">
-  <div class="header">
-    <h1>Módulo 1: Algoritmos de Busca</h1>
-    <p class="subtitle">Fundamentos de Programação - Algoritmos de Busca</p>
-  </div>
+<div class="modulo-container">
+  <!-- Subnavigation Tabs for Modulo 01 -->
+  <nav class="sub-nav-tabs">
+    <a routerLink="/modulo-01-algoritmos" class="tab-item">
+      <span class="tab-icon">🚀</span>
+      <span>1. Lógica & Algoritmos do Zero</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="tab-item">
+      <span class="tab-icon">📦</span>
+      <span>2. Estruturas de Dados</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">🔍</span>
+      <span>3. Algoritmos de Busca</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="tab-item">
+      <span class="tab-icon">🔄</span>
+      <span>4. Algoritmos de Ordenação</span>
+    </a>
+  </nav>
 
-  <div class="content">
-    <!-- Controles -->
-    <div class="controls-section">
-      <div class="control-group">
-        <label for="algoritmo">Selecione o Algoritmo:</label>
-        <select id="algoritmo" [(ngModel)]="algoritmoSelecionado" class="select">
-          <option value="linear">Busca Linear</option>
-          <option value="binaria">Busca Binária</option>
-          <option value="binaria-recursiva">Busca Binária Recursiva</option>
-          <option value="jump">Jump Search</option>
-        </select>
-      </div>
-      
-      <div class="control-group">
-        <label for="valor">Valor para Buscar:</label>
-        <input 
-          type="number" 
-          id="valor" 
-          [(ngModel)]="valorBusca" 
-          class="input"
-        >
-      </div>
-      
-      <div class="control-group">
-        <label for="tamanho">Tamanho do Array:</label>
-        <input 
-          type="number" 
-          id="tamanho" 
-          [(ngModel)]="tamanhoArray" 
-          min="5" 
-          max="100" 
-          value="10"
-          class="input"
-        >
-      </div>
-      
-      <div class="button-group">
-        <button (click)="gerarArrayOrdenado(tamanhoArray)" class="btn btn-secondary">
-          Gerar Array Ordenado
-        </button>
-        <button (click)="executarBusca()" class="btn btn-primary">
-          Executar Busca
-        </button>
-      </div>
+  <!-- Header -->
+  <header class="lesson-header">
+    <div class="lesson-badge">
+      <span>MÓDULO 01 • AULA 03</span>
+    </div>
+    <h1>Algoritmos de Busca: Linear vs Binária</h1>
+    <p class="lesson-subtitle">
+      Aprenda as estratégias fundamentais para localizar elementos em coleções de dados.
+      Compreenda por que a Busca Binária reduz 1 milhão de operações para apenas 20 passos através da divisão e conquista.
+    </p>
+  </header>
+
+  <!-- Teoria & Diagrama Comparativo -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🧠</span>
+      <h2>1. Comparativo: Busca Linear O(n) vs Busca Binária O(log n)</h2>
     </div>
 
-    <!-- Informações do Algoritmo -->
-    <div class="algorithm-info">
-      <div class="info-card">
-        <h3>{{ getDescricaoAlgoritmo(algoritmoSelecionado) }}</h3>
-        <p class="description">{{ getDescricao(algoritmoSelecionado) }}</p>
-        <div class="complexity">
-          <span class="label">Complexidade:</span>
-          <span class="value">{{ getComplexidade(algoritmoSelecionado) }}</span>
+    <p class="paragraph">
+      Na <strong>Busca Linear</strong>, comparamos o valor procurado com cada elemento sequencialmente. Funciona em arrays desordenados, mas em 1 milhão de itens faz até 1 milhão de verificações (<code>O(n)</code>).
+      Na <strong>Busca Binária</strong>, o array <strong>precisa estar ordenado</strong>. Nós olhamos o meio do array: se o alvo for menor, descartamos toda a metade direita; se for maior, descartamos toda a metade esquerda.
+      A cada passo, o espaço de busca cai pela metade: <code>O(log n)</code>!
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Busca Linear vs Binaria -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: Estratégia da Busca Binária (Descarte de Metade a Cada Passo)</div>
+      <svg viewBox="0 0 800 200" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Passo 1 -->
+        <text x="30" y="30" fill="#38bdf8" font-size="13" font-weight="bold">Passo 1: Array Ordenado de 8 itens (Buscando: 56)</text>
+        <rect x="30" y="45" width="740" height="35" rx="6" fill="#1b2342" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="75" y="68" fill="#94a3b8" font-size="12" text-anchor="middle">2</text>
+        <text x="165" y="68" fill="#94a3b8" font-size="12" text-anchor="middle">5</text>
+        <text x="255" y="68" fill="#94a3b8" font-size="12" text-anchor="middle">8</text>
+        <text x="345" y="68" fill="#94a3b8" font-size="12" text-anchor="middle">12</text>
+        <text x="435" y="68" fill="#fbbf24" font-size="13" font-weight="bold" text-anchor="middle">16 [Meio]</text>
+        <text x="525" y="68" fill="#ffffff" font-size="12" text-anchor="middle">23</text>
+        <text x="615" y="68" fill="#34d399" font-size="13" font-weight="bold" text-anchor="middle">56 [Alvo]</text>
+        <text x="705" y="68" fill="#ffffff" font-size="12" text-anchor="middle">72</text>
+
+        <!-- Descarte Passo 1 -->
+        <rect x="30" y="45" width="405" height="35" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-width="1"/>
+        <text x="230" y="100" fill="#f87171" font-size="11" font-weight="bold" text-anchor="middle">Metade Esquerda Descartada (16 &lt; 56) ➔</text>
+
+        <!-- Passo 2 -->
+        <text x="30" y="130" fill="#c084fc" font-size="13" font-weight="bold">Passo 2: Busca focada apenas na metade restante [23, 56, 72]</text>
+        <rect x="440" y="145" width="330" height="35" rx="6" fill="#1b2342" stroke="#34d399" stroke-width="2"/>
+        <text x="500" y="168" fill="#ffffff" font-size="13" text-anchor="middle">23</text>
+        <text x="605" y="168" fill="#34d399" font-size="15" font-weight="bold" text-anchor="middle">★ 56 (Encontrado!)</text>
+        <text x="710" y="168" fill="#ffffff" font-size="13" text-anchor="middle">72</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Simulador Interativo -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🧪</span>
+      <h2>2. Laboratório Prático de Busca</h2>
+    </div>
+
+    <!-- Controles -->
+    <div class="controls-card">
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Algoritmo:</label>
+          <select [(ngModel)]="algoritmoSelecionado" class="select-field">
+            <option value="linear">Busca Linear O(n)</option>
+            <option value="binaria">Busca Binária Iterativa O(log n)</option>
+            <option value="binaria-recursiva">Busca Binária Recursiva O(log n)</option>
+            <option value="jump">Jump Search O(√n)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Valor para Buscar:</label>
+          <input type="number" [(ngModel)]="valorBusca" class="input-field" />
+        </div>
+
+        <div class="control-group">
+          <label>Quantidade de Itens:</label>
+          <input type="number" [(ngModel)]="tamanhoArray" min="5" max="30" class="input-field" />
         </div>
       </div>
+
+      <div class="actions-row">
+        <button (click)="gerarArrayOrdenado(tamanhoArray)" class="btn btn-secondary">
+          Gerar Novo Array
+        </button>
+        <button (click)="executarBusca()" class="btn btn-primary">
+          Executar Busca ⚡
+        </button>
+      </div>
     </div>
 
-    <!-- Array Visual -->
-    <div class="array-section">
-      <div class="array-card">
-        <h3>Array Ordenado</h3>
-        <div class="array-display">
-          <span 
-            *ngFor="let item of getArrayComHighlight()" 
-            class="array-item"
-            [class.found]="item.destacado"
-          >
-            {{ item.valor }}
+    <!-- Visualizacao do Array com Destaques -->
+    <div class="array-visual-container">
+      <div 
+        *ngFor="let item of arrayOrdenado; let i = index" 
+        class="array-node"
+        [class.node-found]="i === indiceEncontrado"
+      >
+        <span class="node-idx">[{{ i }}]</span>
+        <span class="node-val">{{ item }}</span>
+      </div>
+    </div>
+
+    <!-- Painel de Resultados -->
+    <div class="results-panel" *ngIf="resultado">
+      <div class="result-box" [class.success]="indiceEncontrado !== -1" [class.not-found]="indiceEncontrado === -1">
+        <span class="result-icon">{{ indiceEncontrado !== -1 ? '✅' : '❌' }}</span>
+        <div class="result-text">
+          <strong>{{ resultado }}</strong>
+          <span class="result-stats">
+            Iterações: <strong>{{ iteracoes }}</strong> | Tempo de Execução: <strong>{{ tempoExecucao }}ms</strong>
           </span>
         </div>
       </div>
     </div>
 
-    <!-- Resultado -->
-    <div class="result-section" *ngIf="resultado">
-      <div class="result-card" [class.success]="indiceEncontrado !== -1" [class.error]="indiceEncontrado === -1">
-        <h3>Resultado da Busca</h3>
-        <p class="result-text">{{ resultado }}</p>
-      </div>
+    <!-- Codigo Fonte do Algoritmo Selecionado -->
+    <div class="code-panel">
+      <div class="code-panel-header">Implementação TypeScript: {{ getDescricaoAlgoritmo(algoritmoSelecionado) }}</div>
+      <pre><code>{{ getCodigoAlgoritmo(algoritmoSelecionado) }}</code></pre>
     </div>
+  </section>
 
-    <!-- Estatísticas -->
-    <div class="stats-section" *ngIf="iteracoes > 0">
-      <div class="stat-card">
-        <div class="stat-label">Tempo de Execução</div>
-        <div class="stat-value">{{ tempoExecucao.toFixed(4) }} ms</div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-label">Iterações/Comparações</div>
-        <div class="stat-value">{{ iteracoes }}</div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-label">Tamanho do Array</div>
-        <div class="stat-value">{{ arrayOrdenado.length }}</div>
-      </div>
+  <!-- Next Lesson Callout -->
+  <div class="next-lesson-box">
+    <div class="next-info">
+      <span class="next-tag">PRÓXIMA AULA</span>
+      <h3>Aula 4: Algoritmos de Ordenação</h3>
+      <p>A Busca Binária requer dados ordenados. Descubra agora como funcionam o Bubble Sort, Merge Sort e Quick Sort para ordenar qualquer conjunto de dados.</p>
     </div>
-
-    <!-- Explicação Detalhada -->
-    <div class="explanation-section">
-      <h2>Conceitos Importantes</h2>
-      
-      <div class="concept-card">
-        <h3>Busca Linear vs Busca Binária</h3>
-        <p><strong>Busca Linear:</strong> Simples, funciona em qualquer array, mas lenta para grandes conjuntos (O(n)).</p>
-        <p><strong>Busca Binária:</strong> Muito mais rápida para arrays ordenados (O(log n)), mas requer ordenação prévia.</p>
-      </div>
-      
-      <div class="concept-card">
-        <h3>Quando usar cada algoritmo</h3>
-        <ul>
-          <li><strong>Busca Linear:</strong> Arrays pequenos, não ordenados, ou quando você precisa do primeiro elemento que satisfaz uma condição</li>
-          <li><strong>Busca Binária:</strong> Arrays grandes e ordenados, quando performance é crítica</li>
-          <li><strong>Jump Search:</strong> Arrays ordenados quando você quer um compromisso entre binária e linear</li>
-        </ul>
-      </div>
-      
-      <div class="concept-card">
-        <h3>Comparação de Performance</h3>
-        <p>Para um array de 1.000.000 elementos:</p>
-        <ul>
-          <li>Busca Linear: até 1.000.000 comparações no pior caso</li>
-          <li>Busca Binária: ~20 comparações no pior caso</li>
-          <li>Jump Search: ~1.000 comparações no pior caso</li>
-        </ul>
-      </div>
-      
-      <div class="concept-card">
-        <h3>Pré-requisitos</h3>
-        <ul>
-          <li><strong>Busca Linear:</strong> Nenhum (funciona em qualquer array)</li>
-          <li><strong>Busca Binária:</strong> Array deve estar ordenado</li>
-          <li><strong>Jump Search:</strong> Array deve estar ordenado</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="navigation">
-    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="nav-link nav-back">
-      ← Anterior: Algoritmos de Ordenação
-    </a>
-    <a routerLink="/modulo-02-typescript" class="nav-link">
-      Próximo: Módulo 2 - TypeScript →
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" class="btn btn-primary btn-lg">
+      Continuar para Aula 4 (Algoritmos de Ordenação) ➔
     </a>
   </div>
 </div>

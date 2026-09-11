@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   selector: 'app-algoritmos-busca',
   styleUrl: './algoritmos-busca.scss',
   templateUrl: './algoritmos-busca.html',
@@ -185,5 +186,48 @@ export class AlgoritmosBusca {
       valor,
       destacado: indice === this.indiceEncontrado
     }));
+  }
+
+  getCodigoAlgoritmo(algoritmo: string): string {
+    const codigos: Record<string, string> = {
+      linear: `function buscaLinear(arr: number[], valor: number): number {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === valor) return i; // Encontrado
+  }
+  return -1; // Não encontrado
+}`,
+      binaria: `function buscaBinaria(arr: number[], valor: number): number {
+  let inicio = 0, fim = arr.length - 1;
+  while (inicio <= fim) {
+    const meio = Math.floor((inicio + fim) / 2);
+    if (arr[meio] === valor) return meio;
+    if (arr[meio] < valor) inicio = meio + 1;
+    else fim = meio - 1;
+  }
+  return -1;
+}`,
+      'binaria-recursiva': `function buscaBinariaRecursiva(arr: number[], val: number, ini: number, fim: number): number {
+  if (ini > fim) return -1;
+  const meio = Math.floor((ini + fim) / 2);
+  if (arr[meio] === val) return meio;
+  if (arr[meio] < val) return buscaBinariaRecursiva(arr, val, meio + 1, fim);
+  return buscaBinariaRecursiva(arr, val, ini, meio - 1);
+}`,
+      jump: `function jumpSearch(arr: number[], valor: number): number {
+  const n = arr.length;
+  let salto = Math.floor(Math.sqrt(n));
+  let prev = 0;
+  while (arr[Math.min(salto, n) - 1] < valor) {
+    prev = salto;
+    salto += Math.floor(Math.sqrt(n));
+    if (prev >= n) return -1;
+  }
+  for (let i = prev; i < Math.min(salto, n); i++) {
+    if (arr[i] === valor) return i;
+  }
+  return -1;
+}`
+    };
+    return codigos[algoritmo] || '// Código não disponível';
   }
 }

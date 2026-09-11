@@ -1,0 +1,271 @@
+<div class="modulo-container">
+  <!-- Subnavigation Tabs for Modulo 01 -->
+  <nav class="sub-nav-tabs">
+    <a routerLink="/modulo-01-algoritmos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="tab-item">
+      <span class="tab-icon">🚀</span>
+      <span>1. Lógica & Algoritmos do Zero</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">📦</span>
+      <span>2. Estruturas de Dados</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-busca" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">🔍</span>
+      <span>3. Algoritmos de Busca</span>
+    </a>
+    <a routerLink="/modulo-01-algoritmos/algoritmos-ordenacao" routerLinkActive="active" class="tab-item">
+      <span class="tab-icon">🔄</span>
+      <span>4. Algoritmos de Ordenação</span>
+    </a>
+  </nav>
+
+  <!-- Header -->
+  <header class="lesson-header">
+    <div class="lesson-badge">
+      <span>MÓDULO 01 • AULA 01</span>
+    </div>
+    <h1>Lógica de Programação e Algoritmos do Zero</h1>
+    <p class="lesson-subtitle">
+      Antes de frameworks, antes de bibliotecas, existe a lógica pura. Compreenda como o computador
+      armazena informações, processa instruções e por que a eficiência algorítmica define um bom engenheiro de software.
+    </p>
+  </header>
+
+  <!-- TEORIA 1: O Que é um Algoritmo? -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🧠</span>
+      <h2>1. O Que é um Algoritmo?</h2>
+    </div>
+
+    <p class="paragraph">
+      Um <strong>algoritmo</strong> é simplesmente uma sequência finita, ordenada e não ambígua de passos
+      para resolver um problema ou executar uma tarefa. Qualquer programa de computador — do aplicativo de banco
+      ao motor do Google — nada mais é do que um conjunto de algoritmos operando sobre dados.
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: O Tríplice Entrada -> Processamento -> Saída -->
+    <div class="diagram-box">
+      <div class="diagram-title">Diagrama: O Fluxo Essencial de Todo Algoritmo</div>
+      <svg viewBox="0 0 800 180" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Entrada -->
+        <rect x="30" y="40" width="180" height="100" rx="14" fill="#1e2646" stroke="#38bdf8" stroke-width="2"/>
+        <text x="120" y="85" text-anchor="middle" fill="#38bdf8" font-weight="bold" font-size="16">📥 ENTRADA (Input)</text>
+        <text x="120" y="110" text-anchor="middle" fill="#94a3b8" font-size="12">Dados brutos (ex: R$ 120)</text>
+
+        <!-- Seta 1 -->
+        <path d="M220 90 H300" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
+        
+        <!-- Processamento -->
+        <rect x="310" y="30" width="200" height="120" rx="16" fill="#252156" stroke="#c084fc" stroke-width="2"/>
+        <text x="410" y="75" text-anchor="middle" fill="#c084fc" font-weight="bold" font-size="16">⚙️ PROCESSAMENTO</text>
+        <text x="410" y="100" text-anchor="middle" fill="#e2e8f0" font-size="12">Lógica, Decisões, Memória</text>
+        <text x="410" y="125" text-anchor="middle" fill="#818cf8" font-size="11">if / loops / cálculos</text>
+
+        <!-- Seta 2 -->
+        <path d="M520 90 H600" stroke="#818cf8" stroke-width="3"/>
+
+        <!-- Saida -->
+        <rect x="610" y="40" width="160" height="100" rx="14" fill="#1b2f3d" stroke="#10b981" stroke-width="2"/>
+        <text x="690" y="85" text-anchor="middle" fill="#34d399" font-weight="bold" font-size="16">📤 SAÍDA (Output)</text>
+        <text x="690" y="110" text-anchor="middle" fill="#94a3b8" font-size="12">Resultado (ex: R$ 102)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- TEORIA 2: Como a Memória RAM Funciona -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">💾</span>
+      <h2>2. Variáveis e Alocação na Memória RAM</h2>
+    </div>
+
+    <p class="paragraph">
+      Ao escrever <code>let idade = 25</code> no código, você está instruindo o sistema operacional a reservar
+      um endereço físico na memória RAM para guardar o valor binário <code>25</code>. Compreender esse modelo mental
+      é o primeiro passo para dominar ponteiros, arrays e listas encadeadas.
+    </p>
+
+    <!-- Diagrama Ilustrado SVG: Slots de Memória -->
+    <div class="diagram-box">
+      <div class="diagram-title">Representação Conceitual: Slots na Memória RAM</div>
+      <svg viewBox="0 0 800 160" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Slot 0 -->
+        <rect x="40" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="120" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x001</text>
+        <text x="120" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">valor: 120</text>
+
+        <!-- Slot 1 -->
+        <rect x="230" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="310" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x002</text>
+        <text x="310" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">isVip: true</text>
+
+        <!-- Slot 2 -->
+        <rect x="420" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="500" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x003</text>
+        <text x="500" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">desconto: 18</text>
+
+        <!-- Slot 3 -->
+        <rect x="610" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#10b981" stroke-width="1.5"/>
+        <text x="690" y="65" text-anchor="middle" fill="#34d399" font-size="11" font-family="monospace">Endereço: 0x004</text>
+        <text x="690" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">total: 102</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- TEORIA 3: Complexidade e Notação Big-O -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">📈</span>
+      <h2>3. Notação Big-O: Como Medir a Eficiência</h2>
+    </div>
+
+    <p class="paragraph">
+      Como saber se um código é "rápido" ou "lento"? Não medimos em segundos (porque o computador de um usuário pode ser mais potente que o de outro).
+      Medimos em <strong>quantidade de operações conforme a entrada de dados (N) cresce</strong>. Essa é a essência do Big-O.
+    </p>
+
+    <!-- Tabela Big-O -->
+    <div class="big-o-table-wrapper">
+      <table class="big-o-table">
+        <thead>
+          <tr>
+            <th>Notação</th>
+            <th>Nome</th>
+            <th>Eficiência</th>
+            <th>Exemplo Prático</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of bigOList">
+            <td><code [style.color]="item.color" class="bold-code">{{ item.notation }}</code></td>
+            <td><strong>{{ item.name }}</strong></td>
+            <td><span class="badge" [style.background]="item.color + '22'" [style.color]="item.color" [style.border]="'1px solid ' + item.color + '55'">{{ item.notation === 'O(1)' ? 'Excelente' : item.notation === 'O(log n)' ? 'Muito Boa' : item.notation === 'O(n)' ? 'Aceitável' : item.notation === 'O(n log n)' ? 'Moderada' : 'Ruim / Evitar' }}</span></td>
+            <td>{{ item.desc }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Calculadora Interativa de Big-O -->
+    <div class="interactive-panel mt-4">
+      <div class="panel-header">
+        <h3>📊 Calculadora Interativa de Operações Big-O</h3>
+        <p>Altere a quantidade de dados (N) e veja a explosão de operações:</p>
+      </div>
+
+      <div class="panel-controls">
+        <div class="control-group">
+          <label>Tamanho da Entrada (N itens):</label>
+          <input type="number" [ngModel]="bigONSize()" (ngModelChange)="bigONSize.set($event)" min="1" max="100000" class="input-field" />
+        </div>
+
+        <div class="control-group">
+          <label>Complexidade:</label>
+          <select [ngModel]="selectedBigO()" (ngModelChange)="selectedBigO.set($event)" class="select-field">
+            <option *ngFor="let b of bigOList" [value]="b.notation">{{ b.notation }} - {{ b.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="big-o-result-card">
+        <span class="calc-label">Total estimado de operações para processar {{ bigONSize() }} elementos:</span>
+        <span class="calc-number">{{ calculatedOperations() | number }} operações</span>
+        <span class="calc-hint" *ngIf="selectedBigO() === 'O(n²)' && bigONSize() > 500">
+          ⚠️ Cuidado: Com algoritmos quadráticos O(n²), processar muitos dados trava o navegador!
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRÁTICA INTERATIVA: Simulador de Execução de Algoritmo Passo a Passo -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">💻</span>
+      <h2>4. Laboratório Prático: Depurador de Algoritmo Passo a Passo</h2>
+    </div>
+
+    <p class="paragraph">
+      Veja como o processador lê cada instrução, avalia condições e altera o estado da memória RAM em tempo real.
+    </p>
+
+    <!-- Simulador Grid -->
+    <div class="simulator-grid">
+      <!-- Painel de Entradas -->
+      <div class="sim-card sim-inputs">
+        <h4>1. Parâmetros de Entrada</h4>
+        
+        <div class="sim-field">
+          <label>Valor da Compra (R$):</label>
+          <input type="number" [ngModel]="inputValor()" (ngModelChange)="inputValor.set($event); resetSimulator()" class="input-field" />
+        </div>
+
+        <div class="sim-field-checkbox">
+          <label>
+            <input type="checkbox" [ngModel]="isVip()" (ngModelChange)="isVip.set($event); resetSimulator()" />
+            <span>Cliente VIP (Possui desconto exclusivo)</span>
+          </label>
+        </div>
+
+        <div class="sim-actions">
+          <button (click)="nextStep()" class="btn btn-primary" [disabled]="currentStepIndex() >= algorithmSteps.length - 1">
+            <span>Passo a Passo ➔</span>
+          </button>
+          <button (click)="runAllSteps()" class="btn btn-secondary">
+            <span>Executar Tudo ⚡</span>
+          </button>
+          <button (click)="resetSimulator()" class="btn btn-outline">
+            <span>Reiniciar 🔄</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Painel de Código com Linha Ativa -->
+      <div class="sim-card sim-code-view">
+        <h4>2. Código em Execução</h4>
+        <div class="code-lines">
+          <div 
+            *ngFor="let step of algorithmSteps; let i = index" 
+            class="code-line"
+            [class.active-line]="currentStepIndex() === i"
+            [class.executed-line]="currentStepIndex() > i"
+          >
+            <span class="line-num">{{ step.line }}</span>
+            <span class="line-text">{{ step.code }}</span>
+            <span *ngIf="currentStepIndex() === i" class="active-indicator">◄ Linha Atual</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Painel de Memória RAM em Tempo Real -->
+      <div class="sim-card sim-memory">
+        <h4>3. Estado da Memória RAM</h4>
+        <div class="memory-inspector">
+          <div *ngFor="let item of memoryVariables() | keyvalue" class="memory-row">
+            <span class="var-name">{{ item.key }}</span>
+            <span class="var-val">{{ item.value }}</span>
+          </div>
+        </div>
+
+        <div class="console-box" *ngIf="executionLog().length > 0">
+          <span class="console-title">Registro do Processador:</span>
+          <div class="console-logs">
+            <div *ngFor="let log of executionLog()" class="log-entry">{{ log }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Lesson Callout -->
+  <div class="next-lesson-box">
+    <div class="next-info">
+      <span class="next-tag">PRÓXIMA AULA</span>
+      <h3>Aula 2: Estruturas de Dados Fundamentais</h3>
+      <p>Agora que você entende memória e instruções, descubra como organizar dados com Pilhas, Filas e Listas Encadeadas.</p>
+    </div>
+    <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="btn btn-primary btn-lg">
+      Continuar para Aula 2 (Estruturas de Dados) ➔
+    </a>
+  </div>
+</div>
