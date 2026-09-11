@@ -59,7 +59,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/modulo-01-algoritmos',
+    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

@@ -279,6 +279,17 @@
           background: rgba(245, 158, 11, 0.15);
           color: #fbbf24;
         }
+
+        &[data-level="Home"] {
+          background: rgba(99, 102, 241, 0.2);
+          color: #a5b4fc;
+        }
+      }
+
+      &.home-nav-link {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 0.35rem;
+        padding-bottom: 0.75rem;
       }
     }
   }

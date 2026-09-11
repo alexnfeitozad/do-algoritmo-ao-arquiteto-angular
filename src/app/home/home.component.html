@@ -1,0 +1,197 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-glow"></div>
+    
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span>FORMAÇÃO COMPLETA EM ENGENHARIA FRONTEND • ANGULAR 19+</span>
+    </div>
+
+    <h1 class="hero-title">
+      Do Algoritmo ao <span class="gradient-text">Arquiteto</span>
+    </h1>
+
+    <p class="hero-lead">
+      Pare de ser apenas um digitador de componentes. Domine a engenharia de software frontend
+      completa: da ciência da computação pura à arquitetura corporativa de alta performance.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-actions">
+      <a routerLink="/modulo-01-algoritmos" class="btn btn-primary btn-lg">
+        <span>🚀 Iniciar Formação (Módulo 01)</span>
+      </a>
+      <a routerLink="/modulo-14-projeto-final" class="btn btn-secondary btn-lg">
+        <span>🏆 Ver Projeto Integrador</span>
+      </a>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats" class="stat-card">
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+        <span class="stat-detail">{{ stat.detail }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 3 Pillars Section -->
+  <section class="pillars-section">
+    <div class="section-header">
+      <span class="section-tag">A JORNADA DA TRANSFORMAÇÃO</span>
+      <h2 class="section-title">As Três Fases da Formação</h2>
+      <p class="section-subtitle">
+        Uma evolução pedagógica pensada para quem deseja atingir a senioridade técnica com fundamentos sólidos.
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+      <div *ngFor="let phase of phases" class="pillar-card" [style.--phase-color]="phase.color">
+        <div class="pillar-header">
+          <div class="pillar-icon-box">
+            <span class="pillar-icon">{{ phase.icon }}</span>
+            <span class="pillar-num">FASE {{ phase.num }}</span>
+          </div>
+          <span class="pillar-modules-tag">{{ phase.subtitle }}</span>
+        </div>
+
+        <h3 class="pillar-title">{{ phase.title }}</h3>
+        <p class="pillar-desc">{{ phase.desc }}</p>
+
+        <ul class="pillar-highlights">
+          <li *ngFor="let item of phase.highlights">
+            <span class="check-icon">✓</span>
+            <span>{{ item }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Difference / Marketing Pitch -->
+  <section class="comparison-section">
+    <div class="section-header">
+      <span class="section-tag">DIFERENCIAL DE MERCADO</span>
+      <h2 class="section-title">Por Que Esta Formação é Diferente?</h2>
+      <p class="section-subtitle">A diferença entre quem apenas copia tutoriais e quem é contratado como arquiteto.</p>
+    </div>
+
+    <div class="comparison-grid">
+      <!-- Cursos Normais -->
+      <div class="compare-card compare-negative">
+        <div class="compare-badge negative">❌ Cursos Tradicionais</div>
+        <h3>O "Básico de Sempre"</h3>
+        <ul class="compare-list">
+          <li>Focam só em sintaxe rasa e "To-Do Lists" repetitivas</li>
+          <li>Ignoram algoritmos, estruturas de dados e uso de memória</li>
+          <li>Ensinam padrões obsoletos com NgModules e Redux verboso</li>
+          <li>Não abordam testes automatizados nem estratégias de mock</li>
+          <li>Zero foco em performance, OnPush ou renderização &#64;defer</li>
+        </ul>
+      </div>
+
+      <!-- Do Algoritmo ao Arquiteto -->
+      <div class="compare-card compare-positive">
+        <div class="compare-badge positive">🏛️ Do Algoritmo ao Arquiteto</div>
+        <h3>Engenharia Frontend Real</h3>
+        <ul class="compare-list">
+          <li><strong>Fundamentos Pesados:</strong> Pilhas, Filas, Algoritmos de Busca e Ordenação</li>
+          <li><strong>TypeScript de Elite:</strong> Generics, Mapped Types e POO com classes abstratas</li>
+          <li><strong>Angular 19+ Moderno:</strong> Signals reativos nativos sem boilerplate</li>
+          <li><strong>Qualidade Corporativa:</strong> Suíte completa com 31 testes Vitest + TestBed</li>
+          <li><strong>Alta Performance:</strong> ChangeDetection OnPush e blocos &#64;defer inteligentes</li>
+          <li><strong>Clean Architecture:</strong> SOLID, Design Patterns (Strategy) e Projeto Integrador</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap / 14 Modules Explorer -->
+  <section class="modules-explorer" id="modulos">
+    <div class="section-header">
+      <span class="section-tag">GRADE CURRICULAR COMPLETA</span>
+      <h2 class="section-title">Explore os 14 Módulos Práticos</h2>
+      <p class="section-subtitle">
+        Cada módulo possui uma interface interativa própria, exemplos práticos de código e testes automatizados.
+      </p>
+    </div>
+
+    <!-- Phase Filter Tabs -->
+    <div class="filter-tabs">
+      <button 
+        class="filter-tab" 
+        [class.active]="selectedPhase() === 'all'" 
+        (click)="setPhase('all')"
+      >
+        <span>Todos os Módulos (14)</span>
+      </button>
+      <button 
+        class="filter-tab" 
+        [class.active]="selectedPhase() === 1" 
+        (click)="setPhase(1)"
+      >
+        <span>🧠 Fase 1: Base Lógica (01-03)</span>
+      </button>
+      <button 
+        class="filter-tab" 
+        [class.active]="selectedPhase() === 2" 
+        (click)="setPhase(2)"
+      >
+        <span>⚡ Fase 2: Ecossistema (04-10)</span>
+      </button>
+      <button 
+        class="filter-tab" 
+        [class.active]="selectedPhase() === 3" 
+        (click)="setPhase(3)"
+      >
+        <span>🏛️ Fase 3: Arquiteto (11-14)</span>
+      </button>
+    </div>
+
+    <!-- Modules Grid -->
+    <div class="modules-grid">
+      <div *ngFor="let mod of filteredModules()" class="module-card">
+        <div class="module-card-top">
+          <div class="mod-id-badge">
+            <span class="mod-icon">{{ mod.icon }}</span>
+            <span class="mod-num">MÓDULO {{ mod.number }}</span>
+          </div>
+          <span class="level-chip" [attr.data-level]="mod.level">{{ mod.level }}</span>
+        </div>
+
+        <h4 class="module-card-title">{{ mod.title }}</h4>
+        <p class="module-card-desc">{{ mod.shortDesc }}</p>
+
+        <div class="module-tags">
+          <span *ngFor="let tag of mod.tags" class="mod-tag">{{ tag }}</span>
+        </div>
+
+        <div class="module-card-footer">
+          <span class="phase-indicator">{{ mod.phaseName }}</span>
+          <a [routerLink]="'/' + mod.id" class="access-btn">
+            <span>Acessar Aula</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call To Action -->
+  <section class="final-cta">
+    <div class="cta-box">
+      <span class="cta-emoji">⚡</span>
+      <h2>Pronto para dar o próximo passo na sua carreira?</h2>
+      <p>
+        Comece agora pelo Módulo 01 e descubra como pensar como um verdadeiro Engenheiro Frontend.
+      </p>
+      <div class="cta-actions">
+        <a routerLink="/modulo-01-algoritmos" class="btn btn-primary btn-lg">
+          Começar pelo Módulo 01 (Algoritmos) →
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

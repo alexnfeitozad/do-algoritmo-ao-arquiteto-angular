@@ -6,10 +6,10 @@
       <span></span>
       <span></span>
     </button>
-    <div class="mobile-brand">
+    <a routerLink="/" class="mobile-brand" (click)="closeMobileMenu()">
       <span class="brand-logo">🏛️</span>
       <span class="brand-title">Do Algoritmo ao Arquiteto</span>
-    </div>
+    </a>
     <span class="badge badge-primary">14 Módulos</span>
   </header>
 
@@ -23,13 +23,13 @@
   <!-- Sidebar -->
   <aside class="sidebar" [class.open]="mobileMenuOpen()">
     <div class="sidebar-header">
-      <div class="brand-badge">
+      <a routerLink="/" class="brand-badge" (click)="closeMobileMenu()">
         <span class="logo-icon">🏛️</span>
         <div>
           <h1>Do Algoritmo ao Arquiteto</h1>
           <p class="subtitle">Engenharia Frontend com Angular</p>
         </div>
-      </div>
+      </a>
       <div class="status-chip">
         <span class="chip-dot"></span>
         <span>14 Módulos Prontos</span>
@@ -58,6 +58,23 @@
     
     <!-- Navigation List -->
     <nav class="sidebar-nav">
+      <!-- Home / Overview Link -->
+      <a 
+        *ngIf="!searchTerm()"
+        routerLink="/" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link home-nav-link"
+        (click)="closeMobileMenu()"
+      >
+        <span class="nav-icon">🏠</span>
+        <div class="nav-info">
+          <span class="nav-title">Início / Apresentação</span>
+          <span class="nav-desc">Visão Geral da Formação</span>
+        </div>
+        <span class="nav-level" data-level="Home">Início</span>
+      </a>
+
       <div *ngIf="filteredModules().length === 0" class="empty-search">
         <p>Nenhum módulo encontrado para "{{ searchTerm() }}"</p>
       </div>
