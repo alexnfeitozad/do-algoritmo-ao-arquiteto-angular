@@ -189,66 +189,174 @@
       Veja como o processador lê cada instrução, avalia condições e altera o estado da memória RAM em tempo real.
     </p>
 
-    <!-- Simulador Grid -->
-    <div class="simulator-grid">
-      <!-- Painel de Entradas -->
-      <div class="sim-card sim-inputs">
-        <h4>1. Parâmetros de Entrada</h4>
-        
-        <div class="sim-field">
-          <label>Valor da Compra (R$):</label>
-          <input type="number" [ngModel]="inputValor()" (ngModelChange)="inputValor.set($event); resetSimulator()" class="input-field" />
+    <!-- Barra Superior: Controles & Parâmetros do Depurador -->
+    <div class="debugger-toolbar">
+      <div class="toolbar-inputs">
+        <div class="input-block">
+          <label for="input-valor">
+            <span class="param-tag">ENTRADA 1</span>
+            <span class="label-text">Valor da Compra (R$):</span>
+          </label>
+          <input 
+            id="input-valor"
+            type="number" 
+            [ngModel]="inputValor()" 
+            (ngModelChange)="inputValor.set($event); resetSimulator()" 
+            class="input-field-styled" 
+          />
         </div>
 
-        <div class="sim-field-checkbox">
-          <label>
-            <input type="checkbox" [ngModel]="isVip()" (ngModelChange)="isVip.set($event); resetSimulator()" />
-            <span>Cliente VIP (Possui desconto exclusivo)</span>
+        <div class="input-block checkbox-block">
+          <label class="toggle-label" for="input-vip">
+            <input 
+              id="input-vip"
+              type="checkbox" 
+              [ngModel]="isVip()" 
+              (ngModelChange)="isVip.set($event); resetSimulator()" 
+            />
+            <div class="toggle-text">
+              <span class="param-tag">ENTRADA 2</span>
+              <span class="label-title">Cliente VIP (Desconto exclusivo de 15%)</span>
+            </div>
           </label>
         </div>
-
-        <div class="sim-actions">
-          <button (click)="nextStep()" class="btn btn-primary" [disabled]="currentStepIndex() >= algorithmSteps.length - 1">
-            <span>Passo a Passo ➔</span>
-          </button>
-          <button (click)="runAllSteps()" class="btn btn-secondary">
-            <span>Executar Tudo ⚡</span>
-          </button>
-          <button (click)="resetSimulator()" class="btn btn-outline">
-            <span>Reiniciar 🔄</span>
-          </button>
-        </div>
       </div>
 
-      <!-- Painel de Código com Linha Ativa -->
-      <div class="sim-card sim-code-view">
-        <h4>2. Código em Execução</h4>
-        <div class="code-lines">
+      <div class="toolbar-actions">
+        <button 
+          (click)="nextStep()" 
+          class="btn-debug btn-step" 
+          [disabled]="currentStepIndex() >= algorithmSteps.length - 1"
+          id="btn-next-step"
+        >
+          <span class="btn-icon">▶</span>
+          <span>Passo a Passo</span>
+        </button>
+        <button (click)="runAllSteps()" class="btn-debug btn-run" id="btn-run-all">
+          <span class="btn-icon">⚡</span>
+          <span>Executar Tudo</span>
+        </button>
+        <button (click)="resetSimulator()" class="btn-debug btn-reset" id="btn-reset">
+          <span class="btn-icon">🔄</span>
+          <span>Reiniciar</span>
+        </button>
+      </div>
+
+      <!-- Barra de Progresso da Execução -->
+      <div class="toolbar-progress">
+        <div class="progress-info">
+          <span class="status-indicator" [class.running]="currentStepIndex() >= 0 && currentStepIndex() < 6" [class.finished]="currentStepIndex() === 6">
+            <span class="status-dot"></span>
+            <span *ngIf="currentStepIndex() === -1">Pronto para iniciar a execução</span>
+            <span *ngIf="currentStepIndex() >= 0 && currentStepIndex() < 6">Executando Linha {{ algorithmSteps[currentStepIndex()].line }} • Passo {{ currentStepIndex() + 1 }} de 7</span>
+            <span *ngIf="currentStepIndex() === 6">Execução Concluída com Sucesso!</span>
+          </span>
+          <span class="progress-pct">{{ getProgressPercentage() }}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workspace Principal do Depurador: 2 Colunas Espaçosas -->
+    <div class="debugger-workspace">
+      <!-- Coluna da Esquerda: Editor de Código em Execução -->
+      <div class="workspace-code-pane">
+        <div class="pane-header">
+          <div class="window-controls">
+            <span class="win-btn win-close"></span>
+            <span class="win-btn win-min"></span>
+            <span class="win-btn win-max"></span>
+          </div>
+          <div class="tab-title">
+            <span class="tab-icon">⚡</span>
+            <span>calcularDesconto.js</span>
+          </div>
+          <div class="pane-badge">
+            <span>JavaScript • Linha {{ currentStepIndex() >= 0 ? algorithmSteps[currentStepIndex()].line : '--' }}</span>
+          </div>
+        </div>
+
+        <div class="code-viewport">
           <div 
             *ngFor="let step of algorithmSteps; let i = index" 
-            class="code-line"
-            [class.active-line]="currentStepIndex() === i"
-            [class.executed-line]="currentStepIndex() > i"
+            class="code-row"
+            [class.active-row]="currentStepIndex() === i"
+            [class.executed-row]="currentStepIndex() > i"
           >
-            <span class="line-num">{{ step.line }}</span>
-            <span class="line-text">{{ step.code }}</span>
-            <span *ngIf="currentStepIndex() === i" class="active-indicator">◄ Linha Atual</span>
+            <!-- Gutter com número e ponteiro de depurador -->
+            <div class="gutter">
+              <span class="step-pointer" *ngIf="currentStepIndex() === i">▶</span>
+              <span class="row-number">{{ step.line }}</span>
+            </div>
+            <!-- Código com espaço amplo e sem quebras indesejadas -->
+            <div class="row-code">{{ step.code }}</div>
+          </div>
+        </div>
+
+        <!-- Box Didático: Explicação do Passo Atual da CPU -->
+        <div class="cpu-explanation-box">
+          <div class="box-icon">💡</div>
+          <div class="box-content">
+            <span class="box-label">O que o processador está fazendo nesta instrução:</span>
+            <p class="box-text">{{ getCurrentExplanation() }}</p>
           </div>
         </div>
       </div>
 
-      <!-- Painel de Memória RAM em Tempo Real -->
-      <div class="sim-card sim-memory">
-        <h4>3. Estado da Memória RAM</h4>
-        <div class="memory-inspector">
-          <div *ngFor="let item of memoryVariables() | keyvalue" class="memory-row">
-            <span class="var-name">{{ item.key }}</span>
-            <span class="var-val">{{ item.value }}</span>
+      <!-- Coluna da Direita: Estado da Memória RAM em Tempo Real -->
+      <div class="workspace-memory-pane">
+        <div class="pane-header">
+          <div class="tab-title">
+            <span class="tab-icon">🧠</span>
+            <span>Memória RAM (Pilha de Variáveis)</span>
+          </div>
+          <div class="pane-badge memory-count">
+            <span>{{ ramVariables().length }} {{ ramVariables().length === 1 ? 'slot ativo' : 'slots ativos' }}</span>
           </div>
         </div>
 
+        <!-- Inspetor de Variáveis RAM -->
+        <div class="memory-slots-container">
+          <div *ngIf="ramVariables().length === 0" class="empty-memory-state">
+            <span class="empty-icon">🔌</span>
+            <p class="empty-title">Memória Não Alocada</p>
+            <p class="empty-desc">Nenhuma variável foi alocada na RAM ainda. Clique em <strong>"Passo a Passo"</strong> para iniciar.</p>
+          </div>
+
+          <div *ngFor="let item of ramVariables()" class="ram-slot-card" [class.slot-new]="item.status === 'new'" [class.slot-updated]="item.status === 'updated'">
+            <div class="slot-meta">
+              <span class="slot-address">{{ item.address }}</span>
+              <span class="slot-type-badge type-{{ item.type }}">{{ item.type }}</span>
+            </div>
+            <div class="slot-body">
+              <span class="slot-var-name">{{ item.name }}</span>
+              <span class="slot-equals">=</span>
+              <span class="slot-var-val" [class.val-boolean]="item.type === 'boolean'" [class.val-number]="item.type === 'number'">
+                {{ item.value }}
+              </span>
+            </div>
+            <div class="slot-tag" *ngIf="item.status === 'new'">NOVO</div>
+            <div class="slot-tag tag-updated" *ngIf="item.status === 'updated'">ATUALIZADO</div>
+          </div>
+        </div>
+
+        <!-- Registrador da CPU e Console de Log -->
+        <div class="cpu-register-panel">
+          <div class="reg-title">
+            <span class="reg-icon">⚙️</span>
+            <span>REGISTRADOR DA CPU (ALU / PC):</span>
+          </div>
+          <div class="reg-content">{{ cpuRegister() }}</div>
+        </div>
+
+        <!-- Console de Saída do Algoritmo -->
         <div class="console-box" *ngIf="executionLog().length > 0">
-          <span class="console-title">Registro do Processador:</span>
+          <div class="console-header">
+            <span class="console-title">Histórico de Instruções:</span>
+            <span class="console-count">{{ executionLog().length }} eventos</span>
+          </div>
           <div class="console-logs">
             <div *ngFor="let log of executionLog()" class="log-entry">{{ log }}</div>
           </div>

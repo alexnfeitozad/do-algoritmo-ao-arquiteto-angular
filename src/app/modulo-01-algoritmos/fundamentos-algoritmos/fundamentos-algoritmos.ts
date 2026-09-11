@@ -10,6 +10,14 @@ export interface StepInstruction {
   variableChanges: Record<string, any>;
 }
 
+export interface RamVariable {
+  address: string;
+  name: string;
+  type: 'number' | 'boolean' | 'string' | 'object';
+  value: string | number | boolean;
+  status: 'new' | 'updated' | 'unchanged';
+}
+
 @Component({
   selector: 'app-fundamentos-algoritmos',
   standalone: true,
@@ -23,13 +31,11 @@ export class FundamentosAlgoritmos {
   isVip = signal<boolean>(true);
   currentStepIndex = signal<number>(-1);
   executionLog = signal<string[]>([]);
-  memoryVariables = signal<Record<string, any>>({
-    valorCompra: 120,
-    ehClienteVIP: true,
-    desconto: 0,
-    valorFinal: 0,
-    pontosBonus: 0
-  });
+  ramVariables = signal<RamVariable[]>([]);
+  cpuRegister = signal<string>('Processador em espera. Clique em "Passo a Passo" para iniciar.');
+
+  // Compatibilidade com possíveis bindings legados
+  memoryVariables = signal<Record<string, any>>({});
 
   // Big-O Simulator State
   bigONSize = signal<number>(100);
@@ -47,44 +53,44 @@ export class FundamentosAlgoritmos {
     {
       line: 1,
       code: 'function calcularDesconto(valor, isVip) {',
-      explanation: 'Início do algoritmo. Recebemos os dados de entrada na memória.',
-      variableChanges: { status: 'Execução Iniciada' }
+      explanation: 'Início da Função: A CPU recebe os argumentos de entrada e aloca os slots correspondentes na memória RAM.',
+      variableChanges: {}
     },
     {
       line: 2,
       code: '  let desconto = 0;',
-      explanation: 'Declaração e inicialização da variável desconto em 0 na memória RAM.',
-      variableChanges: { desconto: 0 }
+      explanation: 'Alocação de Memória: Reserva um novo slot de memória para a variável "desconto" e inicializa com 0.',
+      variableChanges: {}
     },
     {
       line: 3,
       code: '  if (isVip && valor > 100) {',
-      explanation: 'Estrutura de Decisão: Avaliando se o cliente é VIP E o valor é maior que 100.',
-      variableChanges: { condicaoAtendida: true }
+      explanation: 'Estrutura Condicional: A Unidade Lógica e Aritmética (ALU) testa se "isVip" é verdadeiro E se "valor" é maior que 100.',
+      variableChanges: {}
     },
     {
       line: 4,
       code: '    desconto = valor * 0.15; // 15% de desconto',
-      explanation: 'Processamento aritmético: calcula 15% de desconto.',
-      variableChanges: { desconto: 18 }
+      explanation: 'Processamento Aritmético: Como a condição foi satisfeita, calcula 15% do valor e ATUALIZA o slot da variável "desconto".',
+      variableChanges: {}
     },
     {
       line: 5,
       code: '  let valorFinal = valor - desconto;',
-      explanation: 'Subtrai o desconto do valor original para obter o total a pagar.',
-      variableChanges: { valorFinal: 102 }
+      explanation: 'Subtração: Aloca o slot "valorFinal" na RAM e armazena o valor da compra menos o desconto calculado.',
+      variableChanges: {}
     },
     {
       line: 6,
       code: '  let pontos = Math.floor(valorFinal / 10);',
-      explanation: 'Cálculo de pontos de fidelidade: 1 ponto a cada R$ 10 gastos.',
-      variableChanges: { pontosBonus: 10 }
+      explanation: 'Cálculo de Bônus: Aloca "pontos" na RAM e guarda a pontuação de fidelidade (1 ponto para cada R$ 10 pagos).',
+      variableChanges: {}
     },
     {
       line: 7,
       code: '  return { valorFinal, pontos };',
-      explanation: 'Saída do algoritmo: retorna o resultado processado para o usuário.',
-      variableChanges: { status: 'Finalizado com Sucesso' }
+      explanation: 'Instrução Return: O algoritmo empacota o resultado final e devolve o controle ao chamador.',
+      variableChanges: {}
     }
   ];
 
@@ -104,14 +110,9 @@ export class FundamentosAlgoritmos {
   resetSimulator() {
     this.currentStepIndex.set(-1);
     this.executionLog.set([]);
-    this.memoryVariables.set({
-      valorCompra: this.inputValor(),
-      ehClienteVIP: this.isVip(),
-      desconto: 0,
-      valorFinal: 0,
-      pontosBonus: 0,
-      status: 'Pronto para iniciar'
-    });
+    this.ramVariables.set([]);
+    this.cpuRegister.set('Processador em espera. Clique em "Passo a Passo" para iniciar.');
+    this.memoryVariables.set({});
   }
 
   nextStep() {
@@ -120,28 +121,101 @@ export class FundamentosAlgoritmos {
 
     this.currentStepIndex.set(nextIdx);
     const step = this.algorithmSteps[nextIdx];
-    
-    // Atualiza variáveis de acordo com os inputs reais
-    const valor = this.inputValor();
-    const vip = this.isVip();
-    let desc = 0;
-    if (nextIdx >= 3 && vip && valor > 100) {
-      desc = valor * 0.15;
+    const valor = Number(this.inputValor()) || 0;
+    const vip = Boolean(this.isVip());
+    const qualifies = vip && valor > 100;
+    const desc = qualifies ? Number((valor * 0.15).toFixed(2)) : 0;
+    const finalVal = Number((valor - desc).toFixed(2));
+    const pts = Math.floor(finalVal / 10);
+
+    const vars: RamVariable[] = [];
+
+    // Linha 1: parâmetros alocados
+    if (nextIdx >= 0) {
+      vars.push({
+        address: '0x00A1',
+        name: 'valor',
+        type: 'number',
+        value: valor,
+        status: nextIdx === 0 ? 'new' : 'unchanged'
+      });
+      vars.push({
+        address: '0x00A2',
+        name: 'isVip',
+        type: 'boolean',
+        value: vip,
+        status: nextIdx === 0 ? 'new' : 'unchanged'
+      });
     }
 
-    const currentMem = { ...this.memoryVariables() };
-    if (nextIdx === 0) currentMem['status'] = 'Iniciando execução...';
-    if (nextIdx === 1) currentMem['desconto'] = 0;
-    if (nextIdx === 2) currentMem['condicaoVIP'] = vip && valor > 100 ? 'VERDADEIRA' : 'FALSA';
-    if (nextIdx === 3) currentMem['desconto'] = desc;
-    if (nextIdx === 4) currentMem['valorFinal'] = valor - desc;
-    if (nextIdx === 5) currentMem['pontosBonus'] = Math.floor((valor - desc) / 10);
-    if (nextIdx === 6) currentMem['status'] = 'Concluído!';
+    // Linha 2: desconto declarado com 0
+    if (nextIdx >= 1) {
+      const isLine4OrLater = nextIdx >= 3 && qualifies;
+      vars.push({
+        address: '0x00A3',
+        name: 'desconto',
+        type: 'number',
+        value: isLine4OrLater ? desc : 0,
+        status: nextIdx === 1 ? 'new' : (nextIdx === 3 && qualifies ? 'updated' : 'unchanged')
+      });
+    }
 
-    this.memoryVariables.set(currentMem);
+    // Linha 5: valorFinal alocado
+    if (nextIdx >= 4) {
+      vars.push({
+        address: '0x00A4',
+        name: 'valorFinal',
+        type: 'number',
+        value: finalVal,
+        status: nextIdx === 4 ? 'new' : 'unchanged'
+      });
+    }
+
+    // Linha 6: pontos alocado
+    if (nextIdx >= 5) {
+      vars.push({
+        address: '0x00A5',
+        name: 'pontos',
+        type: 'number',
+        value: pts,
+        status: nextIdx === 5 ? 'new' : 'unchanged'
+      });
+    }
+
+    this.ramVariables.set(vars);
+
+    // Registrador da CPU e log
+    let cpuMsg = '';
+    switch (nextIdx) {
+      case 0:
+        cpuMsg = `Registrador PC: Linha 1 • Argumentos carregados na RAM: valor=${valor}, isVip=${vip}`;
+        break;
+      case 1:
+        cpuMsg = `Registrador PC: Linha 2 • Alocado slot RAM 0x00A3 (desconto = 0)`;
+        break;
+      case 2:
+        cpuMsg = `Registrador PC: Linha 3 • Teste Condicional ALU: (${vip} && ${valor} > 100) => ${qualifies ? 'VERDADEIRO' : 'FALSO'}`;
+        break;
+      case 3:
+        cpuMsg = qualifies 
+          ? `Registrador PC: Linha 4 • ALU calculou ${valor} * 0.15 = ${desc}. Slot 0x00A3 atualizado.`
+          : `Registrador PC: Linha 4 • Condição não atendida. Pula cálculo de desconto.`;
+        break;
+      case 4:
+        cpuMsg = `Registrador PC: Linha 5 • ALU calculou ${valor} - ${desc} = ${finalVal}. Alocado slot 0x00A4.`;
+        break;
+      case 5:
+        cpuMsg = `Registrador PC: Linha 6 • Math.floor(${finalVal} / 10) = ${pts}. Alocado slot 0x00A5.`;
+        break;
+      case 6:
+        cpuMsg = `Registrador PC: Linha 7 • Retorno: { valorFinal: ${finalVal}, pontos: ${pts} }. Execução finalizada.`;
+        break;
+    }
+
+    this.cpuRegister.set(cpuMsg);
     this.executionLog.update(log => [
       ...log,
-      `[Linha ${step.line}] ${step.explanation}`
+      `[Passo ${nextIdx + 1}/7 • Linha ${step.line}] ${step.explanation}`
     ]);
   }
 
@@ -150,5 +224,19 @@ export class FundamentosAlgoritmos {
     for (let i = 0; i < this.algorithmSteps.length; i++) {
       this.nextStep();
     }
+  }
+
+  getCurrentExplanation(): string {
+    const idx = this.currentStepIndex();
+    if (idx === -1) {
+      return 'O depurador está pausado antes da execução. Clique no botão "Passo a Passo ➔" para carregar a primeira instrução na CPU.';
+    }
+    return this.algorithmSteps[idx]?.explanation || '';
+  }
+
+  getProgressPercentage(): number {
+    const idx = this.currentStepIndex();
+    if (idx < 0) return 0;
+    return Math.round(((idx + 1) / this.algorithmSteps.length) * 100);
   }
 }
