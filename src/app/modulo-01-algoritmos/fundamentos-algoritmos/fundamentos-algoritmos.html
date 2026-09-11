@@ -19,110 +19,332 @@
     </a>
   </nav>
 
-  <!-- Header -->
+  <!-- Header Humanizado e Universal -->
   <header class="lesson-header">
     <div class="lesson-badge">
-      <span>MÓDULO 01 • AULA 01</span>
+      <span>MÓDULO 01 • AULA 01 • PARA TODAS AS IDADES (10 A 60+ ANOS)</span>
     </div>
     <h1>Lógica de Programação e Algoritmos do Zero</h1>
     <p class="lesson-subtitle">
-      Antes de frameworks, antes de bibliotecas, existe a lógica pura. Compreenda como o computador
-      armazena informações, processa instruções e por que a eficiência algorítmica define um bom engenheiro de software.
+      Você já usa algoritmos todos os dias sem perceber: ao ligar um carro, fazer um bolo ou atravessar a rua.
+      Aprenda como qualquer pessoa — de uma criança de 10 anos a um senhor de 60 anos — pode entender
+      o raciocínio lógico que comanda os computadores e a inteligência artificial.
     </p>
+
+    <!-- Seletor de Modo de Aprendizado -->
+    <div class="audience-selector">
+      <span class="selector-label">Escolha sua forma favorita de aprender:</span>
+      <div class="audience-pills">
+        <button 
+          (click)="setAudience('cotidiano')" 
+          class="pill-btn" 
+          [class.active]="selectedAudience() === 'cotidiano'"
+        >
+          <span>🚗 Exemplos do Cotidiano (Ligar o Carro, Semáforo)</span>
+        </button>
+        <button 
+          (click)="setAudience('iniciante')" 
+          class="pill-btn" 
+          [class.active]="selectedAudience() === 'iniciante'"
+        >
+          <span>🧒 Lúdico & Crianças (Robô, Sanduíche, Caixinhas)</span>
+        </button>
+        <button 
+          (click)="setAudience('codigo')" 
+          class="pill-btn" 
+          [class.active]="selectedAudience() === 'codigo'"
+        >
+          <span>💻 Código & Matemática (Programação Real)</span>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <!-- TEORIA 1: O Que é um Algoritmo? -->
+  <!-- TEORIA 1: O Que é um Algoritmo de Verdade? -->
   <section class="lesson-section">
     <div class="section-badge-title">
       <span class="section-icon">🧠</span>
-      <h2>1. O Que é um Algoritmo?</h2>
+      <h2>1. O Que é um Algoritmo? (Desmistificando o Nome)</h2>
     </div>
 
     <p class="paragraph">
-      Um <strong>algoritmo</strong> é simplesmente uma sequência finita, ordenada e não ambígua de passos
-      para resolver um problema ou executar uma tarefa. Qualquer programa de computador — do aplicativo de banco
-      ao motor do Google — nada mais é do que um conjunto de algoritmos operando sobre dados.
+      Não se assuste com o nome: <strong>um algoritmo é simplesmente uma receita com passos claros para resolver um problema</strong>.
+      Pense no computador como um robô extremamente rápido, porém totalmente ingênuo: ele não adivinha pensamentos! Ele faz exatamente
+      o que você mandar, na ordem em que você mandar.
     </p>
 
-    <!-- Diagrama Ilustrado SVG: O Tríplice Entrada -> Processamento -> Saída -->
-    <div class="diagram-box">
-      <div class="diagram-title">Diagrama: O Fluxo Essencial de Todo Algoritmo</div>
-      <svg viewBox="0 0 800 180" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Entrada -->
-        <rect x="30" y="40" width="180" height="100" rx="14" fill="#1e2646" stroke="#38bdf8" stroke-width="2"/>
-        <text x="120" y="85" text-anchor="middle" fill="#38bdf8" font-weight="bold" font-size="16">📥 ENTRADA (Input)</text>
-        <text x="120" y="110" text-anchor="middle" fill="#94a3b8" font-size="12">Dados brutos (ex: R$ 120)</text>
+    <!-- EXEMPLO 1: COMO LIGAR O CARRO (ILUSTRADO) -->
+    <div class="analogy-card">
+      <div class="analogy-header">
+        <span class="analogy-icon">🚗</span>
+        <div>
+          <h3>Exemplo do Cotidiano: O Algoritmo de Ligar o Carro</h3>
+          <p>O que você precisa fazer para colocar um carro moderno em movimento? Há uma sequência exata:</p>
+        </div>
+      </div>
 
-        <!-- Seta 1 -->
-        <path d="M220 90 H300" stroke="#818cf8" stroke-width="3" marker-end="url(#arrow)"/>
-        
-        <!-- Processamento -->
-        <rect x="310" y="30" width="200" height="120" rx="16" fill="#252156" stroke="#c084fc" stroke-width="2"/>
-        <text x="410" y="75" text-anchor="middle" fill="#c084fc" font-weight="bold" font-size="16">⚙️ PROCESSAMENTO</text>
-        <text x="410" y="100" text-anchor="middle" fill="#e2e8f0" font-size="12">Lógica, Decisões, Memória</text>
-        <text x="410" y="125" text-anchor="middle" fill="#818cf8" font-size="11">if / loops / cálculos</text>
+      <!-- Diagrama SVG: Fluxo do Carro Passo a Passo -->
+      <div class="diagram-box">
+        <div class="diagram-title">Diagrama Ilustrado: O Passo a Passo para Dar a Partida</div>
+        <svg viewBox="0 0 820 220" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Passo 1: Entrar no Carro -->
+          <rect x="20" y="30" width="130" height="90" rx="12" fill="#1e2646" stroke="#38bdf8" stroke-width="2"/>
+          <text x="85" y="60" text-anchor="middle" fill="#38bdf8" font-size="22">🔑</text>
+          <text x="85" y="85" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="bold">1. Entrar c/ Chave</text>
+          <text x="85" y="103" text-anchor="middle" fill="#94a3b8" font-size="10">Detecta presença</text>
 
-        <!-- Seta 2 -->
-        <path d="M520 90 H600" stroke="#818cf8" stroke-width="3"/>
+          <path d="M150 75 H180" stroke="#818cf8" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-        <!-- Saida -->
-        <rect x="610" y="40" width="160" height="100" rx="14" fill="#1b2f3d" stroke="#10b981" stroke-width="2"/>
-        <text x="690" y="85" text-anchor="middle" fill="#34d399" font-weight="bold" font-size="16">📤 SAÍDA (Output)</text>
-        <text x="690" y="110" text-anchor="middle" fill="#94a3b8" font-size="12">Resultado (ex: R$ 102)</text>
-      </svg>
+          <!-- Passo 2: Cinto de Seguranca -->
+          <rect x="180" y="30" width="140" height="90" rx="12" fill="#24214f" stroke="#c084fc" stroke-width="2"/>
+          <text x="250" y="60" text-anchor="middle" fill="#c084fc" font-size="22">🔒</text>
+          <text x="250" y="85" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="bold">2. Colocar o Cinto</text>
+          <text x="250" y="103" text-anchor="middle" fill="#a5b4fc" font-size="10">Esqueceu? Apita 🔔</text>
+
+          <path d="M320 75 H350" stroke="#818cf8" stroke-width="2.5"/>
+
+          <!-- Passo 3: Pisar no Freio -->
+          <rect x="350" y="30" width="140" height="90" rx="12" fill="#1e2646" stroke="#38bdf8" stroke-width="2"/>
+          <text x="420" y="60" text-anchor="middle" fill="#38bdf8" font-size="22">🦶</text>
+          <text x="420" y="85" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="bold">3. Pisar no Freio</text>
+          <text x="420" y="103" text-anchor="middle" fill="#94a3b8" font-size="10">Condição obrigatória</text>
+
+          <path d="M490 75 H520" stroke="#818cf8" stroke-width="2.5"/>
+
+          <!-- Passo 4: Apertar Botao Start -->
+          <rect x="520" y="30" width="130" height="90" rx="12" fill="#24214f" stroke="#c084fc" stroke-width="2"/>
+          <text x="585" y="60" text-anchor="middle" fill="#c084fc" font-size="22">🔘</text>
+          <text x="585" y="85" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="bold">4. Apertar Start</text>
+          <text x="585" y="103" text-anchor="middle" fill="#a5b4fc" font-size="10">Aciona a ignição</text>
+
+          <path d="M650 75 H680" stroke="#818cf8" stroke-width="2.5"/>
+
+          <!-- Passo 5: Motor Ligado -->
+          <rect x="680" y="25" width="120" height="100" rx="14" fill="#16382b" stroke="#10b981" stroke-width="2.5"/>
+          <text x="740" y="60" text-anchor="middle" fill="#10b981" font-size="24">🚗💨</text>
+          <text x="740" y="85" text-anchor="middle" fill="#34d399" font-size="13" font-weight="bold">5. VRUMMM!</text>
+          <text x="740" y="105" text-anchor="middle" fill="#a7f3d0" font-size="11">Motor em marcha</text>
+
+          <!-- Ramo de Alerta: Se não colocou cinto -->
+          <path d="M250 120 V160 H300" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4"/>
+          <rect x="300" y="145" width="230" height="45" rx="8" fill="#2d1c0a" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="415" y="165" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">Se NÃO colocou cinto:</text>
+          <text x="415" y="180" text-anchor="middle" fill="#fef3c7" font-size="10">Alarme sonoro toca: Pi-pi-pi! 🔔</text>
+        </svg>
+      </div>
+
+      <div class="analogy-moral">
+        <span class="moral-icon">💡</span>
+        <p>
+          <strong>Moral da história:</strong> Se você tentar apertar o botão <em>Start</em> sem a chave no bolso, ou sem pisar no pedal do freio, o carro simplesmente não liga.
+          O carro seguiu um <strong>algoritmo com condições de segurança</strong>. É exatamente isso que programadores fazem com computadores!
+        </p>
+      </div>
+    </div>
+
+    <!-- EXEMPLO 2: O ALGORITMO NA MATEMÁTICA (SIMPLES E DIRETO) -->
+    <div class="analogy-card mt-3">
+      <div class="analogy-header">
+        <span class="analogy-icon">➕</span>
+        <div>
+          <h3>Exemplo na Matemática: Como um Robô Sabe se um Número é Par ou Ímpar?</h3>
+          <p>Imagine que você tem um punhado de 7 balas e quer saber se o número é Par ou Ímpar:</p>
+        </div>
+      </div>
+
+      <!-- Diagrama SVG: Divisão em Pares -->
+      <div class="diagram-box">
+        <div class="diagram-title">Diagrama Ilustrado: O Algoritmo de Par ou Ímpar</div>
+        <svg viewBox="0 0 800 150" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Entrada -->
+          <rect x="30" y="35" width="170" height="80" rx="12" fill="#1b2545" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="115" y="65" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="bold">1. Pegue o Número</text>
+          <text x="115" y="90" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">Número = 7 🍬</text>
+
+          <path d="M200 75 H250" stroke="#818cf8" stroke-width="2.5"/>
+
+          <!-- Processamento -->
+          <rect x="250" y="25" width="260" height="100" rx="14" fill="#24214f" stroke="#c084fc" stroke-width="1.5"/>
+          <text x="380" y="55" text-anchor="middle" fill="#c084fc" font-size="13" font-weight="bold">2. Agrupe de 2 em 2</text>
+          <text x="380" y="80" text-anchor="middle" fill="#f8fafc" font-size="12">Par 1 (🍬🍬) • Par 2 (🍬🍬) • Par 3 (🍬🍬)</text>
+          <text x="380" y="105" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="bold">Sobrou 1 bala sozinha! (Resto = 1)</text>
+
+          <path d="M510 75 H560" stroke="#818cf8" stroke-width="2.5"/>
+
+          <!-- Saída -->
+          <rect x="560" y="35" width="210" height="80" rx="12" fill="#2e1a3a" stroke="#f472b6" stroke-width="2"/>
+          <text x="665" y="65" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="bold">3. Conclusão Lógica</text>
+          <text x="665" y="90" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">O número 7 é ÍMPAR! 🎯</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- O FLUXO UNIVERSAL: ENTRADA -> PROCESSAMENTO -> SAÍDA -->
+    <div class="analogy-card mt-3">
+      <div class="analogy-header">
+        <span class="analogy-icon">🔄</span>
+        <div>
+          <h3>O Fluxo Universal de Toda Máquina: Entrada ➔ Processamento ➔ Saída</h3>
+          <p>Toda máquina do planeta Terra funciona neste ciclo de 3 etapas:</p>
+        </div>
+      </div>
+
+      <div class="flow-comparison-grid">
+        <div class="flow-item">
+          <span class="flow-type">NO CARRO</span>
+          <p><strong>Entrada:</strong> Gasolina no tanque e Chave girada.</p>
+          <p><strong>Processamento:</strong> O motor queima o combustível nos pistões.</p>
+          <p><strong>Saída:</strong> As rodas giram e o carro anda na estrada!</p>
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-type">NO SUCO DE LARANJA</span>
+          <p><strong>Entrada:</strong> 3 laranjas colhidas do pé.</p>
+          <p><strong>Processamento:</strong> O espremedor extrai o suco e separa a casca.</p>
+          <p><strong>Saída:</strong> Um copo de suco fresco e gelado!</p>
+        </div>
+
+        <div class="flow-item highlight">
+          <span class="flow-type">NO COMPUTADOR</span>
+          <p><strong>Entrada:</strong> O que você digita no teclado ou clica na tela.</p>
+          <p><strong>Processamento:</strong> O chip da CPU calcula a lógica na Memória RAM.</p>
+          <p><strong>Saída:</strong> A mensagem enviada ou o videogame se mexendo!</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- TEORIA 2: Como a Memória RAM Funciona -->
+  <!-- TEORIA 2: O Que São Variáveis? (As Caixas com Etiquetas) -->
   <section class="lesson-section">
     <div class="section-badge-title">
-      <span class="section-icon">💾</span>
-      <h2>2. Variáveis e Alocação na Memória RAM</h2>
+      <span class="section-icon">📦</span>
+      <h2>2. O Que São Variáveis? (A Analogia das Caixas com Etiquetas)</h2>
     </div>
 
     <p class="paragraph">
-      Ao escrever <code>let idade = 25</code> no código, você está instruindo o sistema operacional a reservar
-      um endereço físico na memória RAM para guardar o valor binário <code>25</code>. Compreender esse modelo mental
-      é o primeiro passo para dominar ponteiros, arrays e listas encadeadas.
+      Para fazer qualquer conta ou guardar uma informação, o computador precisa de um lugar para colocar as coisas.
+      Pense na <strong>Memória RAM</strong> do computador como uma <strong>estante cheia de caixas organizadas</strong>.
+      Cada caixa guarda <em>uma única informação</em> por vez, e para não confundir o que tem dentro, colamos uma <strong>etiqueta com o nome dela</strong>!
     </p>
 
-    <!-- Diagrama Ilustrado SVG: Slots de Memória -->
+    <!-- Diagrama Ilustrado SVG: Caixas com Etiquetas -->
     <div class="diagram-box">
-      <div class="diagram-title">Representação Conceitual: Slots na Memória RAM</div>
-      <svg viewBox="0 0 800 160" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Slot 0 -->
-        <rect x="40" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
-        <text x="120" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x001</text>
-        <text x="120" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">valor: 120</text>
+      <div class="diagram-title">Diagrama Ilustrado: Caixas com Etiquetas na Memória do Computador</div>
+      <svg viewBox="0 0 800 190" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Caixa 1: Texto (String) -->
+        <g transform="translate(40, 20)">
+          <rect x="0" y="30" width="200" height="110" rx="14" fill="#1b2545" stroke="#38bdf8" stroke-width="2"/>
+          <rect x="25" y="15" width="150" height="30" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="100" y="35" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Etiqueta: nome</text>
+          <text x="100" y="80" text-anchor="middle" fill="#38bdf8" font-size="12">Tipo: Texto (String)</text>
+          <text x="100" y="115" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="800">"Maria"</text>
+        </g>
 
-        <!-- Slot 1 -->
-        <rect x="230" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
-        <text x="310" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x002</text>
-        <text x="310" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">isVip: true</text>
+        <!-- Caixa 2: Numero (Number) -->
+        <g transform="translate(300, 20)">
+          <rect x="0" y="30" width="200" height="110" rx="14" fill="#1e2c22" stroke="#10b981" stroke-width="2"/>
+          <rect x="25" y="15" width="150" height="30" rx="6" fill="#059669" stroke="#10b981" stroke-width="1.5"/>
+          <text x="100" y="35" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Etiqueta: idade</text>
+          <text x="100" y="80" text-anchor="middle" fill="#34d399" font-size="12">Tipo: Número (Number)</text>
+          <text x="100" y="115" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">10</text>
+        </g>
 
-        <!-- Slot 2 -->
-        <rect x="420" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#818cf8" stroke-width="1.5"/>
-        <text x="500" y="65" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="monospace">Endereço: 0x003</text>
-        <text x="500" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">desconto: 18</text>
-
-        <!-- Slot 3 -->
-        <rect x="610" y="40" width="160" height="80" rx="10" fill="#18223e" stroke="#10b981" stroke-width="1.5"/>
-        <text x="690" y="65" text-anchor="middle" fill="#34d399" font-size="11" font-family="monospace">Endereço: 0x004</text>
-        <text x="690" y="95" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">total: 102</text>
+        <!-- Caixa 3: Booleano (Sim ou Nao) -->
+        <g transform="translate(560, 20)">
+          <rect x="0" y="30" width="200" height="110" rx="14" fill="#351f42" stroke="#c084fc" stroke-width="2"/>
+          <rect x="25" y="15" width="150" height="30" rx="6" fill="#9333ea" stroke="#c084fc" stroke-width="1.5"/>
+          <text x="100" y="35" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Etiqueta: temChave</text>
+          <text x="100" y="80" text-anchor="middle" fill="#c084fc" font-size="12">Tipo: Sim/Não (Boolean)</text>
+          <text x="100" y="115" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="800">true (Sim!)</text>
+        </g>
       </svg>
+    </div>
+
+    <div class="analogy-moral">
+      <span class="moral-icon">💡</span>
+      <p>
+        <strong>Por que se chama "Variável"?</strong> Porque o conteúdo dentro da caixa pode <em>variar</em>!
+        No dia do aniversário da Maria, o computador abre a caixa etiquetada <code>idade</code>, tira o <code>10</code> e coloca o <code>11</code> dentro.
+        A caixa continua sendo a mesma, mas o que está guardado mudou!
+      </p>
     </div>
   </section>
 
-  <!-- TEORIA 3: Complexidade e Notação Big-O -->
+  <!-- TEORIA 3: Decisões (if/else) e Repetições (Loops) -->
+  <section class="lesson-section">
+    <div class="section-badge-title">
+      <span class="section-icon">🚦</span>
+      <h2>3. Como os Computadores Tomam Decisões e Repetem Coisas</h2>
+    </div>
+
+    <p class="paragraph">
+      Você já percebeu que a nossa vida inteira é cheia de decisões e repetições? A programação funciona com duas ferramentas mágicas:
+    </p>
+
+    <!-- Bifurcação: if/else vs Loops -->
+    <div class="decision-grid">
+      <!-- Decisao if/else -->
+      <div class="logic-card">
+        <div class="card-badge">DECISÃO CONDICIONAL</div>
+        <h3>O Semáforo de Trânsito (if / else)</h3>
+        <p>Você chega na faixa de pedestres para atravessar a rua:</p>
+
+        <!-- SVG Semáforo -->
+        <div class="mini-diagram">
+          <svg viewBox="0 0 320 120" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="80" height="80" rx="10" fill="#181e36" stroke="#818cf8"/>
+            <circle cx="60" cy="45" r="14" fill="#ef4444"/>
+            <circle cx="60" cy="75" r="14" fill="#10b981"/>
+            <path d="M110 60 H160" stroke="#818cf8" stroke-width="2"/>
+            <rect x="160" y="15" width="140" height="40" rx="8" fill="#2d1515" stroke="#ef4444"/>
+            <text x="230" y="38" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold">Vermelho: PARE! 🛑</text>
+            <rect x="160" y="65" width="140" height="40" rx="8" fill="#132c20" stroke="#10b981"/>
+            <text x="230" y="88" text-anchor="middle" fill="#86efac" font-size="10" font-weight="bold">Verde: SIGA! 🚶‍♂️</text>
+          </svg>
+        </div>
+
+        <div class="code-preview">
+          <code>if (sinal === "verde") &#123;<br>&nbsp;&nbsp;atravessarRua();<br>&#125; else &#123;<br>&nbsp;&nbsp;esperarNaCalcada();<br>&#125;</code>
+        </div>
+      </div>
+
+      <!-- Repeticao Loops -->
+      <div class="logic-card">
+        <div class="card-badge badge-loop">REPETIÇÃO AUTOMÁTICA</div>
+        <h3>O Prato de Cereal ou o Carrossel (Loops)</h3>
+        <p>Como você come uma tigela de cereal ou dá voltas na pista de corrida?</p>
+
+        <!-- SVG Loop -->
+        <div class="mini-diagram">
+          <svg viewBox="0 0 320 120" class="diagram-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="80" cy="60" r="38" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6 3"/>
+            <text x="80" y="66" text-anchor="middle" fill="#fbbf24" font-size="22">🥣</text>
+            <path d="M130 60 H170" stroke="#818cf8" stroke-width="2"/>
+            <rect x="170" y="35" width="135" height="50" rx="8" fill="#2e210a" stroke="#f59e0b"/>
+            <text x="237" y="56" text-anchor="middle" fill="#fde68a" font-size="10" font-weight="bold">Enquanto houver cereal:</text>
+            <text x="237" y="72" text-anchor="middle" fill="#ffffff" font-size="10">Mais uma colherada! 🥄</text>
+          </svg>
+        </div>
+
+        <div class="code-preview">
+          <code>while (temCerealNaTigela) &#123;<br>&nbsp;&nbsp;comerUmaColherada();<br>&#125;<br>lavarTigela();</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEORIA 4: Notação Big-O: Como Saber se o Código é Rápido? -->
   <section class="lesson-section">
     <div class="section-badge-title">
       <span class="section-icon">📈</span>
-      <h2>3. Notação Big-O: Como Medir a Eficiência</h2>
+      <h2>4. Notação Big-O: Medindo a Esperteza do Algoritmo</h2>
     </div>
 
     <p class="paragraph">
-      Como saber se um código é "rápido" ou "lento"? Não medimos em segundos (porque o computador de um usuário pode ser mais potente que o de outro).
-      Medimos em <strong>quantidade de operações conforme a entrada de dados (N) cresce</strong>. Essa é a essência do Big-O.
+      Como saber se um código foi bem pensado? Imagine procurar um livro na biblioteca:
+      se houver <strong>10 livros</strong> na estante, olhar um por um é rápido. Mas se houver <strong>1 milhão de livros</strong>
+      e você olhar um por um, vai demorar meses (isso se chama <strong>O(n) - Linear</strong>)!
+      Se os livros estiverem em ordem alfabética (como um dicionário), você abre bem no meio, descarta metade dos livros e acha qualquer um em <strong>20 segundos</strong> (isso se chama <strong>O(log n) - Logarítmica</strong>)!
     </p>
 
     <!-- Tabela Big-O -->
@@ -133,14 +355,14 @@
             <th>Notação</th>
             <th>Nome</th>
             <th>Eficiência</th>
-            <th>Exemplo Prático</th>
+            <th>Exemplo da Vida Real</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of bigOList">
             <td><code [style.color]="item.color" class="bold-code">{{ item.notation }}</code></td>
             <td><strong>{{ item.name }}</strong></td>
-            <td><span class="badge" [style.background]="item.color + '22'" [style.color]="item.color" [style.border]="'1px solid ' + item.color + '55'">{{ item.notation === 'O(1)' ? 'Excelente' : item.notation === 'O(log n)' ? 'Muito Boa' : item.notation === 'O(n)' ? 'Aceitável' : item.notation === 'O(n log n)' ? 'Moderada' : 'Ruim / Evitar' }}</span></td>
+            <td><span class="badge" [style.background]="item.color + '22'" [style.color]="item.color" [style.border]="'1px solid ' + item.color + '55'">{{ item.notation === 'O(1)' ? 'Instantâneo ⚡' : item.notation === 'O(log n)' ? 'Super Rápido 🚀' : item.notation === 'O(n)' ? 'Normal 🚶' : item.notation === 'O(n log n)' ? 'Inteligente 🧠' : 'Lento / Evite 🐢' }}</span></td>
             <td>{{ item.desc }}</td>
           </tr>
         </tbody>
@@ -151,7 +373,7 @@
     <div class="interactive-panel mt-4">
       <div class="panel-header">
         <h3>📊 Calculadora Interativa de Operações Big-O</h3>
-        <p>Altere a quantidade de dados (N) e veja a explosão de operações:</p>
+        <p>Altere a quantidade de dados (N) e veja a diferença brutal de esforço entre os algoritmos:</p>
       </div>
 
       <div class="panel-controls">
@@ -172,69 +394,162 @@
         <span class="calc-label">Total estimado de operações para processar {{ bigONSize() }} elementos:</span>
         <span class="calc-number">{{ calculatedOperations() | number }} operações</span>
         <span class="calc-hint" *ngIf="selectedBigO() === 'O(n²)' && bigONSize() > 500">
-          ⚠️ Cuidado: Com algoritmos quadráticos O(n²), processar muitos dados trava o navegador!
+          ⚠️ Cuidado: Com algoritmos quadráticos O(n²), processar muitos dados trava qualquer computador!
         </span>
       </div>
     </div>
   </section>
 
-  <!-- PRÁTICA INTERATIVA: Simulador de Execução de Algoritmo Passo a Passo -->
+  <!-- PRÁTICA INTERATIVA: Simulador de Execução Passo a Passo -->
   <section class="lesson-section">
     <div class="section-badge-title">
       <span class="section-icon">💻</span>
-      <h2>4. Laboratório Prático: Depurador de Algoritmo Passo a Passo</h2>
+      <h2>5. Laboratório Prático: Experimente o Computador Pensando!</h2>
     </div>
 
     <p class="paragraph">
-      Veja como o processador lê cada instrução, avalia condições e altera o estado da memória RAM em tempo real.
+      Escolha uma situação da vida real abaixo, altere as condições e clique em <strong>"Passo a Passo"</strong> para ver
+      o computador ler cada linha, tomar decisões e guardar os valores nas caixas da memória RAM em tempo real!
     </p>
+
+    <!-- SELETOR DE ALGORITMO DO LABORATÓRIO -->
+    <div class="sim-algorithm-tabs">
+      <button 
+        (click)="setAlgorithm('carro')" 
+        class="sim-tab" 
+        [class.active]="selectedAlgorithm() === 'carro'"
+      >
+        <span class="sim-tab-icon">🚗</span>
+        <div>
+          <span class="sim-tab-title">1. Como Ligar o Carro</span>
+          <span class="sim-tab-sub">Segurança, Freio e Ignição</span>
+        </div>
+      </button>
+
+      <button 
+        (click)="setAlgorithm('lanche')" 
+        class="sim-tab" 
+        [class.active]="selectedAlgorithm() === 'lanche'"
+      >
+        <span class="sim-tab-icon">🥪</span>
+        <div>
+          <span class="sim-tab-title">2. Robô do Sanduíche</span>
+          <span class="sim-tab-sub">Ingredientes e Sanduicheira</span>
+        </div>
+      </button>
+
+      <button 
+        (click)="setAlgorithm('loja')" 
+        class="sim-tab" 
+        [class.active]="selectedAlgorithm() === 'loja'"
+      >
+        <span class="sim-tab-icon">🛍️</span>
+        <div>
+          <span class="sim-tab-title">3. Caixa da Loja & Desconto</span>
+          <span class="sim-tab-sub">Matemática, Desconto e Pontos</span>
+        </div>
+      </button>
+    </div>
 
     <!-- Barra Superior: Controles & Parâmetros do Depurador -->
     <div class="debugger-toolbar">
+      <!-- PARÂMETROS DINÂMICOS DEPENDENDO DO ALGORITMO ESCOLHIDO -->
       <div class="toolbar-inputs">
-        <div class="input-block">
-          <label for="input-valor">
-            <span class="param-tag">ENTRADA 1</span>
-            <span class="label-text">Valor da Compra (R$):</span>
-          </label>
-          <input 
-            id="input-valor"
-            type="number" 
-            [ngModel]="inputValor()" 
-            (ngModelChange)="inputValor.set($event); resetSimulator()" 
-            class="input-field-styled" 
-          />
-        </div>
+        <!-- Parâmetros do Carro -->
+        <ng-container *ngIf="selectedAlgorithm() === 'carro'">
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="carro-chave">
+              <input id="carro-chave" type="checkbox" [ngModel]="carroTemChave()" (ngModelChange)="carroTemChave.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 1</span>
+                <span class="label-title">🔑 Chave Presente no Carro</span>
+              </div>
+            </label>
+          </div>
 
-        <div class="input-block checkbox-block">
-          <label class="toggle-label" for="input-vip">
-            <input 
-              id="input-vip"
-              type="checkbox" 
-              [ngModel]="isVip()" 
-              (ngModelChange)="isVip.set($event); resetSimulator()" 
-            />
-            <div class="toggle-text">
-              <span class="param-tag">ENTRADA 2</span>
-              <span class="label-title">Cliente VIP (Desconto exclusivo de 15%)</span>
-            </div>
-          </label>
-        </div>
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="carro-cinto">
+              <input id="carro-cinto" type="checkbox" [ngModel]="carroColocouCinto()" (ngModelChange)="carroColocouCinto.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 2</span>
+                <span class="label-title">🔒 Cinto Afivelado</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="carro-freio">
+              <input id="carro-freio" type="checkbox" [ngModel]="carroPisouFreio()" (ngModelChange)="carroPisouFreio.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 3</span>
+                <span class="label-title">🦶 Pé no Pedal do Freio</span>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+
+        <!-- Parâmetros do Sanduíche -->
+        <ng-container *ngIf="selectedAlgorithm() === 'lanche'">
+          <div class="input-block">
+            <label for="lanche-fatias">
+              <span class="param-tag">ENTRADA 1</span>
+              <span class="label-text">Fatias de Pão:</span>
+            </label>
+            <input id="lanche-fatias" type="number" [ngModel]="lancheFatiasPao()" (ngModelChange)="lancheFatiasPao.set($event); resetSimulator()" min="1" max="4" class="input-field-styled" />
+          </div>
+
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="lanche-queijo">
+              <input id="lanche-queijo" type="checkbox" [ngModel]="lancheQuerQueijo()" (ngModelChange)="lancheQuerQueijo.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 2</span>
+                <span class="label-title">🧀 Adicionar Queijo</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="lanche-tostar">
+              <input id="lanche-tostar" type="checkbox" [ngModel]="lancheQuerTostar()" (ngModelChange)="lancheQuerTostar.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 3</span>
+                <span class="label-title">🔥 Tostar na Sanduicheira</span>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+
+        <!-- Parâmetros da Loja -->
+        <ng-container *ngIf="selectedAlgorithm() === 'loja'">
+          <div class="input-block">
+            <label for="input-valor">
+              <span class="param-tag">ENTRADA 1</span>
+              <span class="label-text">Valor da Compra (R$):</span>
+            </label>
+            <input id="input-valor" type="number" [ngModel]="inputValor()" (ngModelChange)="inputValor.set($event); resetSimulator()" class="input-field-styled" />
+          </div>
+
+          <div class="input-block checkbox-block">
+            <label class="toggle-label" for="input-vip">
+              <input id="input-vip" type="checkbox" [ngModel]="isVip()" (ngModelChange)="isVip.set($event); resetSimulator()" />
+              <div class="toggle-text">
+                <span class="param-tag">ENTRADA 2</span>
+                <span class="label-title">⭐ Cliente VIP (15% desconto > 100)</span>
+              </div>
+            </label>
+          </div>
+        </ng-container>
       </div>
 
+      <!-- BOTÕES DE CONTROLE DO DEPURADOR -->
       <div class="toolbar-actions">
-        <button 
-          (click)="nextStep()" 
-          class="btn-debug btn-step" 
-          [disabled]="currentStepIndex() >= algorithmSteps.length - 1"
-          id="btn-next-step"
-        >
+        <button (click)="nextStep()" class="btn-debug btn-step" [disabled]="currentStepIndex() >= algorithmSteps().length - 1" id="btn-next-step">
           <span class="btn-icon">▶</span>
-          <span>Passo a Passo</span>
+          <span>Passo a Passo (Próxima Instrução)</span>
         </button>
         <button (click)="runAllSteps()" class="btn-debug btn-run" id="btn-run-all">
           <span class="btn-icon">⚡</span>
-          <span>Executar Tudo</span>
+          <span>Executar Tudo Direto</span>
         </button>
         <button (click)="resetSimulator()" class="btn-debug btn-reset" id="btn-reset">
           <span class="btn-icon">🔄</span>
@@ -242,14 +557,14 @@
         </button>
       </div>
 
-      <!-- Barra de Progresso da Execução -->
+      <!-- Barra de Progresso -->
       <div class="toolbar-progress">
         <div class="progress-info">
-          <span class="status-indicator" [class.running]="currentStepIndex() >= 0 && currentStepIndex() < 6" [class.finished]="currentStepIndex() === 6">
+          <span class="status-indicator" [class.running]="currentStepIndex() >= 0 && currentStepIndex() < algorithmSteps().length - 1" [class.finished]="currentStepIndex() === algorithmSteps().length - 1">
             <span class="status-dot"></span>
-            <span *ngIf="currentStepIndex() === -1">Pronto para iniciar a execução</span>
-            <span *ngIf="currentStepIndex() >= 0 && currentStepIndex() < 6">Executando Linha {{ algorithmSteps[currentStepIndex()].line }} • Passo {{ currentStepIndex() + 1 }} de 7</span>
-            <span *ngIf="currentStepIndex() === 6">Execução Concluída com Sucesso!</span>
+            <span *ngIf="currentStepIndex() === -1">Aguardando início. Clique em "Passo a Passo".</span>
+            <span *ngIf="currentStepIndex() >= 0 && currentStepIndex() < algorithmSteps().length - 1">Executando Linha {{ algorithmSteps()[currentStepIndex()].line }} • Passo {{ currentStepIndex() + 1 }} de {{ algorithmSteps().length }}</span>
+            <span *ngIf="currentStepIndex() === algorithmSteps().length - 1">✅ Execução Concluída com Sucesso!</span>
           </span>
           <span class="progress-pct">{{ getProgressPercentage() }}%</span>
         </div>
@@ -271,16 +586,16 @@
           </div>
           <div class="tab-title">
             <span class="tab-icon">⚡</span>
-            <span>calcularDesconto.js</span>
+            <span>{{ selectedAlgorithm() === 'carro' ? 'ligarCarro.js' : selectedAlgorithm() === 'lanche' ? 'montarLanche.js' : 'calcularDesconto.js' }}</span>
           </div>
           <div class="pane-badge">
-            <span>JavaScript • Linha {{ currentStepIndex() >= 0 ? algorithmSteps[currentStepIndex()].line : '--' }}</span>
+            <span>JavaScript • Linha {{ currentStepIndex() >= 0 ? algorithmSteps()[currentStepIndex()].line : '--' }}</span>
           </div>
         </div>
 
         <div class="code-viewport">
           <div 
-            *ngFor="let step of algorithmSteps; let i = index" 
+            *ngFor="let step of algorithmSteps(); let i = index" 
             class="code-row"
             [class.active-row]="currentStepIndex() === i"
             [class.executed-row]="currentStepIndex() > i"
@@ -299,7 +614,7 @@
         <div class="cpu-explanation-box">
           <div class="box-icon">💡</div>
           <div class="box-content">
-            <span class="box-label">O que o processador está fazendo nesta instrução:</span>
+            <span class="box-label">O que o computador está fazendo nesta instrução:</span>
             <p class="box-text">{{ getCurrentExplanation() }}</p>
           </div>
         </div>
@@ -309,11 +624,11 @@
       <div class="workspace-memory-pane">
         <div class="pane-header">
           <div class="tab-title">
-            <span class="tab-icon">🧠</span>
-            <span>Memória RAM (Pilha de Variáveis)</span>
+            <span class="tab-icon">📦</span>
+            <span>Caixas na Memória RAM (Variáveis)</span>
           </div>
           <div class="pane-badge memory-count">
-            <span>{{ ramVariables().length }} {{ ramVariables().length === 1 ? 'slot ativo' : 'slots ativos' }}</span>
+            <span>{{ ramVariables().length }} {{ ramVariables().length === 1 ? 'caixa ativa' : 'caixas ativas' }}</span>
           </div>
         </div>
 
@@ -321,8 +636,8 @@
         <div class="memory-slots-container">
           <div *ngIf="ramVariables().length === 0" class="empty-memory-state">
             <span class="empty-icon">🔌</span>
-            <p class="empty-title">Memória Não Alocada</p>
-            <p class="empty-desc">Nenhuma variável foi alocada na RAM ainda. Clique em <strong>"Passo a Passo"</strong> para iniciar.</p>
+            <p class="empty-title">Estante Vazia</p>
+            <p class="empty-desc">Nenhuma caixinha de variável foi guardada na RAM ainda. Clique em <strong>"Passo a Passo"</strong> para iniciar.</p>
           </div>
 
           <div *ngFor="let item of ramVariables()" class="ram-slot-card" [class.slot-new]="item.status === 'new'" [class.slot-updated]="item.status === 'updated'">
@@ -337,8 +652,8 @@
                 {{ item.value }}
               </span>
             </div>
-            <div class="slot-tag" *ngIf="item.status === 'new'">NOVO</div>
-            <div class="slot-tag tag-updated" *ngIf="item.status === 'updated'">ATUALIZADO</div>
+            <div class="slot-tag" *ngIf="item.status === 'new'">NOVA CAIXA</div>
+            <div class="slot-tag tag-updated" *ngIf="item.status === 'updated'">VALOR MUDOU</div>
           </div>
         </div>
 
@@ -346,7 +661,7 @@
         <div class="cpu-register-panel">
           <div class="reg-title">
             <span class="reg-icon">⚙️</span>
-            <span>REGISTRADOR DA CPU (ALU / PC):</span>
+            <span>STATUS DA CPU E SENSORES:</span>
           </div>
           <div class="reg-content">{{ cpuRegister() }}</div>
         </div>
@@ -354,8 +669,8 @@
         <!-- Console de Saída do Algoritmo -->
         <div class="console-box" *ngIf="executionLog().length > 0">
           <div class="console-header">
-            <span class="console-title">Histórico de Instruções:</span>
-            <span class="console-count">{{ executionLog().length }} eventos</span>
+            <span class="console-title">Histórico de Eventos:</span>
+            <span class="console-count">{{ executionLog().length }} passos</span>
           </div>
           <div class="console-logs">
             <div *ngFor="let log of executionLog()" class="log-entry">{{ log }}</div>
@@ -370,10 +685,11 @@
     <div class="next-info">
       <span class="next-tag">PRÓXIMA AULA</span>
       <h3>Aula 2: Estruturas de Dados Fundamentais</h3>
-      <p>Agora que você entende memória e instruções, descubra como organizar dados com Pilhas, Filas e Listas Encadeadas.</p>
+      <p>Agora que você domina como passos lógicos e caixas de memória funcionam, descubra como organizar muitas caixas em Pilhas, Filas e Listas Encadeadas!</p>
     </div>
     <a routerLink="/modulo-01-algoritmos/estruturas-dados" class="btn btn-primary btn-lg">
       Continuar para Aula 2 (Estruturas de Dados) ➔
     </a>
   </div>
 </div>
+
