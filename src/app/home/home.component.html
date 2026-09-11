@@ -2,10 +2,11 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-glow"></div>
+    <div class="hero-glow-secondary"></div>
     
     <div class="hero-badge">
       <span class="pulse-dot"></span>
-      <span>FORMAÇÃO COMPLETA EM ENGENHARIA FRONTEND • ANGULAR 19+</span>
+      <span>FORMAÇÃO EM ENGENHARIA FRONTEND • ANGULAR 19+</span>
     </div>
 
     <h1 class="hero-title">
@@ -49,6 +50,7 @@
 
     <div class="pillars-grid">
       <div *ngFor="let phase of phases" class="pillar-card" [style.--phase-color]="phase.color">
+        <div class="pillar-glow"></div>
         <div class="pillar-header">
           <div class="pillar-icon-box">
             <span class="pillar-icon">{{ phase.icon }}</span>
@@ -100,7 +102,7 @@
           <li><strong>Fundamentos Pesados:</strong> Pilhas, Filas, Algoritmos de Busca e Ordenação</li>
           <li><strong>TypeScript de Elite:</strong> Generics, Mapped Types e POO com classes abstratas</li>
           <li><strong>Angular 19+ Moderno:</strong> Signals reativos nativos sem boilerplate</li>
-          <li><strong>Qualidade Corporativa:</strong> Suíte completa com 31 testes Vitest + TestBed</li>
+          <li><strong>Qualidade Corporativa:</strong> Suíte completa com 34 testes Vitest + TestBed</li>
           <li><strong>Alta Performance:</strong> ChangeDetection OnPush e blocos &#64;defer inteligentes</li>
           <li><strong>Clean Architecture:</strong> SOLID, Design Patterns (Strategy) e Projeto Integrador</li>
         </ul>
@@ -114,7 +116,7 @@
       <span class="section-tag">GRADE CURRICULAR COMPLETA</span>
       <h2 class="section-title">Explore os 14 Módulos Práticos</h2>
       <p class="section-subtitle">
-        Cada módulo possui uma interface interativa própria, exemplos práticos de código e testes automatizados.
+        Cada módulo é um card independente com interface interativa, simulações de código e testes automatizados.
       </p>
     </div>
 
@@ -150,17 +152,25 @@
       </button>
     </div>
 
-    <!-- Modules Grid -->
+    <!-- Modules Cards Grid -->
     <div class="modules-grid">
-      <div *ngFor="let mod of filteredModules()" class="module-card">
+      <div 
+        *ngFor="let mod of filteredModules()" 
+        class="module-card" 
+        [routerLink]="'/' + mod.id"
+      >
+        <div class="card-glow"></div>
         <div class="module-card-top">
-          <div class="mod-id-badge">
+          <div class="mod-icon-wrapper">
             <span class="mod-icon">{{ mod.icon }}</span>
-            <span class="mod-num">MÓDULO {{ mod.number }}</span>
           </div>
-          <span class="level-chip" [attr.data-level]="mod.level">{{ mod.level }}</span>
+          <div class="mod-badge-group">
+            <span class="mod-num-badge">MÓDULO {{ mod.number }}</span>
+            <span class="level-chip" [attr.data-level]="mod.level">{{ mod.level }}</span>
+          </div>
         </div>
 
+        <div class="mod-phase-sub">{{ mod.phaseName }}</div>
         <h4 class="module-card-title">{{ mod.title }}</h4>
         <p class="module-card-desc">{{ mod.shortDesc }}</p>
 
@@ -169,11 +179,10 @@
         </div>
 
         <div class="module-card-footer">
-          <span class="phase-indicator">{{ mod.phaseName }}</span>
-          <a [routerLink]="'/' + mod.id" class="access-btn">
+          <span class="card-action-btn">
             <span>Acessar Aula</span>
-            <span class="arrow">→</span>
-          </a>
+            <span class="arrow-icon">→</span>
+          </span>
         </div>
       </div>
     </div>
