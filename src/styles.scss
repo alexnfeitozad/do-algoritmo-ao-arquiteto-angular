@@ -3,23 +3,23 @@
    ========================================================================== */
 
 :root {
-  /* Modern Angular Brand Colors (Angular v17+ to v22) */
-  --angular-red: #ff324d;
-  --angular-pink: #f637e3;
-  --angular-magenta: #e03268;
-  --angular-purple: #a855f7;
-  --angular-violet: #7c3aed;
+  /* Modern Angular Brand Colors - Harmonized & Softer */
+  --angular-red: #e11d48;
+  --angular-pink: #c026d3;
+  --angular-magenta: #be185d;
+  --angular-purple: #7c3aed;
+  --angular-violet: #6366f1;
 
-  --angular-gradient: linear-gradient(135deg, #ff324d 0%, #f637e3 45%, #8b5cf6 100%);
-  --angular-gradient-hover: linear-gradient(135deg, #f02540 0%, #e028ce 45%, #7c3aed 100%);
-  --angular-gradient-text: linear-gradient(90deg, #ff324d 0%, #f637e3 45%, #8b5cf6 100%);
-  --angular-glow: rgba(246, 55, 227, 0.25);
+  --angular-gradient: linear-gradient(135deg, #e11d48 0%, #c026d3 45%, #7c3aed 100%);
+  --angular-gradient-hover: linear-gradient(135deg, #be123c 0%, #a21caf 45%, #6d28d9 100%);
+  --angular-gradient-text: linear-gradient(90deg, #e11d48 0%, #c026d3 45%, #7c3aed 100%);
+  --angular-glow: rgba(225, 29, 72, 0.15);
 
   /* Semantic UI Colors */
-  --primary: #e03268;
-  --primary-hover: #c2185b;
-  --primary-light: #fdf2f8;
-  --primary-glow: rgba(224, 50, 104, 0.25);
+  --primary: #e11d48;
+  --primary-hover: #be123c;
+  --primary-light: #fff1f2;
+  --primary-glow: rgba(225, 29, 72, 0.18);
   
   --secondary: #a855f7;
   --secondary-hover: #9333ea;
@@ -84,8 +84,8 @@ html, body {
 
 body {
   font-family: var(--font-sans);
-  background-color: #0c0716;
-  color: #f1f5f9;
+  background-color: #f8fafc;
+  color: #1e293b;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -105,11 +105,11 @@ img, video, canvas, svg {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(246, 55, 227, 0.3);
+  background: rgba(225, 29, 72, 0.2);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(246, 55, 227, 0.5);
+  background: rgba(225, 29, 72, 0.35);
 }
 
 /* Global Code Styling */
@@ -211,23 +211,23 @@ pre {
   &.btn-primary {
     background: var(--angular-gradient);
     color: #ffffff;
-    box-shadow: 0 2px 10px rgba(224, 50, 104, 0.35);
+    box-shadow: 0 3px 14px rgba(225, 29, 72, 0.22);
 
     &:hover {
       background: var(--angular-gradient-hover);
-      box-shadow: 0 4px 18px rgba(246, 55, 227, 0.45);
+      box-shadow: 0 6px 20px rgba(225, 29, 72, 0.32);
     }
   }
 
   &.btn-secondary {
-    background: rgba(25, 14, 38, 0.7);
-    border: 1px solid rgba(246, 55, 227, 0.25);
-    color: #f1f5f9;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    color: #334155;
 
     &:hover {
-      background-color: rgba(40, 20, 60, 0.85);
+      background-color: #f8fafc;
       border-color: rgba(246, 55, 227, 0.45);
-      color: #ffffff;
+      color: #0f172a;
     }
   }
 

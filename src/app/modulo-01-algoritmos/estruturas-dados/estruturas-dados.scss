@@ -12,7 +12,7 @@
   gap: 0.75rem;
   flex-wrap: wrap;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(246, 55, 227, 0.15);
+  border-bottom: 1px solid #e2e8f0;
 
   .tab-item {
     display: inline-flex;
@@ -20,26 +20,27 @@
     gap: 0.5rem;
     padding: 0.65rem 1.15rem;
     border-radius: 12px;
-    background: rgba(38, 16, 55, 0.5);
-    border: 1px solid rgba(246, 55, 227, 0.2);
-    color: #cbd5e1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
     text-decoration: none;
     font-size: 0.88rem;
     font-weight: 600;
     transition: all 0.22s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 
     &:hover {
-      background: rgba(60, 22, 85, 0.65);
-      border-color: rgba(246, 55, 227, 0.5);
-      color: #ffffff;
+      background: #f8fafc;
+      border-color: rgba(225, 29, 72, 0.35);
+      color: #be123c;
       transform: translateY(-2px);
     }
 
     &.active {
-      background: linear-gradient(135deg, rgba(255, 50, 77, 0.3) 0%, rgba(246, 55, 227, 0.25) 100%);
-      border-color: #f637e3;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(246, 55, 227, 0.3);
+      background: rgba(225, 29, 72, 0.06);
+      border-color: rgba(225, 29, 72, 0.4);
+      color: #be123c;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .tab-icon {
@@ -55,9 +56,9 @@
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.1em;
-    color: #f472b6;
-    background: rgba(246, 55, 227, 0.15);
-    border: 1px solid rgba(246, 55, 227, 0.3);
+    color: #be123c;
+    background: rgba(225, 29, 72, 0.06);
+    border: 1px solid rgba(225, 29, 72, 0.2);
     padding: 0.3rem 0.8rem;
     border-radius: 999px;
     margin-bottom: 0.85rem;
@@ -66,7 +67,7 @@
   h1 {
     font-size: clamp(1.8rem, 3.2vw, 2.6rem);
     font-weight: 800;
-    color: #f8fafc;
+    color: #0f172a;
     line-height: 1.25;
     margin-bottom: 0.75rem;
   }
