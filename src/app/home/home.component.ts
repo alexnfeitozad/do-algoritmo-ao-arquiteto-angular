@@ -39,7 +39,7 @@ export class HomeComponent {
       title: 'A Base Lógica (O Algoritmo)',
       subtitle: 'Módulos 01 ao 03',
       icon: '🧠',
-      color: '#6366f1',
+      color: '#ff324d',
       desc: 'Fundamentos de ciência da computação: estruturas de dados na memória, pilhas, filas, buscas, ordenações, tipagem estrita com TypeScript e ciclo de vida.',
       highlights: ['Estruturas de Dados na memória', 'Busca Binária & QuickSort', 'Generics & Conditional Types']
     },
@@ -49,7 +49,7 @@ export class HomeComponent {
       title: 'O Ecossistema Reativo (O Framework)',
       subtitle: 'Módulos 04 ao 10',
       icon: '⚡',
-      color: '#ec4899',
+      color: '#f637e3',
       desc: 'O domínio do Angular moderno: DI avançada com inject(), diretivas customizadas, HTTP resiliente com retry, Reactive Forms dinâmicos, RxJS e Signals.',
       highlights: ['Injeção com inject()', 'RxJS vs Signals', 'Formulários dinâmicos complexos']
     },
@@ -59,7 +59,7 @@ export class HomeComponent {
       title: 'O Nível Arquiteto (Engenharia & Escala)',
       subtitle: 'Módulos 11 ao 14',
       icon: '🏛️',
-      color: '#10b981',
+      color: '#a855f7',
       desc: 'O diferencial dos desenvolvedores de elite: testes com Vitest, ChangeDetection OnPush, renderização diferida com @defer, princípios SOLID e o Projeto Final.',
       highlights: ['Vitest & Mocking', 'ChangeDetection OnPush & @defer', 'SOLID & Clean Architecture']
     },

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215 230" fill="none">
+  <defs>
+    <!-- Facet Gradients for Modern Angular 3D Prism -->
+    <linearGradient id="ang_facet_left" x1="16.5%" y1="12.5%" x2="78.2%" y2="84.7%">
+      <stop offset="0%" stop-color="#FF3131" />
+      <stop offset="45%" stop-color="#FF007A" />
+      <stop offset="100%" stop-color="#E03268" />
+    </linearGradient>
+    <linearGradient id="ang_facet_right" x1="14.2%" y1="18.5%" x2="88.7%" y2="82.4%">
+      <stop offset="0%" stop-color="#F637E3" />
+      <stop offset="50%" stop-color="#BD00FF" />
+      <stop offset="100%" stop-color="#7000FF" />
+    </linearGradient>
+    <linearGradient id="ang_facet_bottom" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#FF385C" />
+      <stop offset="50%" stop-color="#E03268" />
+      <stop offset="100%" stop-color="#BD00FF" />
+    </linearGradient>
+    <linearGradient id="ang_facet_top" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FF4D6D" />
+      <stop offset="100%" stop-color="#E03268" />
+    </linearGradient>
+  </defs>
+
+  <!-- Angular Prism Outer Facets -->
+  <!-- Top / Left Facet -->
+  <path d="M107.5 0L17.5 48.5L2.5 137.5L52.5 186.5L107.5 220L107.5 168.5L46 126.5L57 69L107.5 41L107.5 0Z" fill="url(#ang_facet_left)"/>
+  
+  <!-- Top / Right Facet -->
+  <path d="M107.5 0L197.5 48.5L212.5 137.5L162.5 186.5L107.5 220L107.5 168.5L169 126.5L158 69L107.5 41L107.5 0Z" fill="url(#ang_facet_right)"/>
+
+  <!-- Center "A" Core Crossbar & Slants -->
+  <path d="M107.5 54L83 148H132L107.5 54ZM107.5 86L122 135H93L107.5 86Z" fill="#FFFFFF"/>
+  <path d="M107.5 54L68 184H92L101 154H114L123 184H147L107.5 54ZM107.5 86L116 135H99L107.5 86Z" fill="url(#ang_facet_bottom)"/>
+  <path d="M99 135L107.5 86L116 135H99Z" fill="#FFFFFF"/>
+
+  <!-- Bottom Crest Flame -->
+  <path d="M72 176L107.5 228L143 176L107.5 192L72 176Z" fill="url(#ang_facet_bottom)"/>
+</svg>
