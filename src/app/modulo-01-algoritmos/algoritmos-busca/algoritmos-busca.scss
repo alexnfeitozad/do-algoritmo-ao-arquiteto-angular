@@ -167,8 +167,12 @@
 
   .controls-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
     gap: 1rem;
+
+    @media (max-width: 520px) {
+      grid-template-columns: 1fr;
+    }
 
     .control-group {
       display: flex;
@@ -210,6 +214,7 @@
   display: flex;
   gap: 0.6rem;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1rem 0;
 
   .array-node {

@@ -23,13 +23,16 @@
   <!-- Sidebar -->
   <aside class="sidebar" [class.open]="mobileMenuOpen()">
     <div class="sidebar-header">
-      <a routerLink="/" class="brand-badge" (click)="closeMobileMenu()">
-        <span class="logo-icon">🏛️</span>
-        <div>
-          <h1>Do Algoritmo ao Arquiteto</h1>
-          <p class="subtitle">Engenharia Frontend com Angular</p>
-        </div>
-      </a>
+      <div class="sidebar-header-top">
+        <a routerLink="/" class="brand-badge" (click)="closeMobileMenu()">
+          <span class="logo-icon">🏛️</span>
+          <div>
+            <h1>Do Algoritmo ao Arquiteto</h1>
+            <p class="subtitle">Engenharia Frontend com Angular</p>
+          </div>
+        </a>
+        <button class="mobile-close-btn" (click)="closeMobileMenu()" aria-label="Fechar menu lateral">✕</button>
+      </div>
       <div class="status-chip">
         <span class="chip-dot"></span>
         <span>14 Módulos Prontos</span>

@@ -201,8 +201,12 @@
 /* Flow Comparison Grid */
 .flow-comparison-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 1rem;
+
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr;
+  }
 
   .flow-item {
     background: rgba(10, 14, 30, 0.8);
@@ -243,8 +247,13 @@
 /* Decision & Loops Grid */
 .decision-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
 
   .logic-card {
     background: rgba(13, 18, 38, 0.75);
@@ -446,12 +455,15 @@
 /* Big-O Table */
 .big-o-table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 14px;
   border: 1px solid rgba(129, 140, 248, 0.15);
+  width: 100%;
 }
 
 .big-o-table {
   width: 100%;
+  min-width: 520px;
   border-collapse: collapse;
   text-align: left;
   font-size: 0.9rem;

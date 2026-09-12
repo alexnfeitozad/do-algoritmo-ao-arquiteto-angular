@@ -23,7 +23,7 @@
 
 .stats-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
   
@@ -314,7 +314,7 @@
 
 @media (max-width: 768px) {
   .stats-section {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
   
   .controls-section {
